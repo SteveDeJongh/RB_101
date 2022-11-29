@@ -47,6 +47,37 @@ array.(index, "default")
 
 puts a.fetch(7) { |index| index**2 } #=> 49
 
+6.
+5.step(to: 10, by: 3) { |value| puts value }
+#=> 5
+#=> 8
+
+index.step(by:step, to:limit) {} |i| block }
+:by = step value
+:to = limit value
+index = starting point
+
+7.
+s = 'abc'
+puts s.public_methods.inspect
+#=> ouputs all methods including those of inherited from Object
+s = 'abc'
+puts s.public_methods(false).inspect
+#=> outpuds public methods overridden by the string class.
+
+8.
+a = [5, 9, 3, 11]
+puts a.min
+prints 3
+
+a = [5, 9, 3, 11]
+puts a.min
+prints 3, 5
+
+min is a method from the enumerable mix in module.
+
+9.
+
 
 =
 =end
