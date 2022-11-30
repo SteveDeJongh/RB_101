@@ -4,34 +4,55 @@
 # ask the user for an operation to perform
 # perform the operation on the two numbers
 # output result
+
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+LANGUAGE = 'en'
+
+def messages(message, lang="en")
+  MESSAGES[lang][message]
+end
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def integer?(num)
+  num.to_i.to_s == num
+  # Integer(num) rescue false
+end
+
+def float?(num)
+  # num.to_f.to_s == num #=> doesn't work for "1."
+  Float(num) rescue false
+end
+
+def number?(input)
+  integer?(input) || float?(input)  
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    "Adding"
-  when '2'
-    "Subtracting"
-  when '3'
-    "Multiplying"
-  when '4'
-    "Dividing"
-  end
+  word = case op
+            when '1'
+             "Adding"
+            when '2'
+             "Subtracting"
+            when '3'
+             "Multiplying"
+            when '4'
+             "Dividing"
+          end
+    x = "code not to be returned"
+    word
 end
 
-prompt "Welcome to the calculator! Enter your name:"
+prompt messages('welcome')
 # parentheses can be removed around method calls, even when passing arguments.
 name = ''
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt "Make sure to use a valid name."
+    prompt (messages('valid_name'))
   else
     break
   end
@@ -42,23 +63,23 @@ prompt("Hi #{name}!")
 loop do # main loop
   number1 = ''
   loop do
-    prompt("What's the first number?")
+    prompt(messages('first_num'))
     number1 = Kernel.gets().chomp()
-    if valid_number?(number1)
+    if number?(number1)
       break
     else
-      prompt("Enter a valid number.")
+      prompt(messages('not_valid_num'))
     end
   end
 
   number2 = ''
   loop do
-    prompt("What's the second number?")
+    prompt(messages('second_num'))
     number2 = Kernel.gets().chomp()
-    if valid_number?(number2)
+    if number?(number2)
       break
     else
-      prompt("Hmm... that doesn't look like a valid number.")
+      prompt(MESSAGES['en']['not_valid_num'])
     end
   end
   operator_prompt = <<-MSG
@@ -78,7 +99,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("Must choose 1, 2, 3, or 4.")
+      prompt(MESSAGES['en']['operator_input_error'])
     end
   end
 
@@ -97,9 +118,9 @@ loop do # main loop
 
   prompt("The result is #{result}!")
 
-  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  prompt(MESSAGES['en']['play_again?'])
   answer = gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
 
-prompt("Thanks for using the calculator. Good bye!")
+prompt(MESSAGES['en']['thank_you_bye'])
