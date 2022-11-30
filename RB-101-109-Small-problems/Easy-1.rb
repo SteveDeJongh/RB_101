@@ -185,20 +185,65 @@ puts stringyy(11)
 puts stringyy(11,0)
 
 8.
-
-
-=end
+array= [1,2,3,4,5,2]
 
 def average(array)
-  sum = 0
-  array.each do |x|
-    sum =  sum + x
-    return sum
-  end
-  puts array.count
-  return sum/ array.count
+  sum = array.sum
+  count =  array.count
+  return sum/count
+end
+#Shorter hand
+def averagee(array)
+  array.sum / array.length
+end
+#With Reduce.
+def averagee(array)
+  sum = array.reduce {|sum, n| sum + n}
+  count = array.length.to_f
+  return sum/count
+end
+#add a .to_f to get more accurate average.
+puts averagee(array)
+
+9.
+def sum_digits(num)
+  snum = num.to_s.split(//).map!(&:to_i) #.map(&:to_i) is the same as .map{|elmnt| elment.to_i}
+  return snum.sum
 end
 
-array= [1,2,3,4,5]
+puts sum_digits(28)
 
-puts average(array)
+#Or with a loop
+
+def sum_digits(num)
+  sum = 0
+  str_digits = num.to_s.chars
+
+  str_digits.each do |num|
+    sum += num.to_i
+  end
+  sum
+end
+
+puts sum_digits(28)
+
+10.
+def calculate_bonus(salary, torf)
+  if torf
+    return salary / 2
+  else
+    return 0
+  end
+end
+
+# ternary operator use, should try to use more for booleans
+
+def calculate_bonus(salary, torf)
+  torf ? (salary /2) : 0
+end
+
+puts calculate_bonus(3000,true)
+puts calculate_bonus(2800,true) == 1400
+puts calculate_bonus(3000,false) == 0
+puts calculate_bonus(50000,true) == 25000
+=end
