@@ -275,14 +275,7 @@ p string_to_int_sign('-570') == -570
 p string_to_int_sign('+100') == 100
 
 9.
-
-10.
-
-
-
-=end
-
-def int_to_string (num)
+def int_to_string(num)
   num.digits.reverse.join
 end
 
@@ -303,3 +296,47 @@ def integer_to_string(number)
 end
 
 p integer_to_string(1234)
+
+
+10.
+
+DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+def integer_to_string(number)
+  result = ''
+  loop do
+    number, remainder = number.divmod(10) #re-assigns number to 123, and return last digit 4
+    result.prepend(DIGITS[remainder])
+    break if number == 0
+  end
+  result
+end
+
+def signed_integer_to_string(number)
+  if number.negative?
+    number *= -1
+    integer_to_string(number).prepend("-")
+  elsif number.positive?
+    integer_to_string(number).prepend("+")
+  else
+    integer_to_string(number)
+  end
+end
+
+# or
+
+def signed_integer_to_string(number)
+  case number <=> 0 #spaceship operator, compares left against right, 
+    #+1 if left is larger, -1 if right is larger, and 0 if values are the same.
+  when -1 then "-#{integer_to_string(-number)}"
+  when +1 then "+#{integer_to_string(number)}"
+  else         integer_to_string(number)
+  end
+end
+
+p signed_integer_to_string(4321) == '+4321'
+p signed_integer_to_string(-123) == '-123'
+p signed_integer_to_string(0) == '0'
+
+=end
+
