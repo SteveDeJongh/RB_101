@@ -427,7 +427,7 @@ p alphabetic_number_sort1((0..19).to_a) == [
 
 9.
 
-#give a string with double diggits, return a new string removing consecuqtive digits.
+#given a string with double diggits, return a new string removing consecuqtive digits.
 #split string into individual characters
 #check if last character is same as current character
 #if it isn't, return to string
@@ -461,6 +461,146 @@ p crunch('') == ''
 
 10.
 
+#Given a short line of text, surround that text with a box.
+
+def print_in_box(string)
+  top_and_bottom_dash = ""
+  string.length.times {top_and_bottom_dash += "-"}
+  middle_spaces = ''
+  string.length.times {middle_spaces += ' '}
+
+  puts out_message = <<-MSG
+  +-#{top_and_bottom_dash}-+
+  | #{middle_spaces} |
+  | #{string} |
+  | #{middle_spaces} |
+  +-#{top_and_bottom_dash}-+
+  MSG
+end
+
+print_in_box("My length is 15")
+
+#or
+
+def print_in_box(message)
+  horizontal_rule = "+#{'-'* (message.length + 2)}+"
+  empty_line = "|#{' ' * (message.length + 2)}|"
+
+  puts horizontal_rule
+  puts empty_line
+  puts "| #{message} |"
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box("To boldy go where...")
+
+#Given a short line of text, surround that text with a box.
+
+
+def split_message(message) #splits message into a max character length of 40 chars.
+  message_array = []
+  while message.length > 40
+    message_array << message.slice!(0,40)
+  end
+   message_array << message
+end
+
+def print_in_box_trunc(message)
+  message_array = split_message(message)
+  if message_array.count > 2
+    message_length = 40
+  else
+    message_length = message_array[0].length
+  end
+
+  horizontal_rule = "+#{'-'* (message_length + 2)}+"
+  empty_line = "|#{' ' * (message_length + 2)}|"
+
+  #start of meessage output
+  puts horizontal_rule
+  puts empty_line
+  #loop through array of message slices
+  index = 0
+  message_array.each do |x|
+    if index != message_array.count - 1
+      puts "| #{x} |"
+      index += 1
+    else 
+      puts "| #{x}#{' ' * ((message_array[0].length)-(x.length))} |"
+    end
+  end
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box_trunc("To boldy go whe")
+print_in_box_trunc("To boldy go where... To boldy go where... To boldy go where...")
+
+#further exploration
+
+def split_message(message) #splits message into a max character length of 40 chars.
+  message_array = []
+  while message.length > 40
+    message_array << message.slice!(0,40)
+  end
+   message_array << message
+end
+
+def print_in_box_trunc(message)
+  message_array = split_message(message)
+  if message_array.count > 2
+    message_length = 40
+  else
+    message_length = message_array[0].length
+  end
+
+  horizontal_rule = "+#{'-'* (message_length + 2)}+"
+  empty_line = "|#{' ' * (message_length + 2)}|"
+
+  #start of meessage output
+  puts horizontal_rule
+  puts empty_line
+  #loop through array of message slices
+  index = 0
+  message_array.each do |x|
+    if index != message_array.count - 1
+      puts "| #{x} |"
+      index += 1
+    else 
+      puts "| #{x}#{' ' * ((message_array[0].length)-(x.length))} |"
+    end
+  end
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box_trunc("To boldy go whe")
+print_in_box_trunc("To boldy go where... To boldy go where... To boldy go where...")
+
 11.
+
+def spin_me(str)
+  str.split.each do |word|
+    word.reverse!
+  end.join(" ")
+end
+
+spin_me("hello world") # "olleh dlrow"
+
+# returns a new object as soon as .split is invoked on str. If we wanted to mutate the argument,
+# it would need to be passed in as an array and modifications made to the method.
+
+ie:
+
+def spin_me(arr)
+  arr.each do |word|
+    word.reverse!
+  end
+end
+
+arr = ['hello', 'world']
+puts arr.object_id # 47264354160220
+puts spin_me(arr).object_id # 47264354160220
 
 =end
