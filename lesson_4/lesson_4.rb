@@ -375,4 +375,148 @@ p sum_even_number_row(4) == 68 # True
 # p create_row(4, 2) == [4, 6] # True
 # p create_row(8, 3) == [8, 10, 12] # True
 
+#### Selection and transformation
+
+produce = {
+  'apple' => 'Fruit',
+  'carrot' => 'Vegetable',
+  'pear' => 'Fruit',
+  'broccoli' => 'Vegetable'
+}
+
+def select_fruits(list)
+  hash_keys = list.keys
+  counter = 0
+  results_hash = Hash.new
+
+  loop do
+    break if counter == hash_keys.size
+
+    curr_key = hash_keys[counter]
+    current_value = list[curr_key]
+
+    if current_value == "Fruit"
+      results_hash[curr_key] = current_value
+    end
+
+    counter += 1
+  end
+  results_hash
+end
+
+#or
+
+def select_fruit(hash)
+  results_hash = Hash.new
+  hash.each do | k, v|
+    if v == "Fruit"
+      results_hash[k] = v
+    end
+  end
+  results_hash
+end
+
+
+p select_fruits(produce)
+p select_fruit(produce) # => {"apple"=>"Fruit", "pear"=>"Fruit"}
+
+def double_numbers(numbers)
+  doubled_numbers = []
+  counter = 0
+
+  loop do
+    break if counter == numbers.size
+
+    current_number = numbers[counter]
+    doubled_numbers << current_number * 2
+
+    counter += 1
+  end
+
+  doubled_numbers
+end
+
+p my_numbers = [1, 4, 3, 7, 2, 6]
+p double_numbers(my_numbers) # => [2, 8, 6, 14, 4, 12]
+
+#method def that mutates the caller, number
+
+def double_numberse!(numbers)
+  numbers.map! do |num|
+    num = num * 2
+  end
+end
+
+p my_numbers = [1, 4, 3, 7, 2, 6]
+p double_numberse!(my_numbers)
+p my_numbers
+
+
+#method def that mutates the caller again, number
+def double_numbers!(numbers)
+  counter = 0
+
+  loop do
+    break if counter == numbers.size
+
+    current_number = numbers[counter]
+    numbers[counter] = current_number * 2
+
+    counter += 1
+  end
+
+  numbers
+end
+
+
+p double_numbers!(my_numbers) # => [2, 8, 6, 14, 4, 12]
+p my_numbers
+
+def double_odd_numbers(numbers)
+  doubled_numbers = []
+  counter = 0
+
+  loop do
+    break if counter == numbers.size
+
+    current_number = numbers[counter]
+    current_number *= 2 if current_number.odd?
+    doubled_numbers << current_number
+
+    counter += 1
+  end
+
+  doubled_numbers
+end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# double_odd_numbers(my_numbers)  # => [2, 4, 6, 14, 2, 6]
+
+# not mutated
+#my_numbers                      # => [1, 4, 3, 7, 2, 6]
+
+# Exercise for the reader: What if we wanted to transform the numbers based on 
+# their position in the array rather than their value?
+
+def double_odd_indices(numbers)
+  doubled_numbers = []
+  counter = 0
+
+  loop do
+    break if counter == numbers.size
+
+    current_number = numbers[counter]
+    current_number *= 2 if counter.odd?
+    doubled_numbers << current_number
+
+    counter += 1
+  end
+
+  doubled_numbers
+end
+
+p my_numbers = [1,4,3,7,2,6]
+p double_odd_indices(my_numbers)
+
 =end
+
