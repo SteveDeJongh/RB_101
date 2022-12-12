@@ -375,7 +375,7 @@ p sum_even_number_row(4) == 68 # True
 # p create_row(4, 2) == [4, 6] # True
 # p create_row(8, 3) == [8, 10, 12] # True
 
-#### Selection and transformation
+########################################## Selection and transformation ################################
 
 produce = {
   'apple' => 'Fruit',
@@ -517,6 +517,65 @@ end
 
 p my_numbers = [1,4,3,7,2,6]
 p double_odd_indices(my_numbers)
+
+def multiply(numbers, multiplier)
+  result_numbers = []
+  counter = 0
+
+  loop do
+    break if counter == numbers.size
+
+    current_number = numbers[counter]
+    result_numbers << current_number * multiplier
+
+    counter += 1
+  end
+
+  result_numbers
+end
+
+my_numbers = [1, 4, 3, 7, 2, 6]
+p multiply(my_numbers, 3) # => [3, 12, 9, 21, 6, 18]
+
+def select_letter(sentence, character)
+  selected_chars = ''
+  counter = 0
+
+  loop do
+    break if counter == sentence.size
+    
+    current_char = sentence[counter]
+
+    if current_char == character
+      selected_chars << current_char
+    end
+    counter += 1
+  end
+  selected_chars
+end
+
+p select_letter("What is his name!", "h").size
+
+################################ The #each, #map, and #select methods. ################################
+
+Notes in Notion.
+
+#################################### More Methods ################################
+
+#any?
+#all?
+#each_with_index
+#each_with_oject()
+#first
+#include?
+#partition
+
+################################## Praactice Problems: Methods and More Methods ########################
+
+Methods_and_more_methods.rb
+
+########
+
 
 =end
 
