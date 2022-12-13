@@ -574,7 +574,11 @@ Notes in Notion.
 
 Methods_and_more_methods.rb
 
-########
+################################## Practice Problems: Additonal practice #################################
+
+Additional_practice.rb
+
+###################################
 
 
 =end
