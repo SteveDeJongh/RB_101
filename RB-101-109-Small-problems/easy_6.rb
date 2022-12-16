@@ -415,4 +415,8 @@ triangle_with_direction(6, "down")
 triangle_with_direction(6, "right")
 triangle_with_direction(6, "left")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 20575e866e38069de6624b9d57ceaa5f988ce667
 =end
