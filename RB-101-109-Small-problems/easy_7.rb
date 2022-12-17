@@ -353,9 +353,32 @@ end
 
 p multiply_all_pairs1([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 
-
-
 10.
 
-=end
+def penultimate(string)
+  string.split()[-2]
+end
 
+
+# p penultimate('last word') == 'last'
+# p penultimate('Launch School is great!') == 'is'
+
+# Further exploration
+
+def middle(string)
+  split_string = string.split
+  if split_string.empty?
+    puts "Error, empty string!"
+  elsif split_string.length % 2 == 0 # or .even?
+    puts "Error, even number of words."
+  else
+    split_string[(split_string.length / 2)]
+  end
+end
+
+p middle('') == nil
+p middle('middle last word') == 'last'
+p middle('Launch School is great!') == nil
+p middle('middle last wonderful true word') == 'wonderful'
+
+=end
