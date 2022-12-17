@@ -103,22 +103,6 @@ p letter_case_count_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
 
 3.
 
-4.
-
-5.
-
-6.
-
-7.
-
-8.
-
-9.
-
-10.
-
-=end
-
 def word_cap1(string)
   res_string = string.split.map do |word|
     word.capitalize
@@ -128,10 +112,250 @@ end
 
 #or
 
-def word_cap(string)
+def word_cap2(string)
   string.split.map(&:capitalize).join(' ')
 end
 
-p word_cap('four score and seven') == 'Four Score And Seven'
-p word_cap('the javaScript language') == 'The Javascript Language'
-p word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
+# Further exploration, capitalizing first letter with #capitalize.
+
+def word_cap_no_capitalize_func(string)
+  res_string = string.split.map! do |word|
+    word[0] = word[0].upcase!
+    word
+  end
+  res_string.join(" ")
+end
+
+p word_cap_no_capitalize_func('four score and seven') == 'Four Score And Seven'
+p word_cap_no_capitalize_func('the javaScript language') == 'The Javascript Language'
+p word_cap_no_capitalize_func('this is a "quoted" word') == 'This Is A "quoted" Word'
+
+4.
+
+UPPERCASE = ('A'..'Z').to_a
+LOWERCASE = ('a'..'z').to_a
+
+def swapcase(string)
+  chars = string.split('').map do |x|
+    if UPPERCASE.include?(x)
+      x.downcase
+    elsif LOWERCASE.include?(x)
+      x.upcase
+    else
+      x
+    end
+  end
+  chars.join('')
+end
+
+#using string#chars instead of split, and REGEX.
+
+def swapcase(string)
+  characters = string.chars.map do |char|
+    if char =~ /[a-z]/
+      char.upcase
+    elsif char =~ /[A-Z]/
+      char.downcase
+    else
+      char
+    end
+  end
+  characters.join
+end
+
+p swapcase('CamelCase') == 'cAMELcASE'
+p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+5.
+
+# def staggered_case(str)
+#   counter = 0
+#   result = str.chars.map do |x|
+#     counter += 1
+#     if counter.odd?
+#       x.upcase
+#     else
+#       x.downcase    
+#     end
+#   end
+#   result.join
+# end
+
+
+# Further exploration, choosing to start uppercase or downcase.
+def staggered_case_choice(string:, start:)
+  counter = start == 'first' ? 0 : 1
+  result = string.chars.map do |x|
+    counter += 1
+    if counter.odd?
+      x.upcase
+    else
+      x.downcase    
+    end
+  end
+  result.join
+end
+
+
+p staggered_case(string: 'I Love Launch School!', start: 'second') #== 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+6.
+
+def staggered_case(str)
+  counter = 0
+  results = str.split('').map do |x|
+    if x =~ /[^A-Za-z]/ #checks if car is NOT a letter.
+      x
+    elsif counter.even?
+      counter += 1
+      x.upcase
+    else
+      counter += 1
+      x.downcase
+    end
+  end
+  results.join
+end
+
+#or , using a switch on the truthyness of neep_upper and nest if statements.
+
+def staggered_case1(str)
+  result = ''
+  need_upper = true
+  str.chars.map do |x|
+    if x =~ /[A-Za-z]/ #checks if car is a letter.
+      if need_upper
+        result += x.upcase
+      else
+        result += x.downcase
+      end
+      need_upper = !need_upper
+    else
+      result += x
+    end
+  end
+  result
+end
+
+p staggered_case1('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
+p staggered_case1('ALL CAPS') == 'AlL cApS'
+p staggered_case1('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+# Further exploration
+
+def staggered_case2(str:,first:)
+  result = ''
+  need_upper = true
+  str.chars.map do |x|
+    if x =~ /[A-Za-z]/ #checks if car is a letter. REGEX could be /[a-z]/i (i flag ignores case)
+      if need_upper
+        result += x.upcase
+      else
+        result += x.downcase
+      end
+      need_upper = !need_upper
+    else
+      if first == 'true'
+        need_upper = !need_upper
+      end
+      result += x
+    end
+  end
+  result
+end
+
+p staggered_case2(str: 'I Love Launch School!', first: 'true' ) == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case2(str: 'I Love Launch School!', first: 'false') == 'I lOvE lAuNcH sChOoL!'
+
+
+7.
+
+# multiply all numbers of an array together
+# divide result by number of entries in the array
+# return result to 3 decimal places
+
+def show_multiplicative_average(arr)
+  multi_result = arr.inject(:*)
+  average = multi_result / arr.length.to_f #to_f to ensure result is a float for trailing decimal.
+  puts "The result is #{sprintf("%.3f", average)}"
+end
+
+p show_multiplicative_average([3, 5])                # => The result is 7.500
+p show_multiplicative_average([6])                   # => The result is 6.000
+p show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
+
+#or
+
+def show_multiplicative_average1(arr)
+  product = 1.to_f
+  arr.each do |num|
+    product *= num
+  end
+  average = product / arr.size
+  puts "The average is #{sprintf("%.3f", average)}"
+end
+
+p show_multiplicative_average1([3, 5])                # => The result is 7.500
+p show_multiplicative_average1([6])                   # => The result is 6.000
+p show_multiplicative_average1([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
+
+8.
+
+def multiply_list(ar1, ar2)
+  results = []
+  count = 0
+  ar1.each do |x|
+    results << x * ar2[count]
+    count += 1
+  end
+  results
+end
+
+def multiply_list1(ar1, ar2) #using each_with_index
+  results = []
+  ar1.each_with_index do |x, i|
+    results << x * ar2[i]
+  end
+  results
+end
+
+p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+p multiply_list1([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+
+# Further exploration
+
+def multiply_list2(ar1, ar2)
+   ar1.zip(ar2).map {|nums| nums.reduce(:*)} #combines arays [[3,9],...] map loops and products each sub array
+end
+  
+p multiply_list2([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
+
+
+9.
+
+def multiply_all_pairs(ar1, ar2)
+  results = []
+  ar1.each do |x|
+    ar2.each do |y|
+      results << x * y
+    end
+  end
+  results.sort
+end
+
+p multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
+
+def multiply_all_pairs1(ar1,ar2)
+  ar1.product(ar2).map { |num1, num2| num1*num2}.sort
+end
+
+p multiply_all_pairs1([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
+
+
+
+10.
+
+=end
+
