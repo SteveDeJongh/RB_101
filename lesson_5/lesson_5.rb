@@ -252,7 +252,97 @@ end
 
 9)
 
+arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 
+arr.map do |element|
+  element.sort do |a,b|
+    b <=> a
+  end
+end
+
+10)
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |element|
+  element.transform_values do |val|
+    val + 1
+  end
+end
+
+#or
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |element|
+  inc_hash = {}
+  element.each do |key, val|
+    inc_hash[key] = val + 1
+  end
+  inc_hash
+end
+
+#or
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
+  incremented_hash = {}
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  arr << incremented_hash
+end
+# => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+11)
+
+arr = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+
+arr.map do |arrays|
+  arrays.select do |x|
+    x % 3 == 0
+  end
+end
+
+
+12)
+
+arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# expected return value: {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
+arr1 = arr.each_with_object({}) do |element, object|
+    object[element[0]] = element[1]
+end
+
+#or
+
+hsh = {}
+arr.each do |element|
+  hsh[element[0]] = element[1]
+end
+
+p arr1
+p hsh
+
+13)
+
+arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+
+arr1 = arr.sort_by do |element|
+  sum = 0
+  element.select do |x|
+    x.odd?
+  end
+end
+
+p arr1
+
+14)
 
 =end
 
+hsh = {
+  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+}
+
+hsh.each_with_object([]) do |name, array|
+  array << hsh[name]
