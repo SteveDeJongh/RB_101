@@ -334,8 +334,6 @@ p arr1
 
 14)
 
-=end
-
 hsh = {
   'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
   'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
@@ -344,5 +342,51 @@ hsh = {
   'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
 }
 
-hsh.each_with_object([]) do |name, array|
-  array << hsh[name]
+results = hsh.map do |_key, value|
+  if value[:type] == 'fruit'
+    value[:colors].map do |color|
+      color.capitalize
+    end
+  elsif value[:type] == "vegetable"
+    value[:size].upcase
+  end
+end
+
+p results
+
+15)
+
+arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+
+nr = arr.select do |hsh|
+  # p hsh
+  hsh.all? do |_,value|
+    # p value
+    value.all? do |num|
+      # p num
+      num.even?
+    end
+  end
+end
+
+p nr
+
+16)
+
+def uuid
+  characters = []
+  (0..9).each {|digit| characters << digit.to_s}
+  ('a'..'f').each {|digit| characters << digit}
+
+  uuid = ''
+  sections = [8,4,4,4,12]
+  sections.each_with_index do |section, index|
+    section.times {uuid += characters.sample}
+    uuid += '-' unless index >= sections.size - 1
+  end
+  uuid
+end
+
+p uuid
+
+=end
