@@ -6,7 +6,7 @@
 
 The <=> Method
 
-Comapres two objects of the same type and return -1, 0 or 1 depending on wether the first object is
+Compares two objects of the same type and return -1, 0 or 1 depending on wether the first object is
 larger, equal too, or greatr than the second object. If two object can't be compared it returns nil
 
 2 <=> 1 #=> 1
@@ -24,6 +24,31 @@ Array#sort
 [['a', 'cat', 'b', 'c'], ['b', 2], ['a', 'car', 'd', 3], ['a', 'car', 'd']].sort
 
 # => [["a", "car", "d"], ["a", "car", "d", 3], ["a", "cat", "b", "c"], ["b", 2]]
+
+####################################### Nested Data Structures #####################################
+
+arr = [[0,1],[1,2]]
+
+Access 2, arr[1][1]
+Change 2, arr[1][1] = 2
+
+arr[0] << 3
+#=> [[0,1,3],[1,2]]
+
+Nested Hashes in array
+arr = [{ a: 'ant' }, { b: 'bear' }]
+
+arr[0][:c] = 'cat' #adds new key and value to first hash.
+arr # => [{ :a => "ant", :c => "cat" }, { :b => "bear" }]
+
+#dup and #clone create shallow copies of the object they are called on. Only the object that the
+method is called on is copied. The objects within will still be shared.
+
+Main difference between dup and clone is that clone preserves the frozen state of the object.
+
+Like dup and clone, freeze only freezes teh object it's called on, not the objects within.
+
+
 
 ####################################### Working with Blocks #######################################
 
