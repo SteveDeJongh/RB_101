@@ -457,81 +457,194 @@ p uuid
 
 =begin
 
-Example 3)
+################### Practice problesm: sorting, nested collections and working with blocks Round 2########
 
-1) method call map, the outer array, none, new array [1,3], no
-1-4) block execution, each sub-aray, none, sub-array integer at index 0, yes by map for transformation.
-2) method call first, each sub-array, none, 1, 3, yes by puts
-2) method call puts, first element in each sub array, outputs string, nil, no
-3) method call first, each sub-array, none, 1, 3, yes determines block return value
+1)
 
-Example 4)
+arr = ['10', '11', '9', '7', '8']
 
-1) variable asignment, array, none, arrray, no
-1) method call each, multi dim array, none, original array, yes by variable assignemnt.
-1-7) outer block execution, each sub-array, none, each sub-array, no
-2) method call each, each sub-array, none, original sub-array, no
-2-6) inner block execution, each element in sub-array, none, nil, no
-3) comparison, element of the sub-array, none, boolean, yes evaluated by if
-3-5) conditional if statement, result of comparison expression, none, nil, yes used to 
-determine return of inner block
-4)puts method call, each element of sub-array, yes output text, nil, yes used to determine return value
-of conditional statement if the condition is met
+arr.sort do |a,b|
+  b.to_i <=> a.to_i
+end
 
-Example 5)
+2)
 
-1) method call map, multi dim array, none, transformed arrray, no
-1-5) outer block execution, each sub-array, none, new array, yes passed to map
-2) method call map, each sub-array, none, new transformed array, yes passed back outer block
-2-4) inner block execution, each element of sub-array, none, result of num * 2, yes by map
-3) multiplication, each element of sub-array, none, result of calcucation, yes by inner block.
+books = [
+  {title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967'},
+  {title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925'},
+  {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
+  {title: 'Ulysses', author: 'James Joyce', published: '1922'}
+]
 
-Example 6)
+books.sort_by do |hash|
+  hash[:published].to_i # to_i isn't required as all numerical strings are 4 characters long.
+end
 
-1) method call select, array of hashes, none, new array, no
-1-5) outer block execution, each hash within array, none, boolean, yes by select.
-2) method call all?, each hash within array, none, boolean, yes by outer block.
-2-4) inner block execution, each key value of hash, none, boolean, yes by all?
-3) to_s method call, each key, none, key as a string, yes by comparison.
-3) comparison method call, character at index 0 of value and string representation of key, none,
-boolean, yes by inner block exectuion.
+3)
 
-Example 9)
+arr1 = ['a', 'b', ['c', ['d', 'e', 'f', 'g']]]
+p arr1[2][1][3]
 
-1) method call map, multi dimensional array, none, new array, no
-1-7) outer block execution, each sub-array, none, each sub-array, yes by map
-2) each method call, each sub-array, none, orignal sub-array, yes by outer block. # returns original array
-2-6) middle block exeuction, each element in sub-array, none, sub-sub-array, no
-3) partition method call, each element in sub-sub-array, none, two arrays, no
-3-5) paritin block, each element in sub-sub-array, none, two array, no
-4) size method call, element, none, integer, yes by comparison
-4) comparison method call, integer and 0, none, boolean, yes by partition
+arr2 = [{first: ['a', 'b', 'c'], second: ['d', 'e', 'f']}, {third: ['g', 'h', 'i']}]
+p arr2[1][:third][0]
 
-Example 10)
+arr3 = [['abc'], ['def'], {third: ['ghi']}]
+p arr3[2][:third][0][0]
 
-1)  [[[1, 2], [3, 4]], [5, 6]].map do |arr|
-2)    arr.map do |el|
-3)      if el.to_s.to_i == el   # it's an integer
-4)        el + 1
-5)      else                    # it's an array
-6)        el.map do |n|
-7)          n + 1
-8)        end
-9)      end
-10)    end
-11)  end
+hsh1 = {'a' => ['d', 'e'], 'b' => ['f', 'g'], 'c' => ['h', 'i']}
+p hsh1['b'][1]
 
-1) method call map, original multi dim array, none, new array, no
-1-11) outer block execution, each sub-array, none, array after evalation of inner block, passed to map
-2) method call map, each sub-array, none, new array, yes passed to outer block.
-2-10) inner block exectuion, each element of sub-array, none, evaluated result of if statement, passed to map
-3-9) conditional if, each element of sub-array, none, nil, yes used to determine return value of inner block
-3) comparision, each element of sub-array, none, boolean, yes used by if conditional
-3) to_s and to_i method, each element of sub-array, none, string then int, yes used by comparison
-4) addition, each element of sub-array and 1, none, result of addition, yes passed to if conditional
-6) map method call, each elememnt of sub-array, none, new array, yes passed to if conditional
-6-8) 2x inner block execution, each element of sub-sub-array, none, array, yes by map method call
-7) addition, each element of sub-sub-array and 1, none, reuslt of addition, yes passed to block
+hsh2 = {first: {'d' => 3}, second: {'e' => 2, 'f' => 1}, third: {'g' => 0}}
+p hsh2[:third].key(0)
+
+4)
+
+arr1 = [1, [2, 3], 4]
+arr1[1][1] = 4
+p arr1
+
+arr2 = [{a: 1}, {b: 2, c: [7, 6, 5], d: 4}, 3]
+arr2[2] = 4
+p arr2
+
+hsh1 = {first: [1, 2, [3]]}
+hsh1[:first][2][0] = 4
+p hsh1
+
+hsh2 = {['a'] => {a: ['1', :two, 3], b: 4}, 'b' => 5}
+hsh2[['a']][:a][2] = 4
+p hsh2
+
+5)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+total_male_age = 0
+
+munsters.each_value do |value|
+  total_male_age += value["age"] if value["gender"] == 'male'
+end
+
+p total_male_age
+
+6)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+munsters.each do |name, details| # or #each_pair
+  puts "#{name} is a #{details['age']}-year-old #{details['gender']}."
+end
+
+7)
+
+a = 2
+b = [5, 8]
+arr = [a, b]
+
+arr[0] += 2
+arr[1][0] -= a
+
+#=> A = 2
+#=> B = [3,8]
+#=> Arr = [4,[3,8]]
+
+8)
+
+hsh = {first: ['the', 'quick'], second: ['brown', 'fox'], third: ['jumped'], 
+  fourth: ['over', 'the', 'lazy', 'dog']}
+
+vowels = %(a e i o u)
+hsh.each do |_, value|
+  value.each do |string|
+    string.each_char do |char|
+      p char if vowels.include?(char)
+    end
+  end
+end
+
+9)
+arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
+
+arr.map do |sub_arr|
+  sub_arr.sort do |a,b|
+     b <=> a
+  end
+end
+
+10)
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |element|
+  element.transform_values do |val|
+    val + 1
+  end
+end
+
+#or
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |element|
+  inc_hash = {}
+  element.each do |key, val|
+    inc_hash[key] = val + 1
+  end
+  inc_hash
+end
+
+#or
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
+  incremented_hash = {}
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  arr << incremented_hash
+end
+# => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+11)
+
+arr = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+
+arr.map do |element|
+  element.select do |val|
+    val % 3 == 0
+  end
+end
+
+12)
+
+arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# expected return value: {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
+hsh = {}
+arr.each do |sub_arr|
+  hsh[sub_arr[0]] = sub_arr[1]
+end
+
+p hsh
+
+13)
+
 
 
 =end
+
+arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+
+new_arr = arr.map do |sub_arr|
+  
+
+end
+
+p new_arr
