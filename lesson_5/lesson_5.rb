@@ -69,16 +69,15 @@ Example 3)
 6) 3
 7) [1,3]
 
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) method call map, the outer array, none, new array [1,3], no
+1-4) block execution, each sub-aray, none, sub-array integer at index 0, yes by map for transformation.
+2) method call first, each sub-array, none, 1, 3, yes by puts
+2) method call puts, first element in each sub array, outputs string, nil, no
+3) method call first, each sub-array, none, 1, 3, yes determines block return value
 
-lines of code, action, object, side effect, return value, is return value used?
-1 , method call 'map', outer array, none, new array [1,3], No but shown on line 7.
-1-4, block excution, sub-array, none, integer at index 0 of sub-array, yes used by map.
-2, method call first, each sub-array, none, element at index 0 of sub-array, yes by puts
-2, method call puts, integer at index 0 of each sub-array, outputs string, nil, no
-3, method call first, each sub-array, none, Element at index 0 of sub-array, yes used to determine
-return value of block.
+Example 4)
 
-Exmaple 4)
 1) my_arr = [[18, 7], [3, 12]].each do |arr|
 2)   arr.each do |num|
 3)     if num > 5
@@ -90,20 +89,20 @@ Exmaple 4)
 9)
 10)
 
-lines of code, action, object, side effect, return value, is return value used?
-1, variable assignment of array, none, return value of each, no.
-1, method call each, outer my_arr array, none, orignal array, yes to assign my_arr
-1-7, outer block execution, each sub-array, none, each sub-array, no
-2, method call each, sub-array, none, the calling object, sub array in current iteration, yes, used to
-determine return value of outer block.
-2-6, inner block execution, each element of sub-array, none, nil, no.
-3, comparison, each element of sub-array, none, true or false, yes by if
-3-5, conditional (if), the result of the expression num > 5, none, nil, yes used to determine return
-value of inner block.
-4, method call puts, each element of sub-arrray, outputs integer, nil, yes used to determine return
-value of condiiton statement if the condition is met.
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) variable asignment, array, none, arrray, no
+1) method call each, multi dim array, none, original array, yes by variable assignemnt.
+1-7) outer block execution, each sub-array, none, each sub-array, no
+2) method call each, each sub-array, none, original sub-array, no
+2-6) inner block execution, each element in sub-array, none, nil, no
+3) comparison, element of the sub-array, none, boolean, yes evaluated by if
+3-5) conditional if statement, result of comparison expression, none, nil, yes used to 
+determine return of inner block
+4)puts method call, each element of sub-array, yes output text, nil, yes used to determine return value
+of conditional statement if the condition is met
 
 Example 5)
+
 1) [[1, 2], [3, 4]].map do |arr|
 2)   arr.map do |num|
 3)     num * 2
@@ -111,15 +110,15 @@ Example 5)
 5) end
 6) #=> [[2,4],[6,8]]
 
-lines of code, action, object, side effect, return value, is return value used?
-1 method call map, original array, none, new transformed array, no but output on line 6.
-1-5, outer block execution, each sub-array, none, new tranformed array, yes by map.
-2, method call map, each sub-array, none, new transformed array, yes by outer blocks return value.
-2-4, inner block execution, each element of sub-array, none, an integer, yes by inner map.
-3, num * 2, each element of sub-array, none, value of calculation, yes, used to determine
- value of inner block.
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) method call map, multi dim array, none, transformed arrray, no
+1-5) outer block execution, each sub-array, none, new array, yes passed to map
+2) method call map, each sub-array, none, new transformed array, yes passed back outer block
+2-4) inner block execution, each element of sub-array, none, result of num * 2, yes by map
+3) multiplication, each element of sub-array, none, result of calcucation, yes by inner block.
 
 Example 6)
+
 1) [{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
 2)   hash.all? do |key, value|
 3)     value[0] == key.to_s
@@ -127,14 +126,54 @@ Example 6)
 5) end
 6) # => [{ :c => "cat" }]
 
-lines of code, action, object, side effect, return value, is return value used?
-1) method call select, original array, none, new transformed array, yes to select items returned to array.
-1-5) outer block, each array element, none, boolean, yes by select.
-2) method call all?, each element in each hash, none, boolean, yes by select.
-2-4) inner block execution, each element in each hash, boolean, yes by all? method call.
-3) comparison test, value first letter and key converted to string, none, true or false, yes by all?
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) method call select, array of hashes, none, new array, no
+1-5) outer block execution, each hash within array, none, boolean, yes by select.
+2) method call all?, each hash within array, none, boolean, yes by outer block.
+2-4) inner block execution, each key value of hash, none, boolean, yes by all?
+3) to_s method call, each key, none, key as a string, yes by comparison.
+3) comparison method call, character at index 0 of value and string representation of key, none,
+boolean, yes by inner block exectuion.
 
 If all? changed to any?, both hashes would be returned.
+
+
+Example 9)
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) method call map, multi dimensional array, none, new array, no
+1-7) outer block execution, each sub-array, none, each sub-array, yes by map
+2) each method call, each sub-array, none, orignal sub-array, yes by outer block. # returns original array
+2-6) middle block exeuction, each element in sub-array, none, sub-sub-array, no
+3) partition method call, each element in sub-sub-array, none, two arrays, no
+3-5) paritin block, each element in sub-sub-array, none, two array, no
+4) size method call, element, none, integer, yes by comparison
+4) comparison method call, integer and 0, none, boolean, yes by partition
+
+Example 10)
+
+1)  [[[1, 2], [3, 4]], [5, 6]].map do |arr|
+2)    arr.map do |el|
+3)      if el.to_s.to_i == el   # it's an integer
+4)        el + 1
+5)      else                    # it's an array
+6)        el.map do |n|
+7)          n + 1
+8)        end
+9)      end
+10)    end
+11)  end
+Line(s) of code, action, object, side effect, return value, is return value used?
+1) method call map, original multi dim array, none, new array, no
+1-11) outer block execution, each sub-array, none, array after evalation of inner block, passed to map
+2) method call map, each sub-array, none, new array, yes passed to outer block.
+2-10) inner block exectuion, each element of sub-array, none, evaluated result of if statement, passed to map
+3-9) conditional if, each element of sub-array, none, nil, yes used to determine return value of inner block
+3) comparision, each element of sub-array, none, boolean, yes used by if conditional
+3) to_s and to_i method, each element of sub-array, none, string then int, yes used by comparison
+4) addition, each element of sub-array and 1, none, result of addition, yes passed to if conditional
+6) map method call, each elememnt of sub-array, none, new array, yes passed to if conditional
+6-8) 2x inner block execution, each element of sub-sub-array, none, array, yes by map method call
+7) addition, each element of sub-sub-array and 1, none, reuslt of addition, yes passed to block
 
 ################## Practice Problems: Sorting, Nested Collection, and working with blocks#############
 
@@ -413,5 +452,86 @@ def uuid
 end
 
 p uuid
+
+=end
+
+=begin
+
+Example 3)
+
+1) method call map, the outer array, none, new array [1,3], no
+1-4) block execution, each sub-aray, none, sub-array integer at index 0, yes by map for transformation.
+2) method call first, each sub-array, none, 1, 3, yes by puts
+2) method call puts, first element in each sub array, outputs string, nil, no
+3) method call first, each sub-array, none, 1, 3, yes determines block return value
+
+Example 4)
+
+1) variable asignment, array, none, arrray, no
+1) method call each, multi dim array, none, original array, yes by variable assignemnt.
+1-7) outer block execution, each sub-array, none, each sub-array, no
+2) method call each, each sub-array, none, original sub-array, no
+2-6) inner block execution, each element in sub-array, none, nil, no
+3) comparison, element of the sub-array, none, boolean, yes evaluated by if
+3-5) conditional if statement, result of comparison expression, none, nil, yes used to 
+determine return of inner block
+4)puts method call, each element of sub-array, yes output text, nil, yes used to determine return value
+of conditional statement if the condition is met
+
+Example 5)
+
+1) method call map, multi dim array, none, transformed arrray, no
+1-5) outer block execution, each sub-array, none, new array, yes passed to map
+2) method call map, each sub-array, none, new transformed array, yes passed back outer block
+2-4) inner block execution, each element of sub-array, none, result of num * 2, yes by map
+3) multiplication, each element of sub-array, none, result of calcucation, yes by inner block.
+
+Example 6)
+
+1) method call select, array of hashes, none, new array, no
+1-5) outer block execution, each hash within array, none, boolean, yes by select.
+2) method call all?, each hash within array, none, boolean, yes by outer block.
+2-4) inner block execution, each key value of hash, none, boolean, yes by all?
+3) to_s method call, each key, none, key as a string, yes by comparison.
+3) comparison method call, character at index 0 of value and string representation of key, none,
+boolean, yes by inner block exectuion.
+
+Example 9)
+
+1) method call map, multi dimensional array, none, new array, no
+1-7) outer block execution, each sub-array, none, each sub-array, yes by map
+2) each method call, each sub-array, none, orignal sub-array, yes by outer block. # returns original array
+2-6) middle block exeuction, each element in sub-array, none, sub-sub-array, no
+3) partition method call, each element in sub-sub-array, none, two arrays, no
+3-5) paritin block, each element in sub-sub-array, none, two array, no
+4) size method call, element, none, integer, yes by comparison
+4) comparison method call, integer and 0, none, boolean, yes by partition
+
+Example 10)
+
+1)  [[[1, 2], [3, 4]], [5, 6]].map do |arr|
+2)    arr.map do |el|
+3)      if el.to_s.to_i == el   # it's an integer
+4)        el + 1
+5)      else                    # it's an array
+6)        el.map do |n|
+7)          n + 1
+8)        end
+9)      end
+10)    end
+11)  end
+
+1) method call map, original multi dim array, none, new array, no
+1-11) outer block execution, each sub-array, none, array after evalation of inner block, passed to map
+2) method call map, each sub-array, none, new array, yes passed to outer block.
+2-10) inner block exectuion, each element of sub-array, none, evaluated result of if statement, passed to map
+3-9) conditional if, each element of sub-array, none, nil, yes used to determine return value of inner block
+3) comparision, each element of sub-array, none, boolean, yes used by if conditional
+3) to_s and to_i method, each element of sub-array, none, string then int, yes used by comparison
+4) addition, each element of sub-array and 1, none, result of addition, yes passed to if conditional
+6) map method call, each elememnt of sub-array, none, new array, yes passed to if conditional
+6-8) 2x inner block execution, each element of sub-sub-array, none, array, yes by map method call
+7) addition, each element of sub-sub-array and 1, none, reuslt of addition, yes passed to block
+
 
 =end
