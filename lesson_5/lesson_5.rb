@@ -636,15 +636,84 @@ p hsh
 
 13)
 
-
-
-=end
-
 arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
 
-new_arr = arr.map do |sub_arr|
-  
-
+new_arr = arr.sort_by do |sub_arr|
+  sub_arr.select do |num|
+    num.odd?
+  end
 end
 
 p new_arr
+
+14)
+
+hsh = {
+  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+}
+
+h1 = hsh.map do |_, details|
+  if details[:type] == 'fruit'
+    details[:colors].map do |element|
+      element.capitalize
+    end
+  elsif details[:type] == 'vegetable'
+    details[:size].upcase
+  end
+end
+
+15)
+
+arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+
+arr1 = arr.select do |hash|
+  hash.all? do |_, array|
+    array.all? do |num|
+      num.even?
+    end
+  end
+end
+
+p arr1
+
+16)
+
+def uuid
+  characters = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b", "c", "d", "e", "f"]
+  # to more easiley created characters array, use each over a range ie:
+  # (0..9).each { |digit| characters << digit.to_s }
+  # ('a'..'f').each { |char| characters << char }
+  
+  sequence = [8,4,4,4,12]
+  uuid = ''
+  sequence.each do |num|
+    num.times { uuid << characters.sample}
+    uuid << "-" unless num == sequence[4]
+  end
+  uuid
+end
+
+p uuid
+
+#or
+
+def generate_UUID
+  characters = []
+  (0..9).each { |digit| characters << digit.to_s }
+  ('a'..'f').each { |digit| characters << digit }
+
+  uuid = ""
+  sections = [8, 4, 4, 4, 12]
+  sections.each_with_index do |section, index|
+    section.times { uuid += characters.sample }
+    uuid += '-' unless index >= sections.size - 1
+  end
+
+  uuid
+end
+
+=end
