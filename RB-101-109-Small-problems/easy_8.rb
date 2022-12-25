@@ -1,4 +1,4 @@
-# RB101-RB109 - Small Problems - Easy 7
+# RB101-RB109 - Small Problems - Easy 8
 
 =begin
 1)
