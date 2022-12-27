@@ -7,7 +7,7 @@ COMPUTER_MARKER = 'O'
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
-                [[1, 5, 9], [3, 5, 7]]           # diagonals
+                [[1, 5, 9], [3, 5, 7]]              # diagonals
 
 def prompt(message)
   puts "=> #{message}"
@@ -49,7 +49,8 @@ def joinor(arr, delimiter=', ', word='or')
   when 1 then arr.first.to_s
   when 2 then arr.join(" #{word} ")
   else
-    arr[-1] = "#{word} #{arr.last}" #mutates last element in the array, prepaying for #join.
+    arr[-1] = "#{word} #{arr.last}"
+    # mutates last elelement in the array, prepaying for #join.
     arr.join(delimiter)
   end
 end
@@ -66,8 +67,30 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+  end
+end
+
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+  WINNING_LINES.each do |line| # Offence first with COMPUTER_MARKER as marker
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+  if !square # Defence after checking no chances to win.
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+  if !square
+    square = 5 unless brd[5] != " "
+  end
+  if !square # If no off move, deff move or Square 5, pick a random square.
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
 end
 
@@ -90,7 +113,8 @@ def detect_winner(brd)
     #       brd[line[2]] == COMPUTER_MARKER
     #   return "Computer"
     # end
-    if brd.values_at(*line).count(PLAYER_MARKER) == 3 # "*line" = line[0], line[1], line[2]
+    if brd.values_at(*line).count(PLAYER_MARKER) == 3
+      # "*line" = line[0], line[1], line[2]
       return "Player"
     elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
       return "Computer"
@@ -102,17 +126,32 @@ end
 loop do
   player_score = 0
   computer_score = 0
+  prompt "Who should go first? (1 for Player, 2 for Computer)"
+  first = gets.chomp
   loop do
     board = initialize_board
+    if first == "1"
+      loop do
+        display_board(board)
 
-    loop do
-      display_board(board)
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
 
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
+    elsif first == "2"
+      loop do
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
 
-      computer_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+        display_board(board)
+
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
+    else
+      "invalid input"
     end
 
     display_board(board)
@@ -127,7 +166,6 @@ loop do
     else
       prompt "It's a tie!"
     end
-    
     prompt "Player #{player_score} Computer #{computer_score}"
     break if computer_score == 2 || player_score == 2
   end

@@ -88,6 +88,16 @@ p joinor([1, 2, 3], ', ', 'and')   # => "1, 2, and 3"
 
 3) Computer AI: Defense
 
+def find_at_risk_square(line, board)
+  if board.values_at(*line).count(PLAYER_MARKER) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
+end
+
+4) Computer AI: Offense
+
 
 
 =end
