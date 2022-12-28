@@ -139,7 +139,14 @@ loop do
   player_score = 0
   computer_score = 0
   prompt "Who should go first? (1 for Player, 2 for Computer)"
-  current_player = gets.chomp
+  starting_player = gets.chomp
+  if starting_player == "1"
+    current_player = "player"
+  else
+    current_player = "computer"
+  end
+
+  #binding.pry
   loop do
     board = initialize_board
     loop do
