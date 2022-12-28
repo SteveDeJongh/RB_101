@@ -123,35 +123,30 @@ def detect_winner(brd)
   nil
 end
 
+def place_piece!(board, current_player)
+  if current_player == "computer"
+    computer_places_piece!(board)
+  else
+    player_places_piece!(board)
+  end
+end
+
+def alternate_player(curr_play)
+  curr_play == "computer" ? "player" : "computer"
+end
+
 loop do
   player_score = 0
   computer_score = 0
   prompt "Who should go first? (1 for Player, 2 for Computer)"
-  first = gets.chomp
+  current_player = gets.chomp
   loop do
     board = initialize_board
-    if first == "1"
-      loop do
-        display_board(board)
-
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      end
-    elsif first == "2"
-      loop do
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        display_board(board)
-
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      end
-    else
-      "invalid input"
+    loop do
+      display_board(board)
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
+      break if someone_won?(board) || board_full?(board)
     end
 
     display_board(board)

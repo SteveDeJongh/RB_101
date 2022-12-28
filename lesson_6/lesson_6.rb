@@ -98,6 +98,100 @@ end
 
 4) Computer AI: Offense
 
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+  end
+end
+
+def computer_places_piece!(brd)
+  square = nil
+  WINNING_LINES.each do |line| # Offence first with COMPUTER_MARKER as marker
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+  if !square # Defence after checking no chances to win.
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+  if !square
+    square = 5 unless brd[5] != " "
+  end
+  if !square # If no off move, deff move or Square 5, pick a random square.
+    square = empty_squares(brd).sample
+  end
+  brd[square] = COMPUTER_MARKER
+end
+
+5)
+
+a) Swapped sequence in computer_places_piece to make offensive move first.
+b) Added pick square 5 unless it's already taken.
+c) Added prompt at loop start to decide who makes first move.
+
+loop do
+  player_score = 0
+  computer_score = 0
+  prompt "Who should go first? (1 for Player, 2 for Computer)"
+  first = gets.chomp
+  loop do
+    board = initialize_board
+    if first == "1"
+      loop do
+        display_board(board)
+
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
+    elsif first == "2"
+      loop do
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+
+        display_board(board)
+
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
+    else
+      "invalid input"
+    end
+
+d) Can be done by sampling choices.
+
+6)
+
+def place_piece!(board, current_player)
+  if current_player == "computer"
+    computer_places_piece!(board)
+  else
+    player_places_piece!(board)
+  end
+end
+
+def alternate_player(curr_play)
+  curr_play == "computer" ? curr_play = "player" : curr_play = "computer"
+end
+
+Future exploraton:
+Minimax algorithm
+
+You can build an unbeatable Tic Tac Toe by utilizing the minimax algorithm.
+
+Bigger board
+
+What happens if the board is 5x5 instead of 3x3? What about a 9x9 board?
+
+More players
+
+When you have a bigger board, you can perhaps add more than 2 players. Would it be interesting to play against 2 computers? What about 2 human players against a computer?
+
+######################################## Assignment: Twenty-One ########################################
 
 
 =end
