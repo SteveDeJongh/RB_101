@@ -30,6 +30,8 @@ end
 
 CARD_SUITS = ['H', 'D', 'C', 'S']
 CARD_VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+DEALER_MAX = 17
+GAME_GOAL = 21
 
 def initialize_deck
   deck = []
@@ -83,14 +85,14 @@ def total(cards)
 
   # correct for Aces
   values.select { |value| value == "A" }.count.times do
-    sum -= 10 if sum > 21
+    sum -= 10 if sum > GAME_GOAL
   end
 
   sum
 end
 
-def busted?(cards)
-  total(cards) > 21
+def busted?(totals)
+  totals > GAME_GOAL
 end
 
 def determine_winner(player, dealer) # Could assing total(player/dealer) to a local variable and use for camparison.
@@ -98,13 +100,20 @@ def determine_winner(player, dealer) # Could assing total(player/dealer) to a lo
     :player_busted
   elsif busted?(dealer)
     :dealer_busted
-  elsif total(player) > total(dealer)
+  elsif player > dealer
     :player
-  elsif total(dealer) > total(player)
+  elsif dealer > player
     :dealer
   else
     :tie
   end
+end
+
+def display_results(dealercards, dealertotal, playercards, playertotal)
+  puts "============"
+  prompt "Dealer has #{dealercards} for a total of #{dealertotal}"
+  prompt "Player has #{playercards} for a total of #{playertotal}"
+  puts "============"
 end
 
 def winner_message(winner)
@@ -117,72 +126,98 @@ def winner_message(winner)
   end
 end
 
+def score_message(player, dealer)
+  prompt "The score is Player #{player} vs Dealer #{dealer}."
+end
+
 def play_again?
   prompt "Would you like to play again? (Y/N)"
   answer = gets.chomp
   answer.downcase.start_with?("y")
 end
 
-loop do # main game loop.
-  prompt "Welcome to Twenty-One!"
-  card_deck = initialize_deck
-  player_cards = [deal_card(card_deck), deal_card(card_deck)]
-  dealer_cards = [deal_card(card_deck), deal_card(card_deck)]
+loop do # Main game loop.
 
-  display_cards(player_cards, dealer_cards)
+  player_score = 0
+  dealer_score = 0
 
-  loop do # Player turn refactored
-    answer = nil
-    loop do
-      prompt "Would you like to (h)it or (s)tay?"
-      answer = gets.chomp.downcase
-      break if ['h', 's'].include?(answer)
-      prompt "Sorry, must enter either 'h' or 's'."
+  loop do # First to 2 loop.
+    prompt "Welcome to Twenty-One!"
+    card_deck = initialize_deck
+    player_cards = [deal_card(card_deck), deal_card(card_deck)]
+    dealer_cards = [deal_card(card_deck), deal_card(card_deck)]
+    player_total = total(player_cards)
+    dealer_total = total(dealer_cards)
+
+    display_cards(player_cards, dealer_cards)
+
+    loop do # Player turn refactored
+      answer = nil
+      loop do
+        prompt "Would you like to (h)it or (s)tay?"
+        answer = gets.chomp.downcase
+        break if ['h', 's'].include?(answer)
+        prompt "Sorry, must enter either 'h' or 's'."
+      end
+
+      if answer == 'h'
+        player_cards << deal_card(card_deck)
+        prompt "You chose to hit!"
+        display_cards(player_cards, dealer_cards)
+        player_total = total(player_cards)
+        prompt "Your total is now: #{player_total}."
+      end
+
+      break if answer == "s" || busted?(player_total)
     end
 
-    if answer == 'h'
-      player_cards << deal_card(card_deck)
-      prompt "You chose to hit!"
-      display_cards(player_cards, dealer_cards)
-      prompt "Your total is now: #{total(player_cards)}."
+    if busted?(player_total)
+      display_results(dealer_cards, dealer_total, player_cards, player_total)
+      winner_message(determine_winner(player_total, dealer_total))
+      dealer_score += 1
+      score_message(player_score, dealer_score)
+      player_score == 2 || dealer_score == 2 ? break : next #play_again? ? next : break
+    else
+      prompt "You stayed at #{player_total}"
     end
 
-    break if answer == "s" || busted?(player_cards)
-  end
+    prompt "Dealer turn..."
 
-  if busted?(player_cards)
-    winner_message(determine_winner(player_cards, dealer_cards))
-    play_again? ? next : break
-  else
-    prompt "You stayed at #{total(player_cards)}"
-  end
+    loop do # Dealer turn
+      break if dealer_total >= DEALER_MAX
 
-  prompt "Dealer turn..."
+      prompt "Dealer hit!"
+      dealer_cards << deal_card(card_deck)
+      prompt display_cards(player_cards, dealer_cards)
+      dealer_total = total(dealer_cards)
+    end
 
-  loop do # Dealer turn
-    break if total(dealer_cards) >= 17
+    if busted?(dealer_total)
+      prompt "Dealer total is now: #{dealer_total}"
+      display_results(dealer_cards, dealer_total, player_cards, player_total)
+      winner_message(determine_winner(player_total, dealer_total))
+      player_score += 1
+      score_message(player_score, dealer_score)
+      player_score == 2 || dealer_score == 2 ? break : next #play_again? ? next : break
+    else
+      prompt "Dealer stays at #{dealer_total}."
+    end
 
-    prompt "Dealer hit!"
-    dealer_cards << deal_card(card_deck)
-    prompt display_cards(player_cards, dealer_cards)
-  end
+    # Both players stay, compare cards.
 
-  if busted?(dealer_cards)
-    prompt "Dealer total is now: #{total(dealer_cards)}"
-    winner_message(determine_winner(player_cards, dealer_cards))
-    play_again? ? next : break
-  else
-    prompt "Dealer stays at #{total(dealer_cards)}."
-  end
+    display_results(dealer_cards, dealer_total, player_cards, player_total)
+    winner_message(determine_winner(player_total, dealer_total))
+    if player_total > dealer_total
+      player_score += 1
+    elsif dealer_total > player_total
+      dealer_score += 1
+    end
+    score_message(player_score, dealer_score)
 
-  # Both players stay, compare cards.
-  puts "============"
-  prompt "Dealer has #{dealer_cards} for a total of #{total(dealer_cards)}"
-  prompt "Player has #{player_cards} for a total of #{total(player_cards)}"
-  puts "============"
+    break if player_score == 2 || dealer_score == 2
+  end #end of first to 2 loop.
 
-  winner_message(determine_winner(player_cards, dealer_cards))
-  play_again? ? next : break
+  break unless play_again?
 end # End of game.
 
 prompt "Thank you for playing Twenty-One! Good bye!"

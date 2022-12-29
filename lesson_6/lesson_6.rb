@@ -195,7 +195,18 @@ When you have a bigger board, you can perhaps add more than 2 players. Would it 
 
 21.rb
 
-######################################## Assignment: Twenty-One ########################################
+######################################## Assignment: Twenty-One Bonues Features ########################################
+
+1) Added local player_total and dealer_total variables to avoid reptitive use of #totals(dealer_cards, player_cards) methods.
+2) Last play_again? method call doesn't need a next option.
+3) Created #display_results(dealer_cards, dealer_total, player_cards, player_total)
+4) Added player_score and dealer_score variables, along with incrementation in various scenarios.
+  #Would like to clean this up with a method possibly?
+  added inner scorekeeping looping to break if score is +_, also modified next/break clauses to check score.
+5) Added consts to determine game goal and dealer hit/stay threshold.
+
+######################################## Assignment: Twenty-One Bonues Features ########################################
+
 
 
 =end
