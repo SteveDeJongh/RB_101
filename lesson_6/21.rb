@@ -137,7 +137,6 @@ def play_again?
 end
 
 loop do # Main game loop.
-
   player_score = 0
   dealer_score = 0
 
@@ -176,7 +175,7 @@ loop do # Main game loop.
       winner_message(determine_winner(player_total, dealer_total))
       dealer_score += 1
       score_message(player_score, dealer_score)
-      player_score == 2 || dealer_score == 2 ? break : next #play_again? ? next : break
+      player_score == 2 || dealer_score == 2 ? break : next
     else
       prompt "You stayed at #{player_total}"
     end
@@ -198,7 +197,7 @@ loop do # Main game loop.
       winner_message(determine_winner(player_total, dealer_total))
       player_score += 1
       score_message(player_score, dealer_score)
-      player_score == 2 || dealer_score == 2 ? break : next #play_again? ? next : break
+      player_score == 2 || dealer_score == 2 ? break : next
     else
       prompt "Dealer stays at #{dealer_total}."
     end
@@ -215,13 +214,12 @@ loop do # Main game loop.
     score_message(player_score, dealer_score)
 
     break if player_score == 2 || dealer_score == 2
-  end #end of first to 2 loop.
+  end # End of first to 2 loop.
 
   break unless play_again?
 end # End of game.
 
 prompt "Thank you for playing Twenty-One! Good bye!"
-
 
 =begin # LaunchSchool solution.
 
