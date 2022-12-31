@@ -345,6 +345,110 @@ end
 
 diamond_shape(7)
 
-6)
+6) Stack Machine Interpretation
+
+def minilang1(instructions)
+  register = 0
+  stack = []
+  instructions.split.each do |command|
+    case
+      when command.to_i.to_s == command then register = command.to_i
+      when command == "PUSH" then stack.push(register)
+      when command == "ADD" then register += stack.pop
+      when command == "SUB" then register -= stack.pop
+      when command == "MULT" then register *= stack.pop
+      when command == "DIV" then register /= stack.pop
+      when command == "MOD" then register %= stack.pop
+      when command == "POP" then register = stack.pop
+      when command == "PRINT" then p register
+    end
+  end
+end
+
+# Restructured case statement.
+
+def minilang(instructions)
+  register = 0
+  stack = []
+  instructions.split.each do |command|
+    case command
+      when "PUSH"  then stack.push(register)
+      when "ADD"   then register += stack.pop
+      when "SUB"   then register -= stack.pop
+      when "MULT"  then register *= stack.pop
+      when "DIV"   then register /= stack.pop
+      when "MOD"   then register %= stack.pop
+      when "POP"   then register = stack.pop
+      when "PRINT" then p register
+      else              register = command.to_i
+    end
+    #binding.pry
+  end
+end
+
+p minilang('PRINT')
+# 0
+
+p minilang('5 PUSH 3 MULT PRINT')
+# 15
+
+p minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
+# 5
+# 3
+# 8
+
+p minilang('5 PUSH POP PRINT')
+# 5
+
+p minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
+# 5
+# 10
+# 4
+# 7
+
+p minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
+# 6
+
+p minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
+# 12
+
+p minilang('-3 PUSH 5 SUB PRINT')
+# 8
+
+p minilang('6 PUSH')
+# (nothing printed; no PRINT commands)
+
+# Further Exploration (3 + (4 * 5) - 7) / (5 % 3)
+# Still need to add error handling for empty stack.
+
+p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
+
+7) Word to Digit
+
 
 =end
+
+# def word_to_digit(string)
+#   p string.split(/[^A-Za-z]/)
+#   string.split(/[^A-Za-z]/).map! do |word|
+#     case word.downcase
+#       when "one" then "1"
+#       when "two" then "2"
+#       when "three" then "3"
+#       when "four" then "4"
+#       when "five" then "5"
+#       when "six" then "6"
+#       when "seven" then "7"
+#       when "eight" then "8"
+#       when "nine" then "9"
+#       when "zero" then "0"
+#       else             word
+#     end
+#   end.join(" ")
+# end
+
+def word_to_digit(string)
+  string.gsub!()
+end
+
+p word_to_digit('Please call me at five five five one two three four. Thanks.')# == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
