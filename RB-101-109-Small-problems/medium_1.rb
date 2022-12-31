@@ -423,32 +423,89 @@ p minilang('6 PUSH')
 
 p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
 
-7) Word to Digit
+7) Word to Digit # Need to revisit, lots of REGEX.
+
+WORDS = %w(one two three four five six seven eight nine zero)
+NUMS = %w(1 2 3 4 5 6 7 8 9 0)
+
+WORD_KEYS = WORDS.zip(NUMS).to_h
+
+def word_to_digit(string)
+  string.gsub!(/(one|two|three|four|five|six|seven|eight|nine|zero)/) { |match| WORD_KEYS[match]}
+end
+
+# Or using key-value pairs from the hash and checking against string
+
+def word_to_digit1(string)
+  WORD_KEYS.each do |word, integer|
+    string.gsub!(/\b#{word}\b/, integer)
+    # "\b" to limit the match to full strings, aoviding "freight" => "fr8" for example.
+  end
+  string
+end
+
+# word_to_digit1('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
+# Further exploration, replace uppercase and capitalized word-numbers as well.
+
+def word_to_digit2(string)
+  WORD_KEYS.each do |word, integer|
+    string.gsub!(/\b#{word}\b/i, integer)
+    # "\b...\b" to limit the match to full strings, aoviding "freight" => "fr8" for example.
+    # "/i" to make case-insensitive.
+  end
+  string
+end
+
+# word_to_digit2('Please call me at five Five fIve one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
+# Further exploration, remove spaces between consecutive numbers.
+
+def word_to_digit3(string)
+  WORD_KEYS.each do |word, integer|
+    string.gsub!(/\b#{word}\b/i, integer)
+    # "\b...\b" to limit the match to full strings, aoviding "freight" => "fr8" for example.
+    # "/i" to make case-insensitive.
+  end
+  remove_spaces_between_digits(string)
+end
+
+def remove_spaces_between_digits(str)
+  WORD_KEYS.values.each do |integer|
+    str.gsub!(/#{integer}\s/, integer) #removes single space after a number.
+  end
+  str
+end
+
+p word_to_digit3('Please call me at one two three five Five fIve one two three four. Thanks.') == 'Please call me at 1235551234. Thanks.'
+
+#Further exploration, format 10 digit phone number.
+
+def word_to_digit4(string)
+  WORD_KEYS.each do |word, integer|
+    string.gsub!(/\b#{word}\b/i, integer)
+    # "\b...\b" to limit the match to full strings, aoviding "freight" => "fr8" for example.
+    # "/i" to make case-insensitive.
+  end
+  format_phone(remove_spaces_between_digits(string))
+end
+
+def remove_spaces_between_digits(str)
+  WORD_KEYS.values.each do |integer|
+    str.gsub!(/#{integer}\s/, integer) #removes single space after a number.
+  end
+  str
+end
+
+def format_phone(string)
+  string.gsub!(/(\d{3})(\d{3})(\d{4})/, '(\1)\2-\3')
+end
+
+p word_to_digit4('Please call me at one two three five Five fIve one two three four. Thanks.') #== 'Please call me at (123)555-1234. Thanks.'
+
+8) Fibonacci Numbers (Recursion)
+
 
 
 =end
 
-# def word_to_digit(string)
-#   p string.split(/[^A-Za-z]/)
-#   string.split(/[^A-Za-z]/).map! do |word|
-#     case word.downcase
-#       when "one" then "1"
-#       when "two" then "2"
-#       when "three" then "3"
-#       when "four" then "4"
-#       when "five" then "5"
-#       when "six" then "6"
-#       when "seven" then "7"
-#       when "eight" then "8"
-#       when "nine" then "9"
-#       when "zero" then "0"
-#       else             word
-#     end
-#   end.join(" ")
-# end
-
-def word_to_digit(string)
-  string.gsub!()
-end
-
-p word_to_digit('Please call me at five five five one two three four. Thanks.')# == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
