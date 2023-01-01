@@ -205,9 +205,5 @@ When you have a bigger board, you can perhaps add more than 2 players. Would it 
   added inner scorekeeping looping to break if score is +_, also modified next/break clauses to check score.
 5) Added consts to determine game goal and dealer hit/stay threshold.
 
-######################################## Assignment: Twenty-One Bonues Features ########################################
-
-
-
 =end
 

@@ -503,11 +503,7 @@ end
 
 p word_to_digit4('Please call me at one two three five Five fIve one two three four. Thanks.') #== 'Please call me at (123)555-1234. Thanks.'
 
-8) Fibonacci Numbers (Recursion)
-
-
-
-=end
+8) Fibonacci Numbers (Recursion) # Worth revisiting. #####################
 
 def fibonacci(num)
   return num if num <= 2
@@ -521,3 +517,90 @@ p fibonacci(4) == 3
 p fibonacci(5) == 5
 p fibonacci(12) == 144
 p fibonacci(20) == 6765
+
+9) Fibonacci Numbers (Procedural)
+
+def fibonacci(num)
+  results = []
+  num.times do
+    # p results
+    if results.empty?
+      results << 1
+    elsif results.size < 2
+      results << 1
+    else
+      results << results[-1] + results[-2]
+    end
+  end
+  results.last
+end
+
+# or
+
+def fibonacci1(num)
+  first, last = [1,1]
+  3.upto(num) do
+    first, last = [last, first + last]
+  end
+  last
+end
+
+p fibonacci1(4)
+p fibonacci1(20)
+p fibonacci(20) == 6765
+p fibonacci(100) == 354224848179261915075
+
+10) Fibonacci Numbers (Last Digit)
+
+def fibonacci(num)
+  first, last = [1,1]
+  3.upto(num) do
+    first, last = [last, first + last]
+  end
+  last
+end
+
+def fibonacci_last(num) # Struggle with larger numbers
+  fibonacci(num).to_s[-1].to_i
+end
+
+def fibonacci_last1(num) # Much faster with larger numbers, calculating only the last digit each round.
+  last_2 = [1,1]
+  3.upto(num) do
+    last_2 = [last_2.last, (last_2.first+last_2.last)%10]
+  end
+  last_2.last
+end
+
+p fibonacci_last1(15)        # -> 0  (the 15th Fibonacci number is 610)
+p fibonacci_last1(20)        # -> 5 (the 20th Fibonacci number is 6765)
+p fibonacci_last1(100)       # -> 5 (the 100th Fibonacci number is 354224848179261915075)
+p fibonacci_last1(100_001)   # -> 1 (this is a 20899 digit number)
+p fibonacci_last1(1_000_007) # -> 3 (this is a 208989 digit number)
+p fibonacci_last1(123456789) # -> 4
+
+# Further Exploration, speeding up the process by using the sequence of last repeating numbers every 60 fibs.
+
+def fibonacci(num)
+  first, last = [1,1]
+  3.upto(num) do
+    first, last = [last, first + last]
+  end
+  last
+end
+
+FIBONACCI_SEQUENCE = 60.times.to_a.map do |idx|
+  num = idx + 1
+  fibonacci(num).digits[0]
+end
+
+def fibonacci_last2(num)
+  nth_fib_num = num % 60
+  idx = nth_fib_num - 1
+  FIBONACCI_SEQUENCE[idx]
+end
+
+p fibonacci_last2(100)
+p fibonacci_last2(123456789) # -> 4
+
+=end
