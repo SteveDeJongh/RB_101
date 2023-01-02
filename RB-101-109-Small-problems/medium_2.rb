@@ -6,8 +6,6 @@ require 'pry'
 
 1) Longest Sentence
 
-=end
-
 text1 = 'Four score and seven years ago our fathers brought forth
 on this continent a new nation, conceived in liberty, and
 dedicated to the proposition that all men are created
@@ -40,11 +38,76 @@ of freedom -- and that government of the people, by
 the people, for the people, shall not perish from the
 earth.'
 
-def longested_sentence(text)
+def longest_sentence(text)
   sentences = text.split('.'||'!'||'?') # could be changed to regex "/\.|\?|\!/"
   sentences.map do |x|
     x.split.size
   end.sort[-1]
 end
 
-p longested_sentence(text1)
+# Or
+
+def longest_sentence1(text)
+  sentences = text.split(/\.|\!|\?/)
+  longest_sentence = sentences.max_by {|sentence| sentence.split.size}
+  longest_sentence_size = longest_sentence.split.size
+  longest_sentence = longest_sentence.strip # #strip removes leading and trailing whitespace
+  p "#{longest_sentence}"
+  p "Containing #{longest_sentence_size} words"
+end
+
+#longest_sentence1(text1)
+
+# Further exploration, keep end of sentence punctuation in result string.
+
+def longest_sentence_with_punc(text)
+  sentences = text.split(/(?<=[.!?])/)
+  longest_sentence = sentences.max_by {|sentence| sentence.split.size}
+  longest_sentence_size = longest_sentence.split.size
+  longest_sentence = longest_sentence.strip # #strip removes leading and trailing whitespace
+  p "#{longest_sentence}"
+  p "Containing #{longest_sentence_size} words"
+end
+
+#longest_sentence_with_punc(text1)
+
+# Further exploration, longest word or longest paragraph?
+
+def longest_word(text)
+  words = text.split()
+  longest_word = words.max_by {|word| word.size}
+  longest_word_size = longest_word.size
+  p "#{longest_word}"
+  p "Containing #{longest_word_size} characters"
+end
+
+longest_word(text1)
+
+# By largest paragraph
+
+def longest_paragraph(text)
+  paragraph = text.split(/\n\n/) # split on 2 new lines characters for paragraph.
+  longest_paragraph = paragraph.max_by { |paragraph| paragraph.split().size }
+  longest_paragraph_size = longest_paragraph.split.size
+  p "#{longest_paragraph}"
+  p "Contain #{longest_paragraph_size} words."
+end
+
+longest_paragraph(text1)
+
+2) Now I Know My ABCs
+
+
+
+=end
+
+# Letter blocks:
+
+# B:O   X:K   D:Q   C:P   N:A
+# G:T   R:E   F:S   J:W   H:U
+# V:I   L:Y   Z:M
+
+def block_word?(word)
+
+end
+
