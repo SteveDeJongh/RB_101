@@ -247,15 +247,13 @@ p all_chars_balanced?("What's wrong' ( )with you ?") == true
 
 5) Triangle Sides
 
-=end
-
 def triangle(num1, num2, num3) # Brute force comparison
   sorted_measurements = [num1, num2, num3].sort
   return :invalid if (sorted_measurements[0]+sorted_measurements[1]) < sorted_measurements[2]
   return :invalid if num1 <= 0 || num2 <= 0 || num3 <= 0
   return :equilateral if num1 == num2 && num1 == num3
-  return :isosceles if sorted_measurements[0] == sorted_measurements[1] || sorted_measurements[1] == sorted_measurements[2]
-  return :scalene if num1 != num2 || num1 != num3 || num2 != num3
+  return :isosceles if num1 == num2 || num1 == num3 || num2 == num3
+  return :scalene if num1 != num2 && num1 != num3 && num2 != num3
 
 end
 
@@ -264,3 +262,186 @@ p triangle(3, 3, 1.5) == :isosceles
 p triangle(3, 4, 5) == :scalene
 p triangle(0, 3, 3) == :invalid
 p triangle(3, 1, 1) == :invalid
+
+# or
+
+def triangle1(side1, side2, side3)
+  sides = [side1, side2, side3]
+  largest_side = sides.max
+
+  case
+  when 2 * largest_side >= sides.reduce(:+), sides.include?(0) # 2 seperate case possibilities, not chained.
+    :invalid
+  when side1 == side2 && side2 == side3
+    :equilateral
+  when side1 == side2 || side1 == side3 || side2 == side3
+    :isosceles
+  else
+    :scalene
+  end
+end
+
+p triangle1(3, 3, 3) == :equilateral
+p triangle1(3, 3, 1.5) == :isosceles
+p triangle1(3, 4, 5) == :scalene
+p triangle1(0, 3, 3) == :invalid
+p triangle1(3, 1, 1) == :invalid
+
+6) Tri-Angles
+
+def triangle(deg1, deg2, deg3)
+  angles = [deg1, deg2, deg3]
+  case
+  when angles.include?(0) || angles.reduce(:+) != 180
+    :invalid
+  when angles.include?(90)
+    :right
+  when deg1 < 90 && deg2 < 90 && deg3 < 90 # or written as: angles.all? { |angle| angle < 90 }
+    :acute
+  else
+    :obtuse
+  end
+end
+
+p triangle(60, 70, 50) == :acute
+p triangle(30, 90, 60) == :right
+p triangle(120, 50, 10) == :obtuse
+p triangle(0, 90, 90) == :invalid
+p triangle(50, 50, 50) == :invalid
+
+7) Unlucky Days
+
+def friday_13th(year) # This method loops over every single day which works, but is unnecessary.
+  start_date = Time.new(year,1,1)
+  fridays = 0
+
+  loop do
+    if start_date.friday? && start_date.day == 13
+      fridays += 1
+      start_date += 86400
+    else
+      start_date += 86400
+    end
+    break if start_date.year != year
+  end
+  fridays
+end
+
+p friday_13th(2015) == 3
+p friday_13th(1986) == 1
+p friday_13th(2019) == 2
+
+# or
+
+require 'date' # require date as the "date" class is not part of the core library.
+
+def friday_13th1(year)
+  bad_days = 0
+  thirteenth = Date.civil(year, 1, 13)
+  12.times do
+    bad_days += 1 if thirteenth.friday?
+    thirteenth = thirteenth.next_month
+  end
+  bad_days
+end
+
+p friday_13th1(2015) == 3
+p friday_13th1(1986) == 1
+p friday_13th1(2019) == 2
+
+# Further Exploration, count number of months that have 5 fridays. Brute force
+
+def five_fridays(year)
+  start_date = Date.civil(year,1,1)
+  count = 1
+  five_fridays = 0
+
+  12.times do
+    fridays = 0
+    loop do
+      break if start_date.month == count + 1 || start_date.year == year + 1
+      fridays += 1 if start_date.friday?
+      start_date = start_date.next_day
+    end
+    count += 1
+    five_fridays += 1 if fridays >= 5
+  end
+  five_fridays
+end
+
+p five_fridays(2015)
+
+# checking for leap year, iterating over every day, and adding to a hash with a default value.
+
+def five_fridays1(year)
+  days_in_year = Date.leap?(year) ? 366 : 365
+  num_fridays = Hash.new(0)
+  day = Date.new(year)
+
+  days_in_year.times do
+    num_fridays[day.mon] += 1 if day.friday?
+    day += 1
+  end
+  num_fridays.values.count(5)
+end
+
+p five_fridays1(2015)
+
+8) Next Featured Number Higher than a Given Value
+
+def featured(num) # Brute force.
+  next_featured_num = nil
+  curr_num = num
+
+  loop do
+    curr_num += 1
+    if curr_num % 7 == 0 && curr_num.odd? && curr_num.digits.uniq! == nil
+      next_featured_num = curr_num
+    elsif curr_num > 9999999999
+      next_featured_num = "Error"
+    end
+    break if next_featured_num != nil
+  end
+  next_featured_num
+end
+
+p featured(12) == 21
+p featured(20) == 21
+p featured(21) == 35
+p featured(997) == 1029
+p featured(1029) == 1043
+p featured(999_999) == 1_023_547
+p featured(999_999_987) == 1_023_456_987
+
+p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+
+
+def featured1(number)
+  number += 1
+  number += 1 until number.odd? && number % 7 == 0
+
+  loop do
+    number_chars = number.to_s.split('')
+    return number if number_chars.uniq == number_chars
+    number += 14
+    break if number >= 9_876_543_210
+  end
+  
+  'Error, no possible further featured number.'
+end
+
+p featured1(12) == 21
+p featured1(20) == 21
+p featured1(21) == 35
+p featured1(997) == 1029
+p featured1(1029) == 1043
+p featured1(999_999) == 1_023_547
+p featured1(999_999_987) == 1_023_456_987
+
+p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+
+9) Bubble Sort
+
+
+=end
+
