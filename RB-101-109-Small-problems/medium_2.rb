@@ -440,8 +440,42 @@ p featured1(999_999_987) == 1_023_456_987
 
 p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
-9) Bubble Sort
+9) Bubble Sort # revisit
 
+def bubble_sort!(array)
+  loop do
+    swapped = false
+    1.upto(array.size - 1) do |index|
+      next if array[index - 1] <= array[index]
+      array[index-1], array[index] = array[index], array[index-1]
+      swapped = true
+    end
+    break unless swapped
+  end
+end
+
+p bubble_sort!([3,2,1])
+arr = [3,2,1]
+p bubble_sort!(arr)
+p arr
+
+10) 
 
 =end
 
+def bubble_sort!(array)
+  loop do
+    swapped = false
+    1.upto(array.size - 1) do |index|
+      next if array[index - 1] <= array[index]
+      array[index-1], array[index] = array[index], array[index-1]
+      swapped = true
+    end
+    break unless swapped
+  end
+end
+
+p bubble_sort!([3,2,1])
+arr = [3,2,1]
+p bubble_sort!(arr)
+p arr
