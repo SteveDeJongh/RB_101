@@ -454,28 +454,28 @@ def bubble_sort!(array)
   end
 end
 
-p bubble_sort!([3,2,1])
 arr = [3,2,1]
 p bubble_sort!(arr)
 p arr
 
-10) 
+10) Sum Square - Square Sum
 
-=end
+def sum_square_difference(num)
+  sum_of_num = 0
+  sum_of_square = 0
 
-def bubble_sort!(array)
-  loop do
-    swapped = false
-    1.upto(array.size - 1) do |index|
-      next if array[index - 1] <= array[index]
-      array[index-1], array[index] = array[index], array[index-1]
-      swapped = true
-    end
-    break unless swapped
+  1.upto(num) do |count|
+    sum_of_num += count
+    sum_of_square += count**2
   end
+
+  sum_of_num**2 - sum_of_square
 end
 
-p bubble_sort!([3,2,1])
-arr = [3,2,1]
-p bubble_sort!(arr)
-p arr
+p sum_square_difference(3) == 22
+   # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+p sum_square_difference(10) == 2640
+p sum_square_difference(1) == 0
+p sum_square_difference(100) == 25164150
+
+=end

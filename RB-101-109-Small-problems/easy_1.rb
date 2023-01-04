@@ -1,231 +1,318 @@
 =begin
-1.
-def repeat(string, times)
-  times.times do
+1) Repeat Yourself
+
+def repeat(string, number)
+  number.times do
     puts string
   end
 end
 
 repeat("Hello world!", 5)
 
-2.
-def check_odd?(num)
-  num % 2 == 0 ? "false" : "True"
-end
+2) Odd
 
-puts check_odd?(30)
-puts check_odd?(4)
-puts check_odd?(3)
-
-# Remember assignment vs equality.
-simpler version
-
-def check_odd?(num)
+def is_odd?(num)
   num % 2 == 1
 end
 
-Further exploration, using remainder instead of modulo.
+puts is_odd?(2)    # => false
+puts is_odd?(5)    # => true
+puts is_odd?(-17)  # => true
+puts is_odd?(-8)   # => false
+puts is_odd?(0)    # => false
+puts is_odd?(7)    # => true
 
-def check_odd?(num)
+# Further Exploration, use remainder instead of modulo.
+
+def is_odd1?(num)
   num.remainder(2) != 0
 end
 
-puts check_odd?(8)
+puts is_odd1?(2)    # => false
+puts is_odd1?(5)    # => true
+puts is_odd1?(-17)  # => true
+puts is_odd1?(-8)   # => false
+puts is_odd1?(0)    # => false
+puts is_odd1?(7)    # => true
 
-3.
-def digit_list(num)
-  p num.digits.reverse
-end
-
-puts digit_list(12345) == [1,2,3,4,5]
-puts digit_list(98765) == [9,8,7,6,5]
-
-alternate solutions:
-def digit_list(number)
-  digits = []
-  loop do
-    number, remainder = number.divmod(10)
-    digits.unshift(remainder)
-    break if number == 0
-  end
-  digits
-end
-or
-def digit_list(number)
-  number.to_s.chars.map(&:to_i)
-end
-
-4.
-vehicles = [
-  'car', 'car', 'truck', 'car', 'SUV', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
-
-def count_occurrences(array)
-  array.tally
-end
-puts count_occurrences(vehicles)
-
-or:
-
-def count_occurrences(array)
-  occurrences = {}
-
-  array.uniq.each do |element|
-    occurrences[element] = array.count(element)
-  end
-
-  occurrences.each do |element, count|
-    puts "#{element} => #{count}"
-  end
-end
-count_occurrences(vehicles)
-
-5.
-string = "Am i backwards?"
-
-def reverse_sentence(string)
-  splitString = string.split
-  new_string = splitString.reverse.join(" ")
-end
-puts reverse_sentence(string)
-
-puts reverse_sentence("Hello World") == "World Hello"
-puts reverse_sentence("Reverse these words") == "words these Reverse"
-puts reverse_sentence("") == ""
-puts reverse_sentence("    ") == ""
-
-Cleaner:
-
-def reverse_sentence(string)
-  string.split.reverse.join(' ')
-end
-
-6.
-def reverse_it(string)
-  newString = string.split
-  newString.each do |word|
-    if word.length >= 5
-      word.reverse!
-    end
-  end
-  newString = newString.join(" ")
-end
-
-puts reverse_it("Professional")
-puts reverse_it("Walk around the block")
-puts reverse_it("Launch School")
-
-#cleaner code:
-
-def reverse_words(string)
-  words =[]
-  
-  string.split.each do |word|
-    word.reverse! if word.length >=5 #.length and .size are the same.
-    words << word
-  end
-  words.join(" ")
-end
-
-puts reverse_words("Launch School")
-
-7.
+3) Stringy Strings
 
 def stringy(num)
-  string = ""
-  while num > 0
-    if string.end_with?('1')
-      string << '0'
-    else
-      string << '1'
-    end
-   num -= 1
+  string = ''
+  num.times do |index|
+    index.even? ? string << '1' : string << '0'
   end
-  return string
+  string
 end
 
-puts stringy(6)
-puts stringy(9)
-puts stringy(4)
-puts stringy(7)
+puts stringy(6) == '101010'
+puts stringy(9) == '101010101'
+puts stringy(4) == '1010'
+puts stringy(7) == '1010101'
 
-#cleaner using indx.times. .times starts at 0 (not a countdown) so we know it'll start even.
+# Further Exploration, addition argument for starting value.
 
-def stringyy(size)
-  numbers = []
-
-  size.times do |index|
-    number = index.even? ? 1 : 0
-    numbers << number
-  end
-  numbers.join
-end
-
-puts stringyy(11)
-
-Further exploration, adding second argument with default parameter.
-
-def stringyy(size, deff = "0")
-  numbers = []
-
-  size.times do |index|
-    if deff == 0
-      number = index.odd? ? 1 : 0
-      numbers << number
+def stringy_start(num, start = "0")
+  string = ''
+  num.times do |index|
+    if start == "1"
+    index.even? ? string << '1' : string << '0'
     else
-      number = index.even? ? 1 : 0
-      numbers << number
+    index.odd? ? string << '1' : string << '0'
     end
   end
-  numbers.join
+  string
 end
 
-puts stringyy(11)
-puts stringyy(11,0)
+puts stringy_start(6, "1") == '101010'
+puts stringy_start(9, "0") == '010101010'
+puts stringy_start(4) == '0101'
+puts stringy_start(7, "1") == '1010101'
 
-8.
-array= [1,2,3,4,5,2]
+4) What's my Bonus?
 
-def average(array)
-  sum = array.sum
-  count =  array.count
-  return sum/count
-end
-#Shorter hand
-def averagee(array)
-  array.sum / array.length
-end
-#With Reduce.
-def averagee(array)
-  sum = array.reduce {|sum, n| sum + n}
-  count = array.length.to_f
-  return sum/count
-end
-#add a .to_f to get more accurate average.
-puts averagee(array)
-
-9.
-def sum_digits(num)
-  snum = num.to_s.split(//).map!(&:to_i) #.map(&:to_i) is the same as .map{|elmnt| elment.to_i}
-  return snum.sum
+def calculate_bonus(salary, bonus)
+  bonus ? (salary / 2) : 0
 end
 
-puts sum_digits(28)
+puts calculate_bonus(2800, true) == 1400
+puts calculate_bonus(1000, false) == 0
+puts calculate_bonus(50000, true) == 25000
 
-#Or with a loop
+5) Bannerizer
 
-def sum_digits(num)
-  sum = 0
-  str_digits = num.to_s.chars
+def print_in_box(message)
+  width = message.length
+  puts "+#{'-'*(width+2)}+"
+  puts "|#{' '*(width+2)}|"
+  puts "| #{message} |"
+  puts "|#{' '*(width+2)}|"
+  puts "+#{'-'*(width+2)}+"
+end
 
-  str_digits.each do |num|
-    sum += num.to_i
+# Or with preset lines for top and bottom.
+
+def print_in_box(message)
+  horizontal_rule = "+#{'-'*(message.size + 2)}+"
+  empty_line = "|#{' ' * (message.size + 2)}|"
+
+  puts horizontal_rule
+  puts empty_line
+  puts "| #{message} |"
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box('To boldly go where no one has gone before.')
+print_in_box('')
+
+# Further Exploration, truncate to 80 characters.
+
+def print_in_box_trunc(message)
+  if message.size > 76
+    message.slice!(77..-1)
   end
-  sum
+  horizontal_rule = "+#{'-'*(message.size + 2)}+"
+  empty_line = "|#{' ' * (message.size + 2)}|"
+
+  puts horizontal_rule
+  puts empty_line
+  puts "| #{message} |"
+  puts empty_line
+  puts horizontal_rule
 end
 
-puts sum_digits(28)
+
+print_in_box_trunc('To boldly go where no one has gone before. Or will it? Because i am a loooooong string!')
+print_in_box_trunc('To boldly go where no one has gone before.')
+print_in_box_trunc('')
+
+# Further Exploration, word wrap messages longer than 80 characters.
+
+def print_in_box_wrap(message)
+  message_sections = []
+
+  until message.size == 0
+    message_sections << message.slice!(0..76)
+  end
+  
+  message_size = 0
+  if message_sections.empty?
+    message_size = 0
+  else
+    message_size = message_sections.sort[0].size
+  end
+
+  horizontal_rule = "+#{'-'*(message_size + 2)}+"
+  empty_line = "|#{' ' * (message_size + 2)}|"
+
+  puts horizontal_rule
+  puts empty_line
+  if message_sections.size >= 2
+    message_sections.each do |x|
+      puts "| #{x} |" unless x == message_sections.last
+    end
+    puts "| #{message_sections.last}#{' ' * (78 - message_sections.last.size)}|"
+  else
+    puts "| #{message_sections[0]} |"
+  end
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box_wrap('To boldly go where no one has gone before. Or will it? Because i am a loooooong string! Heck im even longer than i thought i was, maybe the longest, who knows')
+print_in_box_wrap('To boldly go where no one has gone before.')
+print_in_box_wrap('')
+
+6) Right Triangles
+
+def triangle(num)
+  1.upto(num) do |count|
+    puts "#{' ' * (num-count)}#{'*'*(count)}"
+  end
+end
+
+# or 
+
+def triangle1(num)
+  spaces = num - 1
+  stars = 1
+
+  num.times do |n|
+    puts (' ' * spaces) + ('*' * stars)
+    spaces -= 1
+    stars += 1
+  end
+end
+
+triangle1(5)
+triangle1(10)
+
+# Further Exploraton, modify solution to display right angle to any corner of the grid.
+
+def triangle_with_direction(num, dir)
+  case dir
+  when "NE"
+    spaces = num - 1
+    stars = 1
+
+    num.times do |n|
+      puts (' ' * spaces) + ('*' * stars)
+      spaces -= 1
+      stars += 1
+    end
+  when "SE"
+    spaces = 0
+    stars = num
+
+    num.times do |n|
+      puts (' ' * spaces) + ('*' * stars)
+      spaces += 1
+      stars -= 1
+    end
+  when "NW"
+    stars = 1
+
+    num.times do |n|
+      puts ('*' * stars)
+      stars += 1
+    end
+  when "SW"
+    stars = num
+
+    num.times do |n|
+      puts ('*' * stars)
+      stars -= 1
+    end
+  end
+end
+
+triangle_with_direction(5,"NE")
+triangle_with_direction(5,"SE")
+triangle_with_direction(5,"NW")
+triangle_with_direction(5,"SW")
+
+7) Madlibs
+
+def prompt(message)
+  puts "==> #{message}"
+end
+
+def madlibs
+  prompt "Enter a noun:"
+  noun = gets.chomp
+  prompt "Enter a verb:"
+  verb = gets.chomp
+  prompt "Enter an adjective:"
+  adjective = gets.chomp
+  prompt "Enter an adverb:"
+  adverb = gets.chomp
+  
+  sentences = []
+  sentences << "Do you #{verb} your #{adjective} #{noun} #{adverb}? That's hilarious!"
+  sentences << "The #{adjective} #{noun} #{verb}s #{adverb} over the lazy dog."
+  sentences << "The #{noun} #{adverb} #{verb}s up #{adjective} Joe's turtle."
+
+  puts sentences.sample
+end
+
+madlibs
+
+8) Reverse the Digits in a Number
+
+def reversed_number(num)
+  num.digits.join.to_i
+end
+
+# Or
+
+def reversed_number(num)
+  string = num.to_s
+  reversed_string = string.reverse
+  reversed_string.to_i
+end
+
+p reversed_number(12345) == 54321
+p reversed_number(12213) == 31221
+p reversed_number(456) == 654
+p reversed_number(12000) == 21 # No leading zeros in return value!
+p reversed_number(12003) == 30021
+p reversed_number(1) == 1
+
+9) Get Middle Character
+
+def center_of(string)
+  length = string.size
+  middle = 0
+  chars = 0
+  if length.odd?
+    chars = 1
+    middle = length / 2
+  else
+    chars = 2
+    middle = (length / 2) - 1
+  end
+
+  string.slice(middle, chars)
+end
+
+# Or
+
+def center_of(string)
+  center_of_string = string.size / 2
+  if string.size.odd?
+    string[center_of_string]
+  else
+    string[center_of_string - 1, 2]
+  end
+end
+
+
+p center_of('I love ruby') == 'e'
+p center_of('Launch School') == ' '
+p center_of('Launch') == 'un'
+p center_of('Launchschool') == 'hs'
+p center_of('x') == 'x'
 
 10.
 def calculate_bonus(salary, torf)
