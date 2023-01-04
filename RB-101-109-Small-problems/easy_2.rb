@@ -2,7 +2,13 @@
 
 =begin
 
-1.
+1) How old is Teddy?
+
+age = rand(20..200)
+puts "Teddy is #{age} years old!"
+
+# Or
+
 def name_and_age
   puts "=> Enter a name!"
   name = gets.chomp
@@ -10,73 +16,75 @@ def name_and_age
   puts "#{name} is #{age} years old!"
 end
 
-2.
+2) How big is the room?
+
 def room_size
-  puts "=> Enter the length of the room in meters:"
-  length = gets.chomp.to_i
-  puts "=> Enter the width of the room in meters:"
-  width = gets.chomp.to_i
-  areameters = (length * width).round(2)
-  areafeet = (areameters.to_f * 10.7639).round(2)
-  puts "The are of the room is #{areameters} square meters (#{areafeet} square feet)."
+  puts "==> Enter the length of the room in meters:"
+  length = gets.chomp.to_f
+  puts "==> Enter the width of the room in meters:"
+  width = gets.chomp.to_f
+  area_meters = length * width
+  area_feet = area_meters * 10.7639
+  puts "==> The area of the room is #{area_meters} square meters (#{area_feet.round(2)} square feet)."
 end
 
 room_size
 
-or
+# Further exploration, input measurements in feet and results in square feet, inches, and CM.
 
-Input chages to feet, display in square feet, inches and square cm.
+def room_size_in_feet
+  puts "==> Enter the length of the room in feet:"
+  length = gets.chomp.to_f
+  puts "==> Enter the width of the room in feet:"
+  width = gets.chomp.to_f
+  area_feet = (length * width).round(2)
+  area_inches = (area_feet * 144).round(2)
+  area_cm = (area_feet * 929.03).round(2)
+  puts "==> The area of the room is #{area_feet} square feet" + \
+       " (#{area_inches} square inches, and #{area_cm} square cm."
+end
 
-puts "=> What is the rooms width in feet?"
-widthfeet = gets.chomp.to_f
+room_size_in_feet
 
-puts "=> What is the rooms length in feet?"
-length = gets.chomp.to_f
+3) Tip Calculator
 
-squarefeet = (widthfeet * length).round(2)
-
-squareinches = (squarefeet * 144).round(2)
-
-squarecm = (squareinches * 6.4516).round(2)
-
-puts "The are of the room is #{squarefeet} Square feet, " + \
-     "#{squareinches} Square inches, and #{squarecm} Square Centimeters."
-
-
-name_and_age
-
-3.
 def prompt(message)
   puts "==> #{message}"
 end
 
-prompt("What is the bill?")
-bill = gets.chomp.to_f
+def tip_calculator
+  prompt "What is the bill?"
+  bill = gets.chomp.to_f
 
-prompt('What is your desired tip percentage?')
-tip_percent = gets.chomp.to_f
+  prompt "What is the tip percentage?"
+  percentage = gets.chomp.to_f
 
-tip = (bill * (tip_percent/100))
-total = bill + tip
+  tip = (bill * (percentage / 100)).round(2)
+  total = (bill + tip).round(2)
 
-prompt("The tip is $#{format("%0.2f", tip)}")
-prompt("The total bill is $#{format("%0.2f", total)}.")
+  puts "The tip is $#{format("%0.2f", tip)}."
+  puts "The total is $#{format("%0.2f", total)}."
+end
 
-4.
+tip_calculator
+
+4) When will I Retire?
+
 puts "=> What is your age?"
-age = gets.chomp.to_i
+age = gets.to_i
 
 puts "=> What age would you like to retire?"
-retirement_age = gets.chomp.to_i
+retirement_age = gets.to_i
 
 years_to_retirement = retirement_age - age
-year = Time.new.year
+year = Time.now.year
 retirement_year = year + years_to_retirement
 
 puts "It's #{year}. You will retire in #{retirement_year}."
 puts "You have only #{years_to_retirement} more years of work to go!"
 
-5.
+5) Greeting a user
+
 puts "=> What is your name?"
 name = gets.chomp
 
@@ -99,7 +107,16 @@ else
   puts "Hello #{name}."
 end
 
-6.
+6) Odd Numbers
+
+value = 1
+while value <= 99
+  puts value
+  value += 2
+end
+
+# Or
+
 (1..99).each do |num|
   if num.odd?
     p num
@@ -107,13 +124,14 @@ end
   end
 end
 
-# or
+# Or
 
 1.upto(99) do |num| 
   puts num % 2 != 0 ? num : next
 end
 
-7.
+7) Even Numbers
+
 array = (1..99).to_a
 
 array.select do |num|
@@ -126,7 +144,8 @@ while value <= 99
   value += 1
 end
 
-8.
+8) Sum or Product of Consecutive Integers
+
 puts "=>Please enter an integer graeter than 0:"
 user_num = gets.chomp.to_i
 
@@ -183,12 +202,39 @@ elsif operation.downcase == 'p'
   puts "The product of the ingerers between 1 and #{user_num} is #{product}."
 end
 
-9.
-BOB BOB
+9) String Assignment
+Output:
+BOB
+BOB
 
-10.
+String#upcase! mutates name in place, the value that save_name references.
 
+10) Always return negative
 
+def negative(num)
+  if num == 0
+    num
+  elsif num.to_s[0] == "-"
+    num
+  else
+    -num
+  end
+end
 
-=end 
+# Or
 
+def negative(num)
+  num > 0 ? -num : num
+end
+
+# Or using abs, which returns the numbers absolute value.
+
+def negative(num)
+  -num.abs
+end
+
+p negative(5) == -5
+p negative(-3) == -3
+p negative(0) == 0      # There's no such thing as -0 in ruby
+
+=end
