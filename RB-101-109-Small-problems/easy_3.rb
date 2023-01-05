@@ -1,7 +1,7 @@
 # Small Problems Easy 3
 
 =begin
-1.
+1) Searching 101
 numbers = []
 
 puts "=>Enter the 1st number:"
@@ -30,7 +30,8 @@ else
   puts "The number #{last_num} appears in #{numbers}."
 end
 
-2.
+2) Arithmic Integer
+
 puts "Enter the first number:"
 first_num = gets.chomp.to_i
 
@@ -44,7 +45,7 @@ puts "#{first_num} / #{second_num} = #{first_num/second_num}"
 puts "#{first_num} % #{second_num} = #{first_num%second_num}"
 puts "#{first_num} ** #{second_num} = #{first_num**second_num}"
 
-3.
+3) Counting the Number of Characters
 
 def prompt(message)
   puts "=> #{message}"
@@ -55,7 +56,8 @@ string = gets.chomp
 string_characters = string.delete(" ").length
 prompt("There are #{string_characters} in \"#{string}\".")
 
-4.
+4) Multiplying Two Numbers
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -74,7 +76,15 @@ result = multiply(number_1, number_2)
 
 prompt"The result of #{number_1} * #{number_2} is #{result}."
 
-5.
+# Further Exploration, what happens if the first argument is an Array.
+
+With Array multiplication, the element(s) are repeated inside of the array. 
+The repated elements reference the same objects as their originals.
+e.g. multiply([a,b],2) = [a,b,a,b]
+
+arr[1].upcase! will modify all B elements.
+
+5) Squaring an Argument
 
 def prompt(message)
   puts "=> #{message}"
@@ -91,18 +101,22 @@ end
 square(5) == 25
 square(-8) == 64
 
-def nth(num,n)
-  init_num = num
-  while n > 1 do
-    num = multiply(init_num, num)
-    n -= 1
+# Further exploration, "power to the nth"
+
+def power_to_the_nth(num, power)
+  power = power
+  result = num
+  while power > 1 do 
+    result *= num
+    power -= 1
   end
-  num
+  result
 end
 
-puts nth(2,4)
+p power_to_the_nth(2,3)
 
-6.
+6) Exclusive Or
+
 def xor1? (val1, val2)
   if val1 == true && val2 == false
     return true
@@ -113,7 +127,7 @@ def xor1? (val1, val2)
   end
 end
 
-#cleaner
+# Cleaner solution:
 
 def xor? (val1, val2)
   return true if val1 && !val2
@@ -121,13 +135,95 @@ def xor? (val1, val2)
   false
 end
 
+# Or
+
+def xor?(val1, val2)
+  !!((val1 && !val2) || (val2 && !val1)) # '!!' forces teh return value to a boolean.
+end
 
 p xor?(5.even?, 4.even?) == true
 p xor?(5.odd?, 4.odd?) == true
 p xor?(5.odd?, 4.even?) == false
 p xor?(5.even?, 4.odd?) == false
 
-7.
+7) Palindromic String (Part 1) (further exploration worthy of a revisit)
+
+def palindrome?(string)
+  string == string.reverse
+end
+
+p palindrome?('madam') == true
+p palindrome?('Madam') == false          # (case matters)
+p palindrome?("madam i'm adam") == false # (all characters matter)
+p palindrome?('356653') == true
+
+# Further Exploration, determine wether an array is a palindrome.
+
+def palindrome_array?(array)
+  array == array.reverse
+end
+
+p palindrome_array?([1,2,3,2,1]) == true
+
+# Further Exploration, write a method that determines whether an array or a string is palindromic.
+
+def palindrome_all?(input)
+  input == input.reverse
+end
+
+p palindrome_all?('madam') == true
+p palindrome_all?([1,2,3,4,2,1]) == false
+
+8) Palindromic String (Part 2)
+
+ALPHANUMERIC = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5
+  6 7 8 9 0)
+
+def palindrome?(input)
+  input == input.reverse
+end
+
+def ins_palindrome?(test)
+  clean_string = String.new
+  test.downcase.each_char { |char| clean_string << char if ALPHANUMERIC.include?(char) }
+  palindrome?(clean_string)
+end
+
+p ins_palindrome?("Madam, I'm Adam")
+
+# Or using delete
+
+def real_palindrome?(string)
+  string = string.downcase.delete('^a-z0-9')
+  palindrome?(string)
+end
+
+p real_paldinrome?("Madam, I'm Adam")
+
+9) Palindromic Numbers (revisit further eploration)
+
+def palindromic_number?(num)
+  num.to_s == num.to_s.reverse
+end
+
+p palindromic_number?(34543)
+p palindromic_number?(123210)
+
+10) Uppercase Check
+
+def uppercase?(string)
+  string == string.upcase
+end
+
+p uppercase?('t') == false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
+
+Extra )
+
 def oddities(arr)
   new_arr = []
   while arr.length > 0 do
@@ -157,49 +253,6 @@ def evenies(arr)
 end
 
 p evenies([1,2,3,4,5])
-
-8. (further exploration worthy of a revisit)
-
-def palindrome?(string)
-  return true if string.reverse == string
-  false
-end
-
-p palindrome?("madam")
-p palindrome?("Madam")
-
-def arr_same?(arr)
-  return true if arr.reverse == arr
-  false
-end
-
-p arr_same?([1,2,3,2,1])
-p arr_same?("madam")
-
-9.
-ALPHANUMERIC = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5
-  6 7 8 9 0)
-
-def palindrome?(input)
-  input == input.reverse
-end
-
-def ins_palindrome?(test)
-  clean_string = String.new
-  test.downcase.each_char { |char| clean_string << char if ALPHANUMERIC.include?(char) }
-  palindrome?(clean_string)
-end
-
-p ins_palindrome?("Madam, I'm Adam")
-
-10. (revisit further eploration)
-
-def palindromic_number?(num)
-  num.to_s == num.to_s.reverse
-end
-
-p palindromic_number?(34543)
-p palindromic_number?(123210)
 
 =end
 
