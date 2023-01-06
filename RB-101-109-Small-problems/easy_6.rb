@@ -281,7 +281,7 @@ end
 
 p merge_union([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
 
-7) Halvies
+7) Halvsies
 
 def halvsies(ar1)
   count = 0
