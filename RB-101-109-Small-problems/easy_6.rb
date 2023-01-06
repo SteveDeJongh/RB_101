@@ -1,7 +1,7 @@
 # RB101-RB109 Small problems; Easy 6
 
 =begin
-1. Revisit Further exploration.
+1) Cute Angles, Revisit Further exploration.
 
 DEGREE = "\xC2\xB0"
 
@@ -22,28 +22,41 @@ p dms(93.034773) == %(93°02'05")
 p dms(0) == %(0°00'00")
 p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
 
-# DEGREE = "\xC2\xB0"
-# MINUTES_PER_DEGREE = 60
-# SECONDS_PER_MINUTE = 60
-# SECONDS_PER_DEGREE = 3600
+# or
 
-# def dms(degree_float)
-#   total_seconds = (degree_float * SECONDS_PER_DEGREE).round
-#   degrees, remaining_seconds = total_seconds.divmod(SECONDS_PER_DEGREE)
-#   minutes, seconds = remaining_seconds.divmod(SECONDS_PER_MINUTE)
-#   format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
-# end
+MINUTES_PER_DEGREE = 60
+SECONDS_PER_MINUTE = 60
+SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
 
-# p dms(30)
+def dms(angle)
+  total_seconds = angle * SECONDS_PER_DEGREE
+  degrees, minutes = total_seconds.divmod(SECONDS_PER_DEGREE)
+  minutes, seconds = minutes.divmod(SECONDS_PER_MINUTE)
+  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+end
 
-# p dms(30) == %(30°00'00")
-# p dms(76.73) == %(76°43'48")
-# p dms(254.6) == %(254°36'00")
-# p dms(93.034773) == %(93°02'05")
-# p dms(0) == %(0°00'00")
-# p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+p dms(30) == %(30°00'00")
+p dms(76.73) == %(76°43'48")
+p dms(254.6) == %(254°36'00")
+p dms(93.034773) == %(93°02'05")
+p dms(0) == %(0°00'00")
+p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
 
-2.
+# Further Exploration, keep results in the 0-360 range.
+
+def dms(angle)
+  limit_angle = angle % 360
+  total_seconds = limit_angle * SECONDS_PER_DEGREE
+  degrees, minutes = total_seconds.divmod(SECONDS_PER_DEGREE)
+  minutes, seconds = minutes.divmod(SECONDS_PER_MINUTE)
+  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+end
+
+dms(400) == %(40°00'00")
+dms(-40) == %(320°00'00")
+dms(-420) == %(300°00'00")
+
+2) Delete vowels
 
 VOWELS = %(A E I O U a e i o u)
 
@@ -70,7 +83,7 @@ p remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
 p remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
 p remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
 
-3.
+3) Fibonnaci Number Location By Length
 
 #has trouble with last test? turns out it was due to the .digits method beign very slow. 
 #Change to to_s.size for speed.
@@ -114,31 +127,36 @@ p find_fibonacci_index_by_length(100) == 476
 p find_fibonacci_index_by_length(1000) == 4782
 p find_fibonacci_index_by_length(10000) == 47847
 
-4.
+4) Reversed Arrays (Part 1)
 
-list = [1, 2, 3, 4, 5]
+Reversed Array (Part 1)
 
-# re-assignment, not actually reverising list.
-
-def reverse_array(array)
-  length = array.size
-  counter = 0
-  new_arr = []
-
-  loop do |x|
-    new_arr.prepend(array.shift)
-    counter += 1
-    break if counter == length
+def reverse!(array)
+  array.length.times do |idx|
+    array.insert(idx, array.pop)
   end
-  array = new_arr
+  array
 end
 
-list = reverse_array(list)
-p list
+p list = [1,2,3,4]
+p result = reverse!(list)
+p result == [4, 3, 2, 1] # true
+p list == [4, 3, 2, 1] # true
+p list.object_id == result.object_id # true
 
-#changes list and uses parral assignment to swap values of right_index and left_index.
+p list = %w(a b e d c)
+p reverse!(list) == ["c", "d", "e", "b", "a"] # true
+p list == ["c", "d", "e", "b", "a"] # true
 
-list = [1, 2, 3, 4, 5]
+p list = ['abc']
+p reverse!(list) == ["abc"] # true
+p list == ["abc"] # true
+
+p list = []
+p reverse!(list) == [] # true
+p list == [] # true
+
+# Changes list and uses parral assignment to swap values of right_index and left_index.
 
 def reverse!(array)
   left_index = 0
@@ -154,11 +172,9 @@ end
 
 reverse!(list)
 
-p list
+5) Reversed Arrays (Part 2)
 
-5.
-
-def reverse!(array)
+def reverse(array)
  length = array.size
  counter = 0
  new_arr = []
@@ -177,6 +193,25 @@ def reverse(array)
   array.reverse_each { |x| result_arr << x}
   result_arr
 end
+
+# Or
+
+def reverse(array)
+  result = []
+  array.each { |x| result.unshift x }
+  result
+end
+
+p reverse([1,2,3,4]) == [4,3,2,1]          # => true
+p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+p reverse(['abc']) == ['abc']              # => true
+p reverse([]) == []                        # => true
+
+p list = [1, 3, 2]                      # => [1, 3, 2]
+p new_list = reverse(list)              # => [2, 3, 1]
+p list.object_id != new_list.object_id  # => true
+p list == [1, 3, 2]                     # => true
+p new_list == [2, 3, 1]                 # => true
 
 #or
 
@@ -215,7 +250,7 @@ end
 
 p reverse([1,2,3,4]) == [4,3,2,1]          # => true
 
-6.
+6) Combining Arrays
 
 def merge(arr1, arr2)
   result_arr = []
@@ -246,7 +281,7 @@ end
 
 p merge_union([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
 
-7.
+7) Halvies
 
 def halvsies(ar1)
   count = 0
@@ -280,12 +315,11 @@ p halvsies2([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
 p halvsies2([5]) == [[5], []]
 p halvsies2([]) == [[], []]
 
-8.
+8) Find the Duplicate
 
 def find_dup(array)
   array.find { |x| array.count(x) > 1}
 end
-
 
 p find_dup([1, 5, 3, 1]) == 1
 p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
@@ -299,7 +333,7 @@ p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
           40, 23, 71, 62, 73, 32, 43, 24,  4, 56,
           7,  34, 57, 74, 45, 11, 88, 67,  5, 58]) == 73
 
-9.
+9) Does My List Include This?
 
 def includee?(array, val)
   matching = false
@@ -312,6 +346,22 @@ def includee?(array, val)
   end
   matching
 end
+
+# Or
+
+def include?(array, match)
+  result = false
+  array.each do |element|
+    result = true if element == match
+  end
+  result
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
 
 #or
 
@@ -332,7 +382,19 @@ p include?([], 3) == false
 p include?([nil], nil) == true
 p include?([], nil) == false
 
-10.
+10) Mutation
+
+array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+array2 = []
+array1.each { |value| array2 << value }
+array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
+puts array2
+
+# The value.upcase! method will affect both Arr1 and arr2 as elements in both arrays point to the same object. The first
+# each loop copies a bunch of variable references from array1 to array2. When that loop completes, both arrays contain the
+# same string objects.
+
+Extra )
 
 def triangle(num)
   counter = num - 1
@@ -415,8 +477,4 @@ triangle_with_direction(6, "down")
 triangle_with_direction(6, "right")
 triangle_with_direction(6, "left")
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 20575e866e38069de6624b9d57ceaa5f988ce667
 =end
