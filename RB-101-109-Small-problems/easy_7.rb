@@ -1,7 +1,7 @@
 # RB101-RB109 - Small Problems - Easy 7
 
 =begin
-1.
+1) Combine Two Lists
 
 def interleave(a1, a2)
   results = []
@@ -37,8 +37,7 @@ end
 
 p interleave2([1, 2, 3], ['a', 'b', 'c']) == [1, 'a', 2, 'b', 3, 'c']
 
-2.
-
+2) Lettercase Counter
 
 UPPERCASE = ('A'..'Z').to_a
 LOWERCASE = ('a'..'z').to_a
@@ -57,7 +56,6 @@ def letter_case_count(string)
   end
   results
 end
-
 
 p letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
 p letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
@@ -101,7 +99,7 @@ p letter_case_count_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 
 p letter_case_count_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
 p letter_case_count_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
 
-3.
+3) Capitalize Words
 
 def word_cap1(string)
   res_string = string.split.map do |word|
@@ -116,7 +114,7 @@ def word_cap2(string)
   string.split.map(&:capitalize).join(' ')
 end
 
-# Further exploration, capitalizing first letter with #capitalize.
+# Further exploration, capitalizing first letter without #capitalize.
 
 def word_cap_no_capitalize_func(string)
   res_string = string.split.map! do |word|
@@ -130,7 +128,7 @@ p word_cap_no_capitalize_func('four score and seven') == 'Four Score And Seven'
 p word_cap_no_capitalize_func('the javaScript language') == 'The Javascript Language'
 p word_cap_no_capitalize_func('this is a "quoted" word') == 'This Is A "quoted" Word'
 
-4.
+4) Swap Case
 
 UPPERCASE = ('A'..'Z').to_a
 LOWERCASE = ('a'..'z').to_a
@@ -166,23 +164,43 @@ end
 p swapcase('CamelCase') == 'cAMELcASE'
 p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
 
-5.
+5) Staggered Caps (Part 1)
 
-# def staggered_case(str)
-#   counter = 0
-#   result = str.chars.map do |x|
-#     counter += 1
-#     if counter.odd?
-#       x.upcase
-#     else
-#       x.downcase    
-#     end
-#   end
-#   result.join
-# end
+def staggered_case1(str)
+  counter = 0
+  result = str.chars.map do |x|
+    counter += 1
+    if counter.odd?
+      x.upcase
+    else
+      x.downcase    
+    end
+  end
+  result.join
+end
 
+# Or
+
+def staggered_case(string)
+  swap = false
+  result = ''
+  string.chars.map do |char|
+    swap = !swap
+    if swap
+      result += char.upcase
+    else
+      result += char.downcase
+    end
+  end
+  result
+end
+
+p staggered_case('I Love Launch School!') #== 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
 # Further exploration, choosing to start uppercase or downcase.
+
 def staggered_case_choice(string:, start:)
   counter = start == 'first' ? 0 : 1
   result = string.chars.map do |x|
@@ -196,12 +214,30 @@ def staggered_case_choice(string:, start:)
   result.join
 end
 
+p staggered_case_choice(string: 'I Love Launch School!', start: 'first') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case_choice(string: 'ALL_CAPS', start: 'first') == 'AlL_CaPs'
+p staggered_case_choice(string: 'ignore 77 the 444 numbers', start: 'first') == 'IgNoRe 77 ThE 444 NuMbErS'
 
-p staggered_case(string: 'I Love Launch School!', start: 'second') #== 'I LoVe lAuNcH ScHoOl!'
-# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
-# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+# Or
 
-6.
+def staggered_case(string, start = false)
+  swap = start
+  result = ''
+  string.chars.map do |char|
+    swap = !swap
+    if swap
+      result += char.upcase
+    else
+      result += char.downcase
+    end
+  end
+  result
+end
+
+p staggered_case('I Love Launch School!', false) == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('I Love Launch School!', true) == 'i lOvE LaUnCh sChOoL!'
+
+6) Staggered Caps (Part 2)
 
 def staggered_case(str)
   counter = 0
@@ -225,7 +261,7 @@ def staggered_case1(str)
   result = ''
   need_upper = true
   str.chars.map do |x|
-    if x =~ /[A-Za-z]/ #checks if car is a letter.
+    if x =~ /[A-Za-z]/ #checks if char is a letter.
       if need_upper
         result += x.upcase
       else
@@ -245,7 +281,7 @@ p staggered_case1('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
 
 # Further exploration
 
-def staggered_case2(str:,first:)
+def staggered_case2(str:,include:)
   result = ''
   need_upper = true
   str.chars.map do |x|
@@ -257,7 +293,7 @@ def staggered_case2(str:,first:)
       end
       need_upper = !need_upper
     else
-      if first == 'true'
+      if include == 'true'
         need_upper = !need_upper
       end
       result += x
@@ -266,11 +302,10 @@ def staggered_case2(str:,first:)
   result
 end
 
-p staggered_case2(str: 'I Love Launch School!', first: 'true' ) == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case2(str: 'I Love Launch School!', first: 'false') == 'I lOvE lAuNcH sChOoL!'
+p staggered_case2(str: 'I Love Launch School!', include: 'true' ) == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case2(str: 'I Love Launch School!', include: 'false') == 'I lOvE lAuNcH sChOoL!'
 
-
-7.
+7) Multiplicative Average
 
 # multiply all numbers of an array together
 # divide result by number of entries in the array
@@ -301,7 +336,7 @@ p show_multiplicative_average1([3, 5])                # => The result is 7.500
 p show_multiplicative_average1([6])                   # => The result is 6.000
 p show_multiplicative_average1([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
 
-8.
+8) Multiply Lists
 
 def multiply_list(ar1, ar2)
   results = []
@@ -321,8 +356,15 @@ def multiply_list1(ar1, ar2) #using each_with_index
   results
 end
 
+# or
+
+def multiply_list(arr1,arr2)
+  arr1.zip(arr2).map { |array| array.inject(:*) }
+end
+
 p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
 p multiply_list1([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+p multiply_list2([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
 
 # Further exploration
 
@@ -332,8 +374,7 @@ end
   
 p multiply_list2([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
 
-
-9.
+9) Multiply All Pairs
 
 def multiply_all_pairs(ar1, ar2)
   results = []
@@ -353,12 +394,11 @@ end
 
 p multiply_all_pairs1([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 
-10.
+10) The End Is Near But Not Here
 
 def penultimate(string)
   string.split()[-2]
 end
-
 
 # p penultimate('last word') == 'last'
 # p penultimate('Launch School is great!') == 'is'
@@ -380,5 +420,68 @@ p middle('') == nil
 p middle('middle last word') == 'last'
 p middle('Launch School is great!') == nil
 p middle('middle last wonderful true word') == 'wonderful'
+
+11) How Many
+
+def count_occurrences(array)
+  count = Hash.new(0)
+
+  array.each do |type|
+    count[type] += 1
+  end
+
+  count.each do |element, count|
+    puts "#{element} => #{count}"
+  end
+end
+
+vehicles = [
+  'car', 'car', 'truck', 'car', 'SUV', 'truck',
+  'motorcycle', 'motorcycle', 'car', 'truck'
+]
+
+p count_occurrences(vehicles)
+
+# Or
+
+def count_occurrences(array)
+  count = Hash.new(0)
+  
+  array.uniq.each do |element|
+    count[element] = array.count(element)
+  end
+
+  count.each do |element, count|
+    puts "#{element} => #{count}"
+  end
+end
+
+vehicles = [
+  'car', 'car', 'truck', 'car', 'SUV', 'truck',
+  'motorcycle', 'motorcycle', 'car', 'truck'
+]
+
+p count_occurrences(vehicles)
+
+# Further exploration, solve the problem when words a case insensitive.
+
+def count_occurrences(array)
+  count = Hash.new(0)
+
+  array.each do |type|
+    count[type.downcase] += 1
+  end
+
+  count.each do |element, count|
+    puts "#{element} => #{count}"
+  end
+end
+
+vehicles = [
+  'car', 'car', 'truck', 'Car', 'SUV', 'truck',
+  'motorcycle', 'motorcycle', 'car', 'truck'
+]
+
+p count_occurrences(vehicles)
 
 =end
