@@ -1,17 +1,17 @@
-# Small Problems Easy 5
+# RB101-RB109 - Small Problems - Easy 5
 
 =begin
-1.
+1) ASCII String Value
+
 #Loop through the characters of a string getting the value of each character.
 #sum the value of all characters in the string
 #return sum value
-
 
 # def ascii_value(string)
 #   arr = string.split(//)
 #   value = 0
 #   arr.each do |char|
-#     value += char.ord
+#     value += char.ord # string#ord returns the integer value of a one-character string.
 #   end
 #   value
 # end
@@ -24,15 +24,13 @@ def ascii_value(string)
   value
 end
 
-
-ascii_value("Four score")
-
 p ascii_value('Four score') == 984
 p ascii_value('Launch School') == 1251
 p ascii_value('a') == 97
 p ascii_value('') == 0
 
-2.
+2) After Midnight (Part 1) (Revisit?)
+
 #given a number of minutes before or after midnight, return the current time.
 # determine positive or negative time
 # check for number of hours and minutes
@@ -87,15 +85,15 @@ p time_of_day(3000) == "02:00"
 p time_of_day(800) == "13:20"
 p time_of_day(-4231) == "01:29"
 
-#Fruther exploration 2 and 3)
+# Further exploration 2 and 3)
+
 T = Time.new(2022,12,11,0,0)
-p T.strftime('%H:%M')
+T.strftime('%H:%M')
 
 def time_of_day(num)
-  time = T + (num*60) #time increments in seconds, needed to convert input minutes to seconds.
-  p time.strftime('%A %H:%M') #add %A to include day of the week in ouput format.
+  time = T + (num*60) # time increments in seconds, needed to convert input minutes to seconds.
+  p time.strftime('%A %H:%M') # add %A to include day of the week in ouput format.
 end
-
 
 p time_of_day(0) == "Sunday 00:00"
 p time_of_day(-3) == "Saturday 23:57"
@@ -105,8 +103,7 @@ p time_of_day(3000) == "Tuesday 02:00"
 p time_of_day(800) == "Sunday 13:20"
 p time_of_day(-4231) == "Thursday 01:29"
 
-
-3.
+3) After Midnight (Part 2) (Revisit FE?)
 
 #given a time in "00:00" format, return the number of minutes before or after midnight.
 
@@ -148,7 +145,7 @@ p before_midnight('12:34') == 686
 p after_midnight('24:00') == 0
 p before_midnight('24:00') == 0
 
-4.
+4) Letter Swap
 
 # given a string of worth seperated by spaces, swap the first and last letter of each word.
 # Seperate string into individual words
@@ -187,7 +184,6 @@ def swap_first_last_characters(word)
   word
 end
 
-
 def swap2(words)
   result = words.split.map do |word|
     swap_first_last_characters(word)
@@ -200,7 +196,7 @@ p swap2('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
 p swap2('Abcde') == 'ebcdA'
 p swap2('a') == 'a'
 
-5.
+5) Clean up the words
 
 #remove all non-alphanumeric characters and replace them with spaces. the result should never
 # have consecutive spaces
@@ -209,27 +205,18 @@ PERMITTED_CHARACTERS = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
 #or PERMITTED_CHARACTERS = ('a"..'z').to_a
 
 def cleanup1(string)
-  string_arr = string.split('')
   results = []
-  string_arr.each do |x|
+  string.split('').each do |x|
     if PERMITTED_CHARACTERS.include?(x)
       results << x
     else
-      results << " "
+      results << " " unless results[-1] == ' '
     end
   end
-  lastchar = ''
-  clean_result = []
-  results.each do |x|
-    if x == " " && lastchar == " "
-     next
-    else
-      clean_result << x
-    end
-    lastchar = x
-  end
-  clean_result.join
+  results.join
 end
+
+p cleanup1("---what's my +*& line?") #== ' what s my line '
 
 #broken up into different methods.
 
@@ -301,7 +288,15 @@ end
 
 p cleanupSQ("---what's my +*& line?")
 
-6.
+# using gsub and regex.
+
+def cleanup(text)
+  text.gsub(/[^a-z]/,' ').squeeze(' ')
+end
+
+p cleanup("---what's my +*& line?") #== ' what s my line '
+
+6) Letter Counter (Part 1)
 
 #Receive a string of words seperated by spaces
 #assign each word a character count
@@ -317,24 +312,23 @@ def word_sizes1(string)
       word_count[word.length] = 1
     end
   end
-  p word_count
+  word_count
 end
 
 #or
 
 def word_sizes2(string)
   word_count = Hash.new(0) #default key value to not attempt to add to nil when creating a new key.
-
   string.split(' ').each do |word|
       word_count[word.length] += 1
   end
-  p word_count
+  word_count
 end
 
 #or
 
 def word_sizes(s)
-  s.split.map(&:length).tally #tally count the occurances of each element in an array and returns a hash.
+  s.split.map(&:length).tally #tally counts the occurances of each element in an array and returns a hash.
 end
 
 p word_sizes1('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
@@ -342,8 +336,7 @@ p word_sizes1('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1,
 p word_sizes1("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
 p word_sizes1('') == {}
 
-
-7.
+7) Letter Counter (Part 2)
 
 def word_sizes(string)
   word_count = Hash.new
@@ -366,9 +359,22 @@ p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
 p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
 p word_sizes('') == {}
 
-8.
+def word_sizes1(string)
+  word_count = Hash.new(0)
 
-#
+  string.split.each do |word|
+    clean_word = word.gsub(/[^A-z]/,'')
+    word_count[clean_word.length] += 1
+  end
+  word_count
+end
+
+p word_sizes1('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
+p word_sizes1('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
+p word_sizes1("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
+p word_sizes1('') == {}
+
+8) Alphabetical Numbers
 
 NUM_WORDS = {
   0 => "zero",
@@ -409,6 +415,8 @@ p alphabetic_number_sort1((0..19).to_a) == [
   6, 16, 10, 13, 3, 12, 2, 0
 ]
 
+# Or using sort_by and element reference and a zero based array.
+
 NUMBER_WORDS = %w(zero one two three four
   five six seven eight nine
   ten eleven twelve thirteen fourteen
@@ -424,10 +432,9 @@ p alphabetic_number_sort1((0..19).to_a) == [
   6, 16, 10, 13, 3, 12, 2, 0
 ]
 
+9) ddaaiillyy ddoouubbllee
 
-9.
-
-#given a string with double diggits, return a new string removing consecuqtive digits.
+#given a string with double diggits, return a new string removing consecutive digits.
 #split string into individual characters
 #check if last character is same as current character
 #if it isn't, return to string
@@ -459,7 +466,49 @@ p crunch('aabbccdd') == 'abcd'
 p crunch('a') == 'a'
 p crunch('') == ''
 
-10.
+10) Spin Me Around In Circles
+
+def spin_me(str)
+  str.split.each do |word|
+    word.reverse!
+  end.join(" ")
+end
+
+spin_me("hello world") # "olleh dlrow"
+
+# returns a new object as soon as .split is invoked on str. If we wanted to mutate the argument,
+# it would need to be passed in as an array and modifications made to the method.
+
+ie:
+
+def spin_me(arr)
+  arr.each do |word|
+    word.reverse!
+  end
+end
+
+arr = ['hello', 'world']
+puts arr.object_id # 47264354160220
+puts spin_me(arr).object_id # 47264354160220
+
+11) List of Digits
+
+def digit_list(num)
+  num.digits.reverse
+end
+
+# Or
+
+def digit_list(number)
+  number.to_s.chars.map(&:to_i)
+end
+
+puts digit_list(12345) #== [1, 2, 3, 4, 5]     # => true
+puts digit_list(7) == [7]                     # => true
+puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+puts digit_list(444) == [4, 4, 4]             # => true
+
+Extra)
 
 #Given a short line of text, surround that text with a box.
 
@@ -577,30 +626,5 @@ end
 
 print_in_box_trunc("To boldy go whe")
 print_in_box_trunc("To boldy go where... To boldy go where... To boldy go where...")
-
-11.
-
-def spin_me(str)
-  str.split.each do |word|
-    word.reverse!
-  end.join(" ")
-end
-
-spin_me("hello world") # "olleh dlrow"
-
-# returns a new object as soon as .split is invoked on str. If we wanted to mutate the argument,
-# it would need to be passed in as an array and modifications made to the method.
-
-ie:
-
-def spin_me(arr)
-  arr.each do |word|
-    word.reverse!
-  end
-end
-
-arr = ['hello', 'world']
-puts arr.object_id # 47264354160220
-puts spin_me(arr).object_id # 47264354160220
 
 =end
