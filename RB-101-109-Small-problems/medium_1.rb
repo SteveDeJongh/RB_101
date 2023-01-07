@@ -383,7 +383,7 @@ diamond1(7)
 
 # Further Exploration, outline of diamond only.
 
-def print_row1(num, distance_from_center) # longer version of print_row method below, cleaned up using tenary.
+def print_row1(num, distance_from_center) # longer version of print_row method below, cleaned up using ternary.
   number_of_stars = num - (2 * distance_from_center)
   stars = "*" * number_of_stars
   split_stars = stars.split('')
@@ -424,7 +424,6 @@ diamond2(7)
 
 def diamond3(n)
   num_of_stars = ((1...n).to_a + n.downto(1).to_a).select(&:odd?)
-  p num_of_stars
   num_of_stars.map { |count| puts ('*'* count).center(n)  }
 end
 
@@ -433,8 +432,8 @@ diamond3(7)
 # Further Exploration
 
 def diamond_shape(n)
-  num_of_stars = ((1...n).to_a + n.downto(1).to_a).select(&:odd?)
-  num_of_stars.map do |count|
+  num_of_stars = ((1...n).to_a + n.downto(1).to_a).select(&:odd?) # IMPORTANT!! triple "..." excludes the num from the range.
+  num_of_stars.each do |count|
     pattern = count < 2 ? '*' : '*' + ' ' * (count - 2) + '*'
     puts (pattern).center(n)
   end
@@ -702,44 +701,5 @@ p fibonacci_last2(123456789) # -> 4
 
 =end
 
-# 3) Rotation (Part 3) (Round 2)
+# Stack Machine Interpretation (Round 2)
 
-def rotate_array(array)
-  array[1..-1] + [array[0]]
-end
-
-def rotate_rightmost_digits(number, digs)
-  # digits = number.to_s.chars
-  number[-digs..-1] = rotate_array(number[-digs..-1])
-  # digits.join.to_i
-end
-
-def max_rotation(num)
-  number_of_digits = num.to_s.length
-  digits = num.to_s.chars
-  number_of_digits.downto(2) do |x| # Only down to 2 as the last digit does not need to rotate around itself.
-    rotate_rightmost_digits(digits, x)
-  end
-  digits.join.to_i
-end
-
-p max_rotation(735291) == 321579
-p max_rotation(3) == 3
-p max_rotation(35) == 53
-p max_rotation(105) == 15 # the leading zero gets dropped
-p max_rotation(8_703_529_146) == 7_321_609_845
-
-# Further Exploration, a solution to keep zero's.
-
-def max_rotation(integer)
-  all_digits = integer.to_s.chars
-  integer_size = all_digits.size
-  0.upto(integer_size - 1) do |index|
-    p all_digits
-    removed = all_digits.delete_at(index)
-    all_digits << removed
-  end
-  all_digits.join.to_i
-end
-
-p max_rotation(735291) == 321579
