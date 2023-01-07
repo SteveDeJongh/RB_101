@@ -5,16 +5,7 @@ require 'pry'
 =begin
 1) Rotation (part 1)
 
-def rotate_array1(array)
-  result = []
-  array.each do |el|
-    result << el
-  end
-  result.push(result.shift)
-  result
-end
-
-# Or using slice with a range, then appending the first item in the array.
+# Using slice with a range, then appending the first item in the array.
 
 def rotate_array(array)
   array[1..-1] + [array[0]]
@@ -53,6 +44,42 @@ end
 
 p rotate_int(12345)
 
+1) Rotation (Part 1) (round 2)
+
+def rotate_array(array)
+  array[1..-1] + [array[0]]
+end
+
+p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+p rotate_array(['a']) == ['a']
+
+p x = [1, 2, 3, 4]
+p rotate_array(x) == [2, 3, 4, 1]   # => true
+p x == [1, 2, 3, 4]                 # => truep
+
+# Further Exploration, write a method to rate a string instead of an array.
+
+def rotate_string(string)
+  split_string = string.split(' ')
+  rotate_array(split_string).join(' ')
+end
+
+string1 = 'This is the string!'
+
+p string1
+p rotate_string(string1)
+p string1
+
+# Further Exploration, do the same for integers.
+
+def rotate_int(num)
+  digits = num.to_s.chars # Could also use .digits, but would then need to reverse it to maintain original digit order.
+  rotate_array(digits).join.to_i
+end
+
+p rotate_int(1234)
+
 2) Rotation (Part 2)
 
 def rotate_array(array)
@@ -73,6 +100,34 @@ def rotate_rightmost_digits1(number, n)
   all_digits[-n..-1] = rotate_array(all_digits[-n..-1]) #re-assigns the last nth number of elements in the array to the
   # result of the rotate_array method call.
   all_digits.join.to_i
+end
+
+p rotate_rightmost_digits(735291, 1) == 735291
+p rotate_rightmost_digits(735291, 2) == 735219
+p rotate_rightmost_digits(735291, 3) == 735912
+p rotate_rightmost_digits(735291, 4) == 732915
+p rotate_rightmost_digits(735291, 5) == 752913
+p rotate_rightmost_digits(735291, 6) == 352917
+
+2) Rotation (Part 2) (Round 2)
+
+def rotate_array(array)
+  array[1..-1] + [array[0]]
+end
+
+def rotate_rightmost_digits(number, digs)
+  digits = number.to_s.chars
+  static = digits[0..-(digs + 1)]
+  rotate_last_digs = rotate_array(digits[-digs..-1])
+  (static+rotate_last_digs).join.to_i
+end
+
+# Or re-assigning the last X number of elemenths in the digits array.
+
+def rotate_rightmost_digits(number, digs)
+  digits = number.to_s.chars
+  digits[-digs..-1] = rotate_array(digits[-digs..-1])
+  digits.join.to_i
 end
 
 p rotate_rightmost_digits(735291, 1) == 735291
@@ -119,6 +174,48 @@ p max_rotation(3) == 3
 p max_rotation(35) == 53
 p max_rotation(105) == 15 # the leading zero gets dropped
 p max_rotation(8_703_529_146) == 7_321_609_845
+
+3) Rotation (Part 3) (Round 2)
+
+def rotate_array(array)
+  array[1..-1] + [array[0]]
+end
+
+def rotate_rightmost_digits(number, digs)
+  # digits = number.to_s.chars
+  number[-digs..-1] = rotate_array(number[-digs..-1])
+  # digits.join.to_i
+end
+
+def max_rotation(num)
+  number_of_digits = num.to_s.length
+  digits = num.to_s.chars
+  number_of_digits.downto(2) do |x| # Only down to 2 as the last digit does not need to rotate around itself.
+    rotate_rightmost_digits(digits, x)
+  end
+  digits.join.to_i
+end
+
+p max_rotation(735291) == 321579
+p max_rotation(3) == 3
+p max_rotation(35) == 53
+p max_rotation(105) == 15 # the leading zero gets dropped
+p max_rotation(8_703_529_146) == 7_321_609_845
+
+# Further Exploration, a solution to keep zero's.
+
+def max_rotation(integer)
+  all_digits = integer.to_s.chars
+  integer_size = all_digits.size
+  0.upto(integer_size - 1) do |index|
+    p all_digits
+    removed = all_digits.delete_at(index)
+    all_digits << removed
+  end
+  all_digits.join.to_i
+end
+
+p max_rotation(735291) == 321579
 
 4) 1000 Lights
 
@@ -604,3 +701,45 @@ p fibonacci_last2(100)
 p fibonacci_last2(123456789) # -> 4
 
 =end
+
+# 3) Rotation (Part 3) (Round 2)
+
+def rotate_array(array)
+  array[1..-1] + [array[0]]
+end
+
+def rotate_rightmost_digits(number, digs)
+  # digits = number.to_s.chars
+  number[-digs..-1] = rotate_array(number[-digs..-1])
+  # digits.join.to_i
+end
+
+def max_rotation(num)
+  number_of_digits = num.to_s.length
+  digits = num.to_s.chars
+  number_of_digits.downto(2) do |x| # Only down to 2 as the last digit does not need to rotate around itself.
+    rotate_rightmost_digits(digits, x)
+  end
+  digits.join.to_i
+end
+
+p max_rotation(735291) == 321579
+p max_rotation(3) == 3
+p max_rotation(35) == 53
+p max_rotation(105) == 15 # the leading zero gets dropped
+p max_rotation(8_703_529_146) == 7_321_609_845
+
+# Further Exploration, a solution to keep zero's.
+
+def max_rotation(integer)
+  all_digits = integer.to_s.chars
+  integer_size = all_digits.size
+  0.upto(integer_size - 1) do |index|
+    p all_digits
+    removed = all_digits.delete_at(index)
+    all_digits << removed
+  end
+  all_digits.join.to_i
+end
+
+p max_rotation(735291) == 321579
