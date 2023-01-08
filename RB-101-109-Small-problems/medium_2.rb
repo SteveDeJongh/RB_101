@@ -110,7 +110,7 @@ def block_word?(word)
   BLOCKS.none? { |block| word.count(block) >= 2}
 end
 
-# string#count([otherstring]) defines a set of characters to cound. Ie "Hello".count('lo') = 3
+# string#count([otherstring]) defines a set of characters to count. Ie "Hello".count('lo') = 3
 # array#none? passes each element of the array to the given block. Returns true if the block returns true for all elements.
 
 p block_word?('BATCH') == true

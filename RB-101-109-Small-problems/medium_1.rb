@@ -519,6 +519,63 @@ p minilang('6 PUSH')
 
 p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
 
+6) Stack Machine Interpretation (Round 2)
+
+def minilang(instructions)
+  steps = instructions.split(' ')
+  stack = []
+  register = 0
+  steps.each do |step|
+    case step
+      when "PUSH"  then stack << register
+      when "ADD"   then register += stack.pop
+      when "SUB"   then register -= stack.pop
+      when "MULT"  then register *= stack.pop
+      when "DIV"   then register /= stack.pop
+      when "MOD"   then register %= stack.pop
+      when "POP"   then register = stack.pop
+      when "PRINT" then p register
+      else              register = step.to_i
+    end
+  end
+end
+
+minilang('PRINT')
+# 0
+
+minilang('5 PUSH 3 MULT PRINT')
+# 15
+
+minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
+# 5
+# 3
+# 8
+
+minilang('5 PUSH POP PRINT')
+# 5
+
+minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
+# 5
+# 10
+# 4
+# 7
+
+minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
+# 6
+
+minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
+# 12
+
+minilang('-3 PUSH 5 SUB PRINT')
+# 8
+
+minilang('6 PUSH')
+# (nothing printed; no PRINT commands)
+
+# Further Exploration, write a program to compute : (3 + (4 * 5) - 7) / (5 % 3) (Answer should be 8)
+
+p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
+
 7) Word to Digit # Need to revisit, lots of REGEX.
 
 WORDS = %w(one two three four five six seven eight nine zero)
@@ -700,6 +757,3 @@ p fibonacci_last2(100)
 p fibonacci_last2(123456789) # -> 4
 
 =end
-
-# Stack Machine Interpretation (Round 2)
-
