@@ -15,7 +15,7 @@ how the Array#sort method works
 
 ############## Launch School Live Session Beginning Ruby Part 1
 
-######## Ruby's syntactical sugar and Where does the code come from?
+### Ruby's syntactical sugar and Where does the code come from?
 
 puts "hello" #same as puts("hello")
 
@@ -32,7 +32,7 @@ p string()
 # 2) In order to invoke a method instead of local variable use method() (include optional parenthases)
 # 3) In order to invoke method not from the core library, you must "require" the method first.
 
-############# Local Variable scope
+###Local Variable scope
 
 Variable intiialization variable re-assignment visually look the same.
 
@@ -41,7 +41,7 @@ Variables initialized inside a block is not accessible outside the block.
 
 ############## Launch School Live Session Beginning Ruby Part 2
 
-# Pass by reference vs pass by value
+### Pass by reference vs pass by value
 
 def amethod(param)
   param += " world" # Re-assignemnet, returns a new string object.
@@ -75,4 +75,91 @@ b << ' universe'
 p a #=> "Hello worldhello world"
 p b #=> "Hello world universe"
 
+############## Launch School Live Session Beginning Ruby Part 3
+
+arr = [1,2,3,4,5,6,7,8,9,10]
+
+idx = 0
+
+# loop do
+#   puts arr[idx]
+#   idx += 1
+#   break if idx == arr.size
+# end # Returns nil.
+
+# arr.each do |x|
+#   puts x if x > 5
+# end # Returns original array.
+
+# Append 12 to the end of array.
+arr << 12
+
+# Prepend 0 to beginnning of array
+
+arr.unshift(0)
+
+# Remove the 12 and add a 3
+
+arr.pop
+arr << 3
+
+# Remove duplicates using 1 method.
+
+arr.uniq!
+
+# Extract all odd numbers into new array.
+
+odds = arr.select { |x| x.odd?}
+
+# Increment all numbers by 1
+
+incremented = arr.map {|x| x+=1}
+
+p odds
+p arr
+p incremented
+
+Hash
+
+hsh = {a:1, b:2, c:3, d:4}
+
+# Get the value of "b"
+# Can't get the value of "b", only :b
+
+p hsh[:b]
+
+# Add this key/value pair to the hash: {e:5}
+
+hsh[:e] = 5
+p hsh
+
+# Iterate over the has and print out the keys and values
+
+hsh.each do |k,v|
+  puts "Key is #{k}, value is #{v}"
+end
+
+# Print out the key value pairs where the value is less than 3.5
+
+hsh.each do |k,v|
+  puts "Key is #{k}, value is #{v}" if v < 3.5
+end
+
+# return a new hash where value is less than 3.5
+
+new_hsh = hsh.select do |k,v|
+  v < 3.5
+end
+
+p new_hsh
+
+# Delete all key/value pairs where value is less than 3.5
+
+hsh.delete_if do |k,v|
+  v < 3.5
+end
+
+p hsh
+
 =end
+
