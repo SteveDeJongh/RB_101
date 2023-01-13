@@ -20,6 +20,14 @@ X Truthiness, refer to returns as "truhy" or "falsey" unless excplicitely true o
  Variable References and Object Mutability Arcticles
 X Assessment prep videos 1, 2 & 3
 
+RB101 Exercise Database:
+
+RB109 Written
+Additonal Practice Problems:
+1,
+DONE 2,
+3,
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?

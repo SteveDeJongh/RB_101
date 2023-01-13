@@ -191,4 +191,58 @@ end
 p munsters
 
 
+########## RB 109 Test prep, review ##############
+
+# 1) Practice PRoblem 1
+
+flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+
+flint_hsh = flintstones.to_h {|s| [s, flintstones.index(s)]}
+
+p flintstones
+p flint_hsh
+
+#or 
+
+flintstones_hash = {}
+flintstones.each_with_index do |name, idx|
+  flintstones_hash[name] = idx
+end
+
+p flintstones_hash
+
+# 2) Practice problem 2
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
+
+ages_sum = 0 # local varibale `ages_sum` assigned the int value of 0
+
+ages.values.each do |age| # `values` method called on the ages hash returns an array of ages to the
+  # each method call, which is passed a block with a parameter named `age`
+  ages_sum += age # `ages_sum` is re-assigned to the value of `ages_sum` + the local paramter `age`
+  # which is passed each value from the array created from the ages.values method call.
+end # end of the block
+
+p ages_sum # `p` method call on local variable `ages_sum`
+
+# Or
+
+ages.values.inject(:+)
+
+# This uses the array returned by the method call `ages.value`. The array is passed to the `array#inject`
+# method which passes in a `:+` symbol as a parameter, which says "apply the + operator to the accumulator
+# and object paramters of inject".
+
+
+
 =end
+
+# 3) Practice Problem 3
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
+
+ages.delete_if { |_, age| age > 100}
+
+# or
+
+p ages.keep_if { |_, age| age < 100}
