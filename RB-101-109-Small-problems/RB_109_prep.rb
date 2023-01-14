@@ -3,8 +3,8 @@ RB101 Exercise Database:
 
 RB109 Written
 Additonal Practice Problems:
-1,
-DONE 2,
+DONE 1, Colection Method from Lesson 4
+DONE 2, Ruby Basics: Variable Scope
 3,
 
 RB101 Written Questions:
