@@ -5,7 +5,7 @@ RB109 Written
 Additonal Practice Problems:
 DONE 1, Colection Method from Lesson 4
 DONE 2, Ruby Basics: Variable Scope
-3,
+DONE 3, Ruby Basics: Return
 
 RB101 Written Questions:
 
