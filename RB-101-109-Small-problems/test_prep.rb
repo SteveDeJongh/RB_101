@@ -17,10 +17,10 @@ Some specifics:
 X Assignments, remain consistent in how they are described.
 X Truthiness, refer to returns as "truhy" or "falsey" unless excplicitely true or false.
  Method Definiton and Method Invocation (More variable scope)
- Variable References and Object Mutability Arcticles
-  Variable References and Mutability of Ruby Objects
-  Mutating and Non-Mutating Methods in Ruby
-  Object Passing in Ruby - Pass by Reference or Pass by Value
+X Variable References and Object Mutability Arcticles
+   READ Variable References and Mutability of Ruby Objects
+   READ Mutating and Non-Mutating Methods in Ruby
+   READ Object Passing in Ruby - Pass by Reference or Pass by Value
 X Assessment prep videos 1, 2 & 3
 
 RB101 Exercise Database:
