@@ -31,6 +31,15 @@ DONE 1,
 DONE 2,
 DONE 3,
 
+Chris Larwoods blog post
+  109 Study Guide and all linked articles.
+  Srdjan's 4-part blog series:
+X   Part1
+X   Part2
+X   Part3
+    Part4
+  Callie's Article.
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?

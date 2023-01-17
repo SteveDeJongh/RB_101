@@ -179,3 +179,17 @@ puts var
 ################################### Variable Shadowing ########################################
 
 =end
+
+# Example 1)
+
+animal = "dog"
+
+loop do |_|
+  animal = "cat"
+  var = "ball"
+  break
+end
+
+puts animal
+puts var
+
