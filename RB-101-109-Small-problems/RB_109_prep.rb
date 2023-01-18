@@ -178,9 +178,7 @@ puts var
 
 ################################### Variable Shadowing ########################################
 
-=end
-
-# Example 1)
+# Example 1) (not from doc)
 
 animal = "dog"
 
@@ -193,3 +191,216 @@ end
 puts animal
 puts var
 
+# This code will output `cat` and raise an error. This is due to the variable `var` only being accessible
+# from within the blocks inner scope. As the variable `animal` is initialized in the outer scope, the block
+# can access and reassign the variable inside the block, and the reassigned variable is visibile to the 
+# `puts` method call.
+
+# Example 1) (from doc)
+
+a = 4
+b = 2
+
+2.times do |a|
+  a = 5
+  puts a
+end
+
+puts a
+puts b
+
+# This code output `5 5 4 2`. This is an example of variable shadowing. Inside the block passed to the 
+# method `times`, we have a local paramter `a`. This local parameter hide the outer variable `a` and therefor
+# the `a = 5` variable assignment within the block is actually assigning the local paramter `a` rather
+# than the outer variable `a`. This reults in the outer scope variable `a` value remaining `4`.
+
+# Example 2) (from doc)
+
+n = 10
+
+1.times do |n|
+  n = 11
+end
+
+puts n
+
+# This code will output `10`. This is once again due to variable shadowing as the `times` methods block
+# argument parameter is assigned to `n`. This results in the variable assignment within the block to make 
+# change to the block's parameter 'n', rather than the outside variable `n`.
+
+# Example 3) (from doc)
+
+animal = "dog"
+
+loop do |animal|
+  animal = "cat"
+  break
+end
+
+puts animal
+
+# This code will output `dog` and return nil.
+# On `line 1` local varialbe `animal` is initialized to the string object `dog`.
+# On `line 3`, we initialize a loop with a block paramter `animal`.
+# On `line 5`, the block parameter `animal` is assigned the string object `cat`. This assignment does nothing to 
+# outer scope variable `animal` due to variable shadowing.
+# On `line 6` we break from the loop.
+# Finally, on `line 7` we invoke the method `puts` with the local variable `animal` as an argument. This outputs
+# the string represented by the variable `animal` of `dog` and returns nil.
+
+################### Object Passing/Variables As Pointers #########################
+
+# Example 1)
+
+a = "hi there"
+b = a
+a = "not here"
+
+# What are `a` and `b`?
+
+p a
+p b
+
+# `a` will point to the string object `not here`, and `b` will point to the string object `hi there`.
+# This is a good demonstration of variables as pointers.
+# On `line 1` local variable `a` is initialized to point to the string object `hi there`.
+# On `line 2` local varialbe `b` is initialized and points to the same string object as `a`, `hi there`.
+# On `line 3` local variable `a` is reassigned to a different string object `not here`, this does not
+# chang the assignment made to `b` on `line 2.
+
+# Example 2)
+
+a = "hi there"
+b = a
+a << ", Bob"
+
+# What are a and b?
+
+p a
+p b
+
+# `a` and `b` will point to the same string object `hi there, Bob`.
+# On `line 1`, local variable `a` is initialized to the string object `hi there`
+# On `line 2`, local variable `b` is initialized to the point to the same string object as `a`, `hi there`
+# On `line 3`, the mutating metho `<<` is called on `a` with `, Bob` passed in as an argument. This modifies
+# the existing string object that `a` is pointing to and appends `, Bob` to the end of the string.
+# As a result, `a` and `b` are still pointing to the same, now modified, string object `hi there, Bob`
+
+# Example 3)
+
+a = [1, 2, 3, 3]
+b = a
+c = a.uniq
+
+# What are a, b and c?
+
+p a
+p b
+p c
+
+# `a` and `b` will return the same array object [1,2,3,3], and c will return [1,2,3]
+# On `line 1` local variable `a` is initialized to the array object `[1,2,3,3]`.
+# On `line 2` local variable `b` is initialized to point to the same array object as `a`
+# On `line 3` local variable `c` is initialized to point to the return value of the `uniq` method invocation
+# on the array object poitned to by `a`. The return value of this method is a new array `[1,2,3]`. The method
+# does not mutate the caller and therfor the array that `a` points to remains the same.
+
+# If the method call on line 3 was changed to `uniq!`, variables `a` `b` and `c` would point to the same modified
+# array returned by the `uniq!` method invocation.
+
+# Example 4)
+
+def test(b)
+  b.map {|letter| "I like the letter: #{letter}"}
+end
+
+a = ['a', 'b', 'c']
+test(a)
+
+# What is `a`? What if we called `map!` instead of `map`?
+
+p a
+
+# `a` will return the array object `['a', 'b', 'c']`. This is because the `map` method does not mutate the caller.
+# If the `map` method call inside the `test` method definition were changed to `map!`, the method would
+# mutate the caller and therefor change the value of `a` to the return value of the `map!` method call.
+# This example demonstrates the mutability of objects passed in to method as arguments.
+
+# Example 5)
+
+a = 5.2
+b = 7.3
+
+a = b
+
+b += 1.1
+
+# What is `a` and `b`? Why? 
+
+p a
+p b
+
+# `a` will return `7.3` and `b` will return `8.4`. This is due to the reassignment on `line 6`. As this is
+# reassignment, the variable `b` now points to a new float object rather than changing the original float object
+# it was pointing to. This highlights that reassignment does not modify the existing pointed to object, but rather
+# points to a new object.
+
+# Example 6)
+# What does the following code return? What does it output? Why?
+
+def test(str)
+  str  += '!'
+  str.downcase!
+end
+
+test_str = 'Written Assessment'
+test(test_str)
+
+puts test_str
+
+# The `puts test_str` method invocation on `line 9` will output `Written Assessment`. This is due to the
+# `+=` method invocation on `line 2` returning a new object to method paramter `str` rather than modifying
+# the existing object. As such, any changes to `str` later in the execution of the `test` method will
+# modify this new object rather than the original object pointed to by `test_str`.
+
+# Example 6)
+# What does the following code return? What does it output? Why?
+
+def test(str)
+  str  += '!'
+  str.downcase!
+end
+
+test_str = 'Written Assessment'
+test(test_str)
+
+puts test_str
+
+# The `puts test_str` method invocation on `line 9` will output `Written Assessment`. This is due to the
+# `+=` method invocation on `line 2` returning a new object to method paramter `str` rather than modifying
+# the existing object. As such, any changes to `str` later in the execution of the `test` method will
+# modify this new object rather than the original object pointed to by `test_str`.
+
+# Example 7)
+# What does the following code return? What does it output? Why?
+def plus(x, y)
+  x = x + y
+end
+
+a = 3
+b = plus(a, 2)
+
+puts a
+puts b
+
+# This code will output `3` and `5`. This problem shows rubys "Pass by reference value" characteristics.
+# In the `plus` method definition, the first parameter `x` is reassigned to the value of `x` + the second
+# parameter `y`. While this is reassignment so `x` would now always point to a new object, it also highlights
+# the imutability of integers.
+# The variable initialization of `b` on `line 6` assigns `b` to the return value of the menthod invocation 
+# `plus(a, 2)`, this passes in the variable `a` as the first argument, and the int `2` as the second argument.
+# During the method execution, `a` is reassigned to the value of `a + 2` and returned from the method. This
+# is then returned to `b`. 
+
+
+=end

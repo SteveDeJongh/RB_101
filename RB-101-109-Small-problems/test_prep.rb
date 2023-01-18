@@ -33,11 +33,11 @@ DONE 3,
 
 Chris Larwoods blog post
   109 Study Guide and all linked articles.
-  Srdjan's 4-part blog series:
+X  Srdjan's 4-part blog series:
 X   Part1
 X   Part2
 X   Part3
-    Part4
+X    Part4
   Callie's Article.
 
 ############## Launch School Live Session Beginning Ruby Part 1
