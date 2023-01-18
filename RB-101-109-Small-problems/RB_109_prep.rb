@@ -393,7 +393,8 @@ b = plus(a, 2)
 puts a
 puts b
 
-# This code will output `3` and `5`. This problem shows rubys "Pass by reference value" characteristics.
+# This code will output `3` and `5`. This problem shows rubys "Pass by reference value" characteristics
+# and more specifically how it acts like pass by value for imutable objects.
 # In the `plus` method definition, the first parameter `x` is reassigned to the value of `x` + the second
 # parameter `y`. While this is reassignment so `x` would now always point to a new object, it also highlights
 # the imutability of integers.
@@ -401,6 +402,285 @@ puts b
 # `plus(a, 2)`, this passes in the variable `a` as the first argument, and the int `2` as the second argument.
 # During the method execution, `a` is reassigned to the value of `a + 2` and returned from the method. This
 # is then returned to `b`. 
+
+# Example 8)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def increment(x)
+  x << 'b'
+end
+
+y = 'a'
+increment(y) 
+
+puts y
+
+# This code will output `ab` and returns `nil`. This example shows the mutability of string objects,
+# how ruby appears to be pass by reference when dealing with string objects, and that `<<` is a mutating method.
+# The local variable `y` is initialzied to the string object `a`. The local variable is then passed in
+# to the `increment` method as an argument, represented within the method definition as the paramter `x`.
+# During the `increment` method execution, method argument `a`, represented by paramter `x`, is appended
+# using the method `<<` with the string object `b`. This results in the method returning the mutated
+# variable `y` as `ab`.
+
+# Example 9)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def change_name(name)
+  name = 'bob'      # does this reassignment change the object outside the method?
+end
+
+name = 'jim'
+change_name(name)
+puts name 
+
+# The code on `line 6` will output nothing and return 'bob', while the code on `line 7` will output `jim`,
+# and returns `nil.`
+# This example demonstrates that re-assignement does not mutate the object. The local varaible `name` is
+# initialized to the string object `jim`. This variable is passed into the method `change_name` during 
+# metod invocation as an argument. In the method definition, this first argument is represented by the 
+# method parameter `name`. In the method definition, parameter `name` is reassigned to the string object
+# `bob`. This means that parameter `name` is now pointing to a new, different string object than the
+# object that is passsed in.
+# This results in the method invocation on `line 6` returning `bob` and the method invocation of `puts`
+# with local variable `name` passed in as an argument returning `nil` and outputing `jim`.
+
+# Example 10)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def cap(str)
+  str.capitalize!   # does this affect the object outside the method?
+end
+
+name = "jim"
+cap(name)
+puts name 
+
+# The method invocation on `line 6` will return `Jim`, and the `puts` method invocation on `line 7` will
+# return `nil` and output `Jim`. This demonstrates Rubys pass by reference characteristics.
+# On `lines 1-3` the method `cap` is defined and assigned one parameter `str`. In the method definition,
+# the method `capitalize!` is called on the parameter `str`. This is a mutating method and returns the
+# same string object with the first character capitalized.
+# On `line 5`, local variale `name` is initialized to the string object `jim`.
+# On `line 6`, the method `cap` is invoked with the variable `name` passed in as an argument, this argument 
+# is represented by the `str` parameter within the `cap` method definition. The `cap(name)` method invocation
+# returns `Jim`.
+# On `line 7`, we invoke the method `puts` with `name` passed in as an argument, this method outputs `Jim`,
+# and returns `nil`. This shows that the variable `name` is mutated within the `cap` method invocation.
+
+# Example 11)
+# What is `arr`? Why? What concept does it demonstrate?
+a = [1, 3]
+b = [2]
+arr = [a, b]
+arr
+
+a[1] = 5
+p arr
+
+# arr is [[1,5],[2]]
+# On `line 1`, we initialize the variable `a` to the array object `[1,3]`.
+# On `line 2`, we initialize the variable `b` to the array object `[2]`.
+# On `line 3`, we initialize the variable `arr` to the array object `[a, b]`.
+# local variable `arr` now represents the array object `[[1,3], [2]]`
+# On `line 6`, we are reassigning the element referenced at index `2` of variable `a` to `5`. As this
+# reassignment takes place to an element inside of the variable `a`s array element, `a` still points
+# to the same array object. This means that the `a` array object pointed to within the `arr` assignment
+# is this same modified array.
+# The result of this is that the `p` method call on `arr` on `line 7` outputs `[[1,5], [2]]` and returns `nil`.
+
+# Example 12)
+
+arr1 = ["a", "b", "c"]
+arr2 = arr1.dup
+arr2.map! do |char|
+  char.upcase
+end
+
+puts arr1 
+puts arr2
+
+# `line 7` will output `'a', 'b', 'c'` and return `nil`.
+# `line 8` will output `'A', 'B', 'C'` and return `nil`.
+# This code demonstrate a few concepts, the mutability of arrays, the method `dup` returns a shallow copy
+# of the object it is called on.
+# On `line 1`, local variable `arr1` is initialized with the array object `["a", "b", "c"]`.
+# On `line 2`, the local variable `arr2` is initalized and assigned the return value of the method call `dup`,
+# on `arr1`. This return a copy of the `arr1` array `["a", "b", "c"]`.
+# On `line 3`, `map!` is called on `arr2`. This iterates over everything element in `arr2`, represented by the
+# block parameter `char` and places the return of the block in the elements place in `arr2` array.
+# Within the block passed to `map!`, we call `upcase` on the block parameter `char`. This returns a string
+# with all characters in uppercase.
+# As the mutating `map!` method takes place on the `arr2` array itself, rather than the elements within the `arr2`
+# array object, only the elements inside `arr2` are modified. If instead `map` was used on `arr2` and 
+# `upcase!` within the block, both `arr1` and `arr2` would be changed as the object mutation occurs on the elements
+# themselves rather than the array.
+
+
+########################### Object Mutability/Mutating Methods ###########################
+
+# Example 1)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def fix(value)
+  value.upcase!
+  value.concat('!')
+  value
+end
+
+s = 'hello'
+t = fix(s)
+
+# What values do `s` and `t` have? Why?
+
+# On `line 7` local variable `s` is initialized to the string object `hello`
+# On `line 8` local varialbe `t` is initialized to the return value of the method invocation `fix`,
+# with variable `s` passed in as an argument.
+
+# Taking a look at the method definition on `lines 1-5`, we see that the `fix` method is defined with a 
+# parameter `value`, for our case in the method invocation this now points to the same string object referenced
+# by variable `s`. The mutating method `upcase!` is called on the parameter `value`, which modifies the object
+# referenced by `value` in place. We then call the method `concat` with a `"!"` passed in as an argument. 
+# This method is also mutating, and returns the same string object with an appended `!`. Finnaly, we return `value`.
+# Throughout the method execution, value is never reassigned to any object other than the orignal object
+# referenced by the variable passed in as an argument. As such, all changes to `value` in within the method
+# execution are actually taking place on the same object referenced by `s`. As a result of this return value is assigned
+# to variable `t` at initialization. The result is that variables `s` and `t` point to the same object, and
+# both contain the string `HELLO!`
+
+# Example 2)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def fix(value)
+  value = value.upcase
+  value.concat('!')
+end
+
+s = 'hello'
+t = fix(s)
+
+# What values do `s` and `t` have? Why?
+
+# The result of this code is `s` still represents `hello`, and `t` represents `HELLO!`.
+
+# This is due to the reassignemnt of `value` to the return value of `value.upcase` within the `fix` method
+# definition. `value.upcase` does not mutate the string referenced by `value`, instead it creates a new copy
+# and binds to `value`. This new string object is then passed to `concat("!")` where it is appended with a "!".
+# This appended version of the string now represented by `value`, `HELLO!` is now assigned to variable `t`
+# on `line 7` during the variable initialization.
+
+# Example 3)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def fix(value)
+  value << 'xyz'
+  value = value.upcase
+  value.concat('!')
+end
+
+s = 'hello'
+t = fix(s)
+
+# What values do `s` and `t` have? Why?
+
+# This code would return `helloxyz` for `s`, and `HELLOXYZ!` for `t`, and output nothing.
+# The reason for the different outputs is due to the `value = value.upcase` line.
+# On `line 7` variable `s` is intialized to the string object `hello`. On `line 8`, local variable `t` is initialized
+# to the return value of the method call `fix(s)`. Local variable `s` is passed in as an argument to the `fix`
+# method invocation, and seen in the method definition on `lines 1-5` represented by the parameter `value`.
+# On `line 2` in the method definition, we call the `<<` method on `value` and append "xyz". At this point in the
+# method execution, method parameter `value` and local variable `s` still point to the same string object.
+# As such the, outer scope variable `s`'s string object is now `helloxyz`. On `line 3`, the method paramter `value`
+# is reassigned to the return value of the method call `upcase` on `value`. As the `upcase` method returns a 
+# new string object, this breaks the link between method parameter
+# `value` and local variable `s` pointing to the same object. The result of this is that any future changes to `value`
+# do not also affect local variable `s`. The method definiton continues on `line 4` by calling `concat("!")` 
+# on method parameter `value`, and as this is the last line defined in the method the result of this method call is
+# what's returned from the `fix` method and passed to the variable assignment of `t` on `line 8`.
+
+# Example 4)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def fix(value)
+  value = value.upcase!
+  value.concat('!')
+end
+
+s = 'hello'
+t = fix(s)
+
+# What values do `s` and `t` have? Why?
+
+# `s` and `t` both point to the same string object `HELLO!`, and the code does not output anything.
+# During the method invocation of `fix(s)` during the variable initalization of `t`, method paramter 
+# `value` is reassigned to the return value of `value.upcase!`, as this is a mutating method, the object
+# returned references the same object ID, just with a new upcased string inside. Method paramter `value`
+# and local variable `s` still point to the same  upcased string object. The further `concat` method invocation
+# is also a mutating method and continues to make changes to the same object ID, appending `!` to the string object.
+
+# Example 5)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def fix(value)
+ value[1] = 'x'
+ value 
+end
+
+s = 'abc'
+t = fix(s)
+
+# What values do `s` and `t` have? Why?
+
+# Both local variables `s` and `t` will point to the same `axc` string object. The code does not output
+# anything. The code shows that indexed assignment is mutating.
+
+# Local variable `s` is initialized to the string object `abc` on `line 6`. On `line 7` the local variable
+# `t` is initialized to the return value of the method invocation of `fix` with local variable `s` passed in
+# as an argument. On `lines 1-4` the method `fix` is defined. The method is given one parameter `value`.
+# On `line 2`, the the element at index 1 of `value` is reassigned to `x`. As the method returns the same string
+# object, this change occurs to both variable `s` and method parameter `value`. On `line 3` we call value so that 
+# object it is pointing to is what's returned from the method. This returned object is then assigned to the
+# local variable `t`.
+
+# Example 6)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def a_method(string)
+  string << ' world'
+end
+
+a = 'hello'
+a_method(a)
+
+p a
+
+# This code will output `hello world` and return `hello world`.
+
+# This output is due to the mutability of string objects and the mutating method `<<`.
+
+# Local variable `a` is initialized to the string object 'hello' on `line 5`. On `line 6` we have the method
+# invocation `a_method` with local variable `a` passed in as an argument. On `lines 1-3` we see the `a_method`
+# method definition with 1 parameter `string`. In the `a_method` definition, method parameter `string` calls the 
+#`<<` method with ' world' passed in as an argument. `<<` is a mutating method, and therfor `string` is appended
+# with ' world', though still points to the same object. As in the method invocation on `line 6` both argument `a`
+# and method parameter `string` both point to the same object, local variable `a` is now also appended with ' world'.
+# As a result, the call to `p` on `line 8` return the mutated object referenced by `a` of 'hello world'.
+
+# Example 7)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+num = 3
+
+num = 2 * num
+
+# This code will return a new int object `6`. This is equivalent to `num *= 2` and is reassignment.
+# On `line 1` local varialbe `num` is assigned to the integer value `3`. On `line 3`, `num` is reassigned
+# to the result of `2 * num`. As reassignment takes place, `num` now points to a new object. This is an
+# example of how variable assignment is non-mutating.
+
+# Example 8)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+a = %w(a b c)
+a[1] = '-'
+p a
+
+# The code will output `['a', '-', 'c']` and return '['a', '-', 'c']`.
+
+# The code is a good example of how indexed assignment is mutating. On `line 1` we create an array of string
+# objects `['a', 'b', 'c']`. On `line 2`, we reassign the element at index 1 of the `a` array to the character '-'
+# As indexed assignment is mutating, the `a` array is mutated and is what's output and returned with the `p` 
+# method invocation on `line 3`.
+
 
 
 =end

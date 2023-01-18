@@ -40,6 +40,44 @@ X   Part3
 X    Part4
   Callie's Article.
 
+Topics:
+X  naming conventions: legal vs. idiomatic, illegal vs. non-idiomatic
+X  numbers, including NaN and Infinity
+X  strings
+X  interpolation in strings
+X  boolean vs. truthiness
+X  nil
+X  array and hash syntax
+X  array properties and methods: array.size, array.push, array.pop
+X  operators
+X    numeric operators: +, -, *, /, %, divmod, **
+X    string operators: +, *
+X    conditional operators: ==, ==, <, >, <=, >=, ternary
+X    logical operators and short-circuit evaluation: !, &&, ||
+X    operator precedence
+X  coercing values: #to_s, #to_i, #to_f, #to_a, #to_h
+X  mutability, immutability, and constants
+X  variables
+X    identifier: variable names, constant names, method names
+X    initialization and reassignment
+X    uninitialized variables
+X    scope
+X    variables as pointers
+X  conditionals and loops
+X  puts
+X  require
+X  methods
+X    definition and invocation
+X    default parameters
+X    return values
+X    parameters vs. arguments
+X    function scope
+X    function composition
+X    output vs. return values, side effects
+X    pass-by-reference and pass-by-value
+X    the call stack
+X  expressions and statements
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?
