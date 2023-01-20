@@ -754,8 +754,6 @@ end
 # by the method `puts` it's return value is nil.
 # This example demonstrates that everything evaluates to truthy in ruby except for `false` or `nil`.
 
-=end
-
 # Example 2)
 # What does the following code return? What does it output? Why? What concept does it demonstrate?
 def test
@@ -770,3 +768,14 @@ else
   puts "interview"
 end
 
+# This code will output `written assessment` and return `nil` from the `test` method invocation on `line 5` and `interview` from the `if`
+# statement on `lines 7-11` and return `nil`.
+# On `line 5` we initialize the local variable `var` to the return value of the `test` method invocation. Looking at the 
+# `test` method definiton on `lines 1-3` we see that this method executes 1 line of code, `puts "written assessment"`.
+# This means the invocation of the method `test` will output "written assessment" and return `nil`, asigning the return value
+# `nil` to the local variable `var` on `line 5`. Folling this, we have have an `if..else` statement on `lines 7-11` which test
+# the local variable `var` for truthiness. As `var` is `nil`, this evaluates to falsey and the `else` claus of the statment
+# is executed. This results in `interview` being output from the `puts` method call, and `nil` returned. This example demonstrates
+# that everything in ruby evaluates to truthy, except `false` or `nil`.
+
+=end
