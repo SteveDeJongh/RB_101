@@ -681,6 +681,92 @@ p a
 # As indexed assignment is mutating, the `a` array is mutated and is what's output and returned with the `p` 
 # method invocation on `line 3`.
 
+# Example 9)
+# Link to page with #9 & #10
+def add_name(arr, name)
+  arr = arr + [name]
+end
 
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names
+
+# This code will output 'bob', 'kim', and return nil.
+# This code example is a good example of how concatenation is a non-mutating method.
+# On `line 5` we initialize the variable `names` and assign it to an array object containing two string elements `bob`
+# and `kim`. On `line 6`, we invoke the `add_name` method and pass in two arguments, the local variable `names` and 
+# `jim`. Taking a look at the `add_name` method definition on `lines 1-3`, we see that the method is defined with two
+# parameters `arr` and `name`. On `line 2`, method parameter `name` is reassigned to the result of `arr + [name]`. 
+# As concatenation returns a new array object instead of mutating the existing object, `arr` will now point to a new 
+# array object and no longer references the same object as outer scope variable `names`.
+
+# Example 10)
+def add_name(arr, name)
+  arr = arr << name
+end
+
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names
+
+# This code will output and array of `'bob', 'kim', 'jim'` string elements and return nil.
+# This is due to the `<<` being a mutating method and not returning a new array object.
+# On `line 5` the variable `names` is initialized with the string elements `bob` and `kim`. On `line 6` we invoke the 
+#`add_name` method with two arguments `names` and `jim`. In the `add_name` method definition on `lines 1-3` we assign the
+# method two parameters `arr` and `name`. On `line 2` in the method definition, we return the result of invoking the `<<` 
+# method on parameter `arr` with `name` passed in as an argument. The `<<` method is a mutating method that appends the 
+# given argument to the end of the calling object. The `<<` method then returns the same, now mutated, array. As such the
+# assignment of the return value to paramter `arr` is redundant as they both point to the same object.
+
+# Example 10)
+def add_name(arr, name)
+  arr = arr << name
+end
+
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names
+
+# This code will output and array of `'bob', 'kim', 'jim'` string elements and return nil.
+# This is due to the `<<` being a mutating method and not returning a new array object.
+# On `line 5` the variable `names` is initialized with the string elements `bob` and `kim`. On `line 6` we invoke the 
+#`add_name` method with two arguments `names` and `jim`. In the `add_name` method definition on `lines 1-3` we assign the
+# method two parameters `arr` and `name`. On `line 2` in the method definition, we return the result of invoking the `<<` 
+# method on parameter `arr` with `name` passed in as an argument. The `<<` method is a mutating method that appends the 
+# given argument to the end of the calling object. The `<<` method then returns the same, now mutated, array. As such the
+# assignment of the return value to paramter `arr` is redundant as they both point to the same object.
+
+########################################### Truthiness ###########################################
+
+# Example 1)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+a = "Hello"
+
+if a
+  puts "Hello is truthy"
+else
+  puts "Hello is falsey"
+end
+
+# On `line 1` local variable `a` is assigned the to the string object `Hello`. In the condition statement on `lines 3-7`,
+# we test the variable `a` for truthiness. As everything is truthy in Ruby except `false` and `nil`, this string object
+# that variable `a` points to is deemed truthy and therefor the string "Hello is truthy" is output, and as this is output
+# by the method `puts` it's return value is nil.
+# This example demonstrates that everything evaluates to truthy in ruby except for `false` or `nil`.
 
 =end
+
+# Example 2)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+def test
+  puts "written assessment"
+end
+
+var = test
+
+if var
+  puts "written assessment"
+else
+  puts "interview"
+end
+

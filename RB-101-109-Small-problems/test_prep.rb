@@ -16,7 +16,7 @@ X how the Array#sort method works
 Some specifics:
 X Assignments, remain consistent in how they are described.
 X Truthiness, refer to returns as "truhy" or "falsey" unless excplicitely true or false.
- Method Definiton and Method Invocation (More variable scope)
+X Method Definiton and Method Invocation (More variable scope)
 X Variable References and Object Mutability Arcticles
    READ Variable References and Mutability of Ruby Objects
    READ Mutating and Non-Mutating Methods in Ruby
