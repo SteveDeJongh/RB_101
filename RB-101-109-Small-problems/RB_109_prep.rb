@@ -870,11 +870,36 @@ p new_array
 # We then output the array `new_array` on `line 7` with `p`. This example demonstrates the transformation properties
 # of the `map` method.
 
-=end
-
 # Example 6)
 # What does the following code return? What does it output? Why? What concept does it demonstrate?
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 arr.each { |n| puts n }
 
+# The code will output each element of the `arr` array, and return the original `arr` array.
+# On `line 1`, local variable `arr` is initialized and assigned the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+# On `line 3`, we call `each` on `arr` and pass in a block with a paramter `n`. For each element in the `arr` array,
+# we pass that element to the block paramter `n` and execute the block. During block execution the methods `puts` is
+# invoked and passed `n` as an argument. This outputs `n`, and returns `nil`. As `each` does not care about the return
+# value of the block and isntead returns the orignal array, the orginal `arr` array is returned. This shows how `each`
+# will always return the orignal collection.
+
+# Example 7)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+incremented = arr.map do |n| 
+            n + 1
+            end
+p incremented
+
+# This code will output an array `[2,3,4,5,6,7,8,9,10,11]` and return the same [2,3,4,5,6,7,8,9,10,11] array.
+# On `line 1` we initialize local variable `arr` to the array `[1,2,3,4,5,6,7,8,9,10]`.
+# On `line 3` local variable `incremented` is initialized to the array returned by `map` method invoked on `arr`.
+# `map` is passed a block with parameter `n` to represent each element of the `arr` array. In the block execution
+# on `line 4` we add `n` and  the int `1`. As this is the last line of the block, this is whats returned to `map`
+# and passed into the new modified array assigned to `incremented`.
+# We then call `p` on `incremented` on `line 6` to output this new modified array.
+# This example highlights the transformative nature of `map` returning a new array of the return values of the block.
+
+=end
