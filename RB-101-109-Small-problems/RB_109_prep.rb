@@ -778,4 +778,103 @@ end
 # is executed. This results in `interview` being output from the `puts` method call, and `nil` returned. This example demonstrates
 # that everything in ruby evaluates to truthy, except `false` or `nil`.
 
+######################################## Each, Map, Select ########################################
+# Example 1)
+# What does the following code return? What does it output? Why? What concept does it 	demonstrate?
+array = [1, 2, 3, 4, 5]
+
+array.select do |num|
+   puts num if num.odd?
+end
+
+# This code will output `'1', '3', and '5'` and return an empty array.
+# On `line 1` we initialize the array object `array` and assign the `[1,2,3,4,5]` array to it.
+# On `line 3` we then invoke the select method on `array` and pass it a block with a parameter `num`. The select method
+# iterates over eache element in `array` and passes the element to the block. On `line 4` in the block, we call `puts` 
+# on parameter `num` if `num` is odd. This ouputs each odd number, and returns `nil`. As `select` relies on the truthiness
+# of the blocks return value, all elements will return `nil` with is falsey and not selected to be in the returned array.
+# As such, `select` will return an empty array.
+
+# Example 2)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arr.select { |n| n.odd? }
+
+# On `line 1` local varialbe `arr` is intiailized to the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+# On `line 3` the `select` method is invoked on `arr` and passed a block with a parameter `n`. `Select` iterates 
+# over every element in the array and passes the element to the block parameter `n`. The block passed to `select` 
+# checks every element in the array if it's odd. If the element is odd, the block returns a truthy value and therfor
+# the element is added to the array returned by `select`.
+# This code will not output anything, but returns a new array `[1,3,5,7,9]`
+
+# Example 3)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.select do |n| 
+  n + 1
+end
+p new_array
+
+# The `p` method call on `new_array` will output the array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`
+# This is due to the `select` method returning the orignal array element (if the iteration of the block evaluates
+# to truthy) to the returned array and not the modified element.
+# On `line 1` we initialize `arr` to the `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` array.
+# On `line 3` we initialize `new_array` to the return value of the method call `select` on `arr`. `select` is passed
+# a block with parameter `n`, this parameter represents each array element on each iteration of the block.
+# On `line 4` in the block execution, we add block parameter `n` with int `1`. The result of this is a new `int`, and 
+# as that `int` evaluates to truthy, the block returns the original element to the new array returned by `select`.
+# On `line 5` we call `p` on the `new_array` variable which was assigned the array returned by `select`.
+# This outputs `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` and returns `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+# Example 4)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.select do |n| 
+  n + 1
+  puts n
+end
+p new_array
+
+# This code will output each element of the `arr` array `1,2,3,4,5,6,7,8,9,10` from the `puts n` method call in the
+# `select` block, and output an empty array and return the empty array from the `p new_array` call on `line 7`.
+# On `line 1` we initialize the local variable `arr` to the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+# On `line 3` we initialize the local variable `new_array` to the return value of the method call `select` on `arr`.
+# The `select` method call is passed a block with paramater `n`. `n` represents each array element for each iteration
+# of the block. Within the block execution, we add `n` and `1`, as this is a non-mutating method and the return value
+# of the method is not reassigned, `n` remains it's initial value. We then call `puts` on `n`, this outputs `n` and
+# returns `nil`. As `nil` is falsey, the element is not passed back to the array returned by select.
+# We then call `p` on new_array`, as all iterations of the block passed to `select` returned `nil`, this array is empty.
+
+# Example 5)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+words = %w(jump trip laugh run talk)
+
+new_array = words.map do |word|
+  word.start_with?("t")
+end
+
+p new_array
+
+# This code will output and return an array containing `false, true, false, false, true`.
+# On `line 1` we initialize the `words` local variable to an array of string objects.
+# On `line 3` we initialize a `new_array` local variable to the array returned by the `map` method call on `words`.
+# The `map` method call is passed a block with a parameter `word`, this parameter represents each element of the array
+# as `map` iterates over the `words` array. Within the block, we call `start_with?` on block parameter `word` and pass
+# in a `"t"` as an argument. The `string#start_with?` method returns `true` or `false` depending on if the string
+# represented by `word` begings with a `t` passed in as an argument. As the method call `start_with?` is the last evaluated
+# line of code within the block, the return value of that method call is what's returned by the block to the `map` method call.
+# returned value is then added to the array object returned by `map` and assigned to local variable `new_array`.
+# We then output the array `new_array` on `line 7` with `p`. This example demonstrates the transformation properties
+# of the `map` method.
+
 =end
+
+# Example 6)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arr.each { |n| puts n }
+
