@@ -902,4 +902,36 @@ p incremented
 # We then call `p` on `incremented` on `line 6` to output this new modified array.
 # This example highlights the transformative nature of `map` returning a new array of the return values of the block.
 
+# Example 8)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.map do |n| 
+  n > 1
+end
+p new_array
+
+# This code will output and return the array `[false, true, true, true, true, true, true, true, true, true]`.
+# This code shows how `map` returns a new array of objects returned by the block. As the last line of code in the 
+# block passed to `map` is a conditional test that returns `true` or `false` depending on weather the array element
+# passed to the block on each iteration represented by parameter `x` is greater than `1`, one of those options is 
+#what's returned to the array on every iteration of the block. 
+
+# Example 9)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.map do |n| 
+  n > 1
+  puts n
+end
+p new_array
+
+# This code will output `1,2,3,4,5,6,7,8,9,10` from the `puts` method call on `line 5` in the block passed to `map`.
+# Then on `line 7` the `p` method call on `new_array` will return an array full of `nils` `[nil, nil, nil, nil, nil,
+# nil, nil, nil, nil, nil]`. This output and return value of `p new_array` is do to the return value of the block 
+# passed to `map`. On eaach iteration of the block, the last line is a call to `puts` which always returns `nil`.
+# This returned `nil` is passed to the returned array from `map` on each iteration of the block.
+
 =end
+

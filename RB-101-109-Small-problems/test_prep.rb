@@ -78,6 +78,22 @@ X    pass-by-reference and pass-by-value
 X    the call stack
 X  expressions and statements
 
+Concepts:
+Block variable scope.
+Block variable scope in relation to different looping constructs.
+Variable shadowing in relation to block parameter naming.
+Method variable scope, passing in variables as arguments.
+Mutateting vs non-mutating methods.
+Method side effects.
+Identifying mutating methods
+Pass by value and pass by reference and Object passing.
+Mutable vs imutable objects
+
+
+Interview prep:
+
+X Written exam question review, 1,2,3,4,5,6,7,8,9,10.
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?
