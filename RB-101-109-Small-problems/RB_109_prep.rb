@@ -933,5 +933,104 @@ p new_array
 # passed to `map`. On eaach iteration of the block, the last line is a call to `puts` which always returns `nil`.
 # This returned `nil` is passed to the returned array from `map` on each iteration of the block.
 
+# Example 10)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+a = "hello"
+
+[1, 2, 3].map { |num| a }
+
+# This code will not output anything, but the code on `line 3` will return an array `["hello", "hello", "hello"]`
+
+# This code highlights how the method `map` is used to transform collections.
+# On `line 1` we initalize a local variable `a` with the string object `hello`.
+# On `line 3` we call `map` on the array objet `[1,2,3]` and pass in a block with parameter `num`. Inside of the block
+# passed to `map`, we call the local variable `a`. As this is the last line of the block, this the return value of
+# this line is what's passed to the array returned by `map`. As blocks can access variables initialized in an outer
+# scope, this variable `a` is visible in the block execution and represents the string object `hello`.
+
+# Example 11)
+# What does the following code return? What does it output? Why? What concept does it demonstrate?
+[1, 2, 3].each do |num|
+  puts num
+end
+
+# This code will output `1`, `2`, `3` and return the array `[1,2,3]`.
+# On `line 1` we invoke the method `each` on the array object `[1,2,3]` and pass it a block with parameter `num`.
+# The each method passes each element of the array one at a time and exucutes the block. For every element in the array
+# the `puts` method is invoked and passed block parameter `num` as an argument. This block parameter `num` represents
+# the array element passed in. `puts` outputs the `num` and returns `nil`. As `each` does not care about the return
+# value of the block and returns the original array element, that is whats returned.
+
+####################################### Other Collection Methods #######################################
+
+# Example 1)
+[1, 2, 3].any? do |num|
+  num > 2
+end
+
+# This code will return `true` and not output anything.
+# On `line 1` we invoked the method `any?` on array object `[1,2,3]` and pass in a block with an argument `num`. `Any?`
+# will pass each element of the array to the block, in the block the element will be presented by the parameter `num`.
+# The block return the evaluated result of the condition within the block. In this case, it's if `num` is greather than int
+# `2`. If the block returns a truthy value from any of the elements passed in to the block, 
+# the `any?` method will return `true`.
+
+# Example 2)
+ { a: "ant", b: "bear", c: "cat" }.any? do |key, value|
+  value.size > 4
+end
+
+# This code will return `false`.
+# On `line 1` we invoke the method `any?` on the hash object `{ a: "ant", b: "bear", c: "cat" }` and pass a block
+# with two parameter `key` and `value`. `any?` will pass each key value pair of the hash to the block. For each element
+# the block will check if the values size is greater than 4. This is done by invoking the `size` method on each value.
+# If any of the iterations of the block return a truthy value, the `any?` method will return true. As none of the values
+# meet this condition, the `any?` method returns false.
+
+# Example 3)
+[1, 2, 3].all? do |num|
+  num > 2
+end
+
+# This code will return `false` and output nothing.
+# On `line 1` we invoked `all?` on the array `[1,2,3]` and pass a block with `num` as a parameter. `all?` passed each element
+# of the array into the block, represents that element by `num`, and then checks if `num` is greater than 2. If all
+# elements of the array return a truthy value from the block, `all?` will return `true`.
+
+# Example 4)
+{ a: "ant", b: "bear", c: "cat" }.all? do |key, value|
+  value.length >= 3
+end
+
+# This code will return `true` and output nothing.
+# On `line 1` we invoked the method `all?` on the hash object `{ a: "ant", b: "bear", c: "cat" }` and pass it a block
+# with two parameters `key` and `value` representing the key and value of each key value pair passed in. `all?` passed
+# each key value pair to the block one at a time and checks for the return value from the block. Inside the block,
+# the return value of method `length` invoked on `value` tested to see if it is equal to or greather than `3`. If 
+# all key value pairs of the hash object return a truthy value the `all?` method will return `true`, however if any
+# pair does not it will return `false`.
+
+# Example 5)
+[1, 2, 3].each_with_index do |num, index|
+  puts "The index of #{num} is #{index}."
+end
+
+# The code will output:
+# "The index of 1 is 0." and return `nil` from this `puts` method call in the block.
+# "The index of 2 is 1." and return `nil` from this `puts` method call in the block.
+# "The index of 3 is 2." and return `nil` from this `puts` method call in the block.
+# and return the `[1,2,3]` array from the initial `each_with_index` method invocation on `line 1`.
+# The `each_with_index` method is called on the array objet `[1,2,3]` and passed a block to represent each element as
+# block parameter `num`, and each index as block parameter `index`. In the exeuction of the block, we call `puts`
+# on a string with some strin interpolation. The `puts` method call outputs "The index of (element `num` represents) is
+# (value index represents)." and returns `nil` each time. Once all element have been interated over, the `each_with_index`
+# method returns the original collection.
+
 =end
+
+# Example 6)
+{ a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
+  array << pair.last
+end
+
 
