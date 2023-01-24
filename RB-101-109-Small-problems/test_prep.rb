@@ -32,7 +32,7 @@ DONE 2,
 DONE 3,
 
 Chris Larwoods blog post
-  109 Study Guide and all linked articles.
+X  109 Study Guide and all linked articles.
 X  Srdjan's 4-part blog series:
 X   Part1
 X   Part2
@@ -88,7 +88,6 @@ Method side effects.
 Identifying mutating methods
 Pass by value and pass by reference and Object passing.
 Mutable vs imutable objects
-
 
 Interview prep:
 

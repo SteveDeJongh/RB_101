@@ -1026,11 +1026,60 @@ end
 # (value index represents)." and returns `nil` each time. Once all element have been interated over, the `each_with_index`
 # method returns the original collection.
 
-=end
-
 # Example 6)
 { a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
   array << pair.last
 end
 
+# This code will not output anything, but return a new array `['ant', 'bear', 'cat']`.
+# On `line 1` we call the method `each_with_object` on the hash `{ a: "ant", b: "bear", c: "cat" }`,
+# pass in an array as the object, and a block with two parameters `pair` and `array`. In the block
+# `pair` represents each key value pair of the hash, and `array` represents the array object passed
+# to `each_with_object` as an argument.
+# `each_with_object` will iterate over each key value pair in the hash and pass them to the block.
+# Inside the block on `line 2`, we call the `last` method on `pairs`, `pairs` represents each `key`
+# `value` as two element of an array, and appends the result of that method call to `array` with 
+# the `<<` method.
+# As `each_with_object` returns the assigned object, an array is returned which contains all of the 
+# values of the hash.
 
+# Example 7)
+{ a: "ant", b: "bear", c: "cat" }.each_with_object({}) do |(key, value), hash|
+  hash[value] = key
+end
+
+# This code will return a new hash `{'ant' => :a, 'bear' => :b, 'cat' => :c}`
+
+# On `line 1` the method `each_with_object` is invoked on the hash `{ a: "ant", b: "bear", c: "cat" }`,
+# passed a `hash` as an argument and a block with parameter `(key, value)`, and `hash`. `each_with_object`
+# iterates over each key value pair of the hash and on block execution assigns them to the block
+# parameters `key` and `value`. Within the block execution on `line 2`, we initialize a new key value
+# pair in the new hash object. `hash` represents the new hash object returned by `each_with_object`, `value`
+# represents the exisiting hashes value for this iteration but is assigned to be a hash key in the returned
+# hash, and `key` represents the existing hashes key for this iteration but will be returned to the new hash
+# object as the value.
+
+# Example 8)
+odd, even = [1, 2, 3].partition do |num|
+  num.odd?
+end
+
+p odd 
+p even
+
+# This code will return a mutli level array `[[1,3],[2]]` from the `partition` method call on `line 1` and
+# output and return the array `[1,3]` from the `p` call on `line 5`, and output and return the
+# array `[2]` from the `p` call on `line 6`.
+# On `line 1` we initialize and assign two local varialbes `odd` and `even` to elements of the returned
+# array by the method call `partition` on the array `[1,2,3]`. The `partition` method call is passed
+# a block as an arugment with the parameter `num`. `parition` passes each element of the array to the block
+#, represents the element in the block by `num`, and then within the block calls `odd?` on parameter `num`.
+# As the `odd?` method is the last line of code within the block, the return value of the method
+# is what's passed as the return value of the block. If the block evaluates to truthy, the element
+# is placed in the first array returned by the `partition` method. If the return value is falsey,
+# the element is placed in the second array returned by `partition`. The two arrays are then assigned
+# `odd` and `even` respectively.
+# We then call `p` on `odd` on `line 5`, outputing and returning the array `[1,3]`, followed by
+# another `p` method invocation on `even` on `line 6`, outputing and returning the array `[2]`.
+
+=end
