@@ -94,6 +94,76 @@ Interview prep:
 
 X Written exam question review, 1,2,3,4,5,6,7,8,9,10.
 
+Codewars prep:
+x 1.Count letters in string
+x 2.Find all pairs
+x 3.Return substring instance count
+x 4.Alphabet symmetry
+x 5.Longest vowel chain
+x 6.Non-even substrings
+7.Substring fun
+8.Repeated Substring
+9.Typoglycemia Generator
+10.Most frequently used words in a text]
+11.Extract the domain name from a URL
+12. Detect Pangram
+13. Kebabize
+14. Dubstep
+15. Take a Ten Minute Walk
+16. Stop gninnipS My sdroW!
+17. Write Number in Expanded Form
+18. Persistent Bugger.
+19. Title Case
+20. Count and Group Character Occurrences in a String
+21. Find the Mine!
+22. Scramblies
+23. Longest alphabetical substring
+24. The Hashtag Generator
+25. Pete, the baker
+26. Mean Square Error
+27. Exponent method
+28. Where my anagrams at?
+29. Split Strings
+30. Anagram difference
+31. Anagram Detection
+32. Highest Scoring Word
+33. Replace With Alphabet Position
+34. Sherlock on pockets
+35. Mexican Wave
+36. Delete a Digit
+37. Multiples of 3 or 5
+38. String transformer
+39. Largest product in a series
+40. Duplicate Encoder
+41. Backspaces in string
+42. Sort Arrays (Ignoring Case)
+43. Transform To Prime
+44. Counting Duplicates
+45. Alphabetized
+46. Sum of Digits / Digital Root
+47. Array.diff
+48. Where is my parent!?(cry)
+49. Playing with digits
+50. Equal Sides Of An Array
+51. Reverse or rotate?
+51. Decipher this!
+52. Bouncing Balls
+53. WeIrD StRiNg CaSe
+54. Are they the "same"?
+55. Grouping and Counting
+56. Find the Nexus of the Codewars Universe
+57. Count letters in string
+58. Triple trouble
+59. Which are in?
+60. Format a string of names like 'Bart, Lisa & Maggie'.
+61. Find the missing letter
+62. Who likes it?
+63. Find The Parity Outlier
+64. Is Integer Array?
+65. Reversing and Combining Text
+66. Integer reduction
+
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?
@@ -243,4 +313,3 @@ end
 p hsh
 
 =end
-
