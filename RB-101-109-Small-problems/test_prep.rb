@@ -108,12 +108,12 @@ x 11.Extract the domain name from a URL (Revisit, better use of REGEX)
 x 12. Detect Pangram
 x 13. Kebabize
 14. Dubstep
-15. Take a Ten Minute Walk
-16. Stop gninnipS My sdroW!
-17. Write Number in Expanded Form
-18. Persistent Bugger.
-19. Title Case
-20. Count and Group Character Occurrences in a String
+x 15. Take a Ten Minute Walk
+x 16. Stop gninnipS My sdroW!
+x 17. Write Number in Expanded Form
+x 18. Persistent Bugger.
+x 19. Title Case
+x 20. Count and Group Character Occurrences in a String
 21. Find the Mine!
 22. Scramblies
 23. Longest alphabetical substring
