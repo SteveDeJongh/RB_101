@@ -100,13 +100,13 @@ x 3.Return substring instance count
 x 4.Alphabet symmetry
 x 5.Longest vowel chain
 x 6.Non-even substrings
-7.Substring fun
+x 7.Substring fun
 8.Repeated Substring
-9.Typoglycemia Generator
+x 9.Typoglycemia Generator (Hard! Revisit if possible.)
 10.Most frequently used words in a text]
-11.Extract the domain name from a URL
-12. Detect Pangram
-13. Kebabize
+x 11.Extract the domain name from a URL (Revisit, better use of REGEX)
+x 12. Detect Pangram
+x 13. Kebabize
 14. Dubstep
 15. Take a Ten Minute Walk
 16. Stop gninnipS My sdroW!
