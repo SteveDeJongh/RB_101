@@ -114,7 +114,7 @@ x 17. Write Number in Expanded Form
 x 18. Persistent Bugger.
 x 19. Title Case
 x 20. Count and Group Character Occurrences in a String
-21. Find the Mine!
+x 21. Find the Mine!
 22. Scramblies
 23. Longest alphabetical substring
 24. The Hashtag Generator
@@ -312,3 +312,104 @@ end
 p hsh
 
 =end
+
+
+#Sample RB109d interview test problem # 1
+
+# Given a string s, reverse the string according to the following rules:
+
+# - All the characters that are not English letters remain in the same position. All the English letters (lowercase or uppercase) should be reversed.
+# - Return s after reversing it.
+
+=begin
+#PEDAC
+P: Understand the problem
+Inputs: Strings with alphabetic and non-alphabetic characters
+Outputs: A new string with alphabetic characters order reversed
+
+E: Examples
+
+D: Data structure
+
+A: Algorithm
+
+C: Code
+
+
+
+
+def reverse_only_letters(string)
+  resultstring = string
+  string.chars.each_with_index do |char, idx|
+    if ('a'..'z').to_a.include?(char.downcase)
+      resultstring[((idx+1)*-1)] = char
+    else
+      resultstring[idx] = char
+    end
+  end
+  resultstring
+end
+
+
+p reverse_only_letters("ab-cd") == "dc-ba"
+p reverse_only_letters("Test1ng-Leet=code-Q!") == "Qedo1ct-eeLg=ntse-T!"
+p reverse_only_letters("--__123") == "--__123"
+p reverse_only_letters('hellO') == 'Olleh'
+
+=end
+
+#Sample RB109d interview test problem # 2
+
+# Find the longest substring in alphabetical order.
+# Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
+# The input will only consist of lowercase characters and will be at least one letter long.
+# If there are multiple solutions, return the one that appears first.
+
+=begin
+
+PEDAC
+
+P:
+Input a string
+Output a shorter string
+Rules:
+
+
+E:
+
+D:
+
+A:
+
+create an array containing all substrings
+check each substring sequence for alphabetic order
+if substring is alphabetical, place substring in longest substring variable if it is longer than the current string.
+
+C:
+
+
+=end
+
+def longest(string)
+  substrings = []
+  0.upto(string.length) do |index|
+    working_string = string[index..-1]
+    counter = 0
+    working_string.length
+      substrings << working_substring
+  end
+    # working_string.length.times do |index|
+
+  substrings
+
+
+
+end
+
+p longest('asd') #== 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') ==  'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') == 'fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
