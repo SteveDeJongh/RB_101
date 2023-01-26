@@ -313,59 +313,76 @@ p hsh
 
 =end
 
-
-#Sample RB109d interview test problem # 1
+######################### Sample RB109d interview test problem # 1########################
 
 # Given a string s, reverse the string according to the following rules:
 
-# - All the characters that are not English letters remain in the same position. All the English letters (lowercase or uppercase) should be reversed.
+# - All the characters that are not English letters remain in the same position. All the English letters (lowercase or 
+# uppercase) should be reversed.
 # - Return s after reversing it.
 
 =begin
+
 #PEDAC
 P: Understand the problem
+
 Inputs: Strings with alphabetic and non-alphabetic characters
 Outputs: A new string with alphabetic characters order reversed
+Leave non alphabetical characters in place
+reverse all upper or lower case alphabetical characters
 
 E: Examples
+
+"Test1ng-Leet=code-Q!" == "Qedo1ct-eeLg=ntse-T!"
+"--__123" == "--__123"
 
 D: Data structure
 
 A: Algorithm
+Create an array of alphabetical characters from the string.
+iterate over each character in the string starting from the end
+  if character is non alphabetical leave it as is and move on to the next
+  otherwise, replace that character with the first character in the characters array and remove the character from array
+return the new string
 
 C: Code
 
-
-
+# def reverse_only_letters(string)
+#   working_string = string
+#   aphabetical_characters = string.chars.keep_if { |x| x=~ /[a-zA-Z]/}
+#   string.length.downto(1) do |index|
+#     if working_string[(index - 1)] =~ /[^a-zA-Z]/
+#       next
+#     else
+#       working_string[(index-1)] = aphabetical_characters.shift
+#     end
+#   end
+#   working_string
+# end
 
 def reverse_only_letters(string)
-  resultstring = string
-  string.chars.each_with_index do |char, idx|
-    if ('a'..'z').to_a.include?(char.downcase)
-      resultstring[((idx+1)*-1)] = char
+  aphabetical_characters = string.chars.keep_if { |x| x=~ /[a-zA-Z]/}
+  string.length.downto(1) do |index|
+    if string[(index - 1)] =~ /[^a-zA-Z]/
+      next
     else
-      resultstring[idx] = char
+      string[(index-1)] = aphabetical_characters.shift
     end
   end
-  resultstring
+  string
 end
-
 
 p reverse_only_letters("ab-cd") == "dc-ba"
 p reverse_only_letters("Test1ng-Leet=code-Q!") == "Qedo1ct-eeLg=ntse-T!"
 p reverse_only_letters("--__123") == "--__123"
 p reverse_only_letters('hellO') == 'Olleh'
 
-=end
-
-#Sample RB109d interview test problem # 2
+######################## Sample RB109d interview test problem # 2 ########################
 
 # Find the longest substring in alphabetical order.
 # Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
 # The input will only consist of lowercase characters and will be at least one letter long.
 # If there are multiple solutions, return the one that appears first.
-
-=begin
 
 PEDAC
 
@@ -373,43 +390,54 @@ P:
 Input a string
 Output a shorter string
 Rules:
-
+substring must be in alphabetical order
+substring can have repeating letters
+result is the first substring of that length
 
 E:
 
+'nab' == 'ab'
+'asdfaaaabbbbcttavvfffffdf' == 'aaaabbbbctt'
+
 D:
+Array of string objects
 
 A:
 
 create an array containing all substrings
-check each substring sequence for alphabetic order
-if substring is alphabetical, place substring in longest substring variable if it is longer than the current string.
+  create substring from string index 0 to string length
+    take each substring and create each substring from each starting letter.
+    add substring to substrings array
+loop over each substring
+  check each substring sequence for alphabetic order
+    compare substring characters to substring characters sorted
+    if substring is alphabetical, place substring in longest substring variable if it is longer than the current string.
 
 C:
-
-
-=end
 
 def longest(string)
   substrings = []
   0.upto(string.length) do |index|
     working_string = string[index..-1]
-    counter = 0
-    working_string.length
-      substrings << working_substring
+    0.upto(working_string.length) do |length|
+      substrings << working_string[0..length]
+    end
   end
-    # working_string.length.times do |index|
-
-  substrings
-
-
-
+  longest_substring = ''
+  substrings.each do |substring|
+    if substring.chars == substring.chars.sort
+      longest_substring = substring unless substring.length <= longest_substring.length
+    end
+  end
+  longest_substring
 end
 
-p longest('asd') #== 'as'
-# p longest('nab') == 'ab'
-# p longest('abcdeapbcdef') ==  'abcde'
-# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
-# p longest('asdfbyfgiklag') == 'fgikl'
-# p longest('z') == 'z'
-# p longest('zyba') == 'z'
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longest('abcdeapbcdef') ==  'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'
+
+= end
