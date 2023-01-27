@@ -90,8 +90,9 @@ Pass by value and pass by reference and Object passing.
 Mutable vs imutable objects
 
 Interview prep:
-
-X Written exam question review, 1,2,3,4,5,6,7,8,9,10.
+x Review RB 109 written exercise problems
+x Written exam question review, 1,2,3,4,5,6,7,8,9,10.
+x Review concepts
 
 Codewars prep:
 x 1.Count letters in string
@@ -312,7 +313,7 @@ p hsh
 
 =end
 
-######################### Sample RB109d interview test problem # 1########################
+######################### Sample RB109d interview test problem # 1 ########################
 
 # Given a string s, reverse the string according to the following rules:
 

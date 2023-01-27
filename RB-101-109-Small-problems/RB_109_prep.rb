@@ -126,7 +126,7 @@ loop do
   sum += arr[counter]
   counter += 1
   break if counter == arr.size
-end 
+end
 
 puts "Your total is #{sum}"
 
