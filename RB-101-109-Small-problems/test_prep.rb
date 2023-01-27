@@ -83,7 +83,7 @@ Block variable scope.
 Block variable scope in relation to different looping constructs.
 Variable shadowing in relation to block parameter naming.
 Method variable scope, passing in variables as arguments.
-Mutateting vs non-mutating methods.
+Mutating vs non-mutating methods.
 Method side effects.
 Identifying mutating methods
 Pass by value and pass by reference and Object passing.
@@ -161,7 +161,6 @@ x 21. Find the Mine!
 64. Is Integer Array?
 65. Reversing and Combining Text
 66. Integer reduction
-
 
 ############## Launch School Live Session Beginning Ruby Part 1
 
@@ -347,20 +346,9 @@ return the new string
 
 C: Code
 
-# def reverse_only_letters(string)
-#   working_string = string
-#   aphabetical_characters = string.chars.keep_if { |x| x=~ /[a-zA-Z]/}
-#   string.length.downto(1) do |index|
-#     if working_string[(index - 1)] =~ /[^a-zA-Z]/
-#       next
-#     else
-#       working_string[(index-1)] = aphabetical_characters.shift
-#     end
-#   end
-#   working_string
-# end
+# This mutates the string, can be changed to be non-mutating by re-assigning string to local method variable and returning that.
 
-def reverse_only_letters(string)
+def reverse_only_letters!(string)
   aphabetical_characters = string.chars.keep_if { |x| x=~ /[a-zA-Z]/}
   string.length.downto(1) do |index|
     if string[(index - 1)] =~ /[^a-zA-Z]/
@@ -440,4 +428,4 @@ p longest('asdfbyfgiklag') == 'fgikl'
 p longest('z') == 'z'
 p longest('zyba') == 'z'
 
-= end
+=end
