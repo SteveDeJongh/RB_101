@@ -341,9 +341,10 @@ p a
 p b
 
 # `a` will return `7.3` and `b` will return `8.4`. This is due to the reassignment on `line 6`. As this is
-# reassignment, the variable `b` now points to a new float object rather than changing the original float object
-# it was pointing to. This highlights that reassignment does not modify the existing pointed to object, but rather
-# points to a new object.
+# reassignment to the return of the + method. The `+=` is syntactical sugar for concatenation `b = b + 1.1`
+#, the variable `b` now points to a new float object returned by the method rather than changing the original
+# float object it was pointing to. This highlights that reassignment does not modify the existing pointed to 
+# object, but rather points to a new object.
 
 # Example 6)
 # What does the following code return? What does it output? Why?
