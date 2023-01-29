@@ -6,12 +6,12 @@ PEDAC Process
 P = Understand the problem
 
 Establish the rules and define the boundaries of the problem.
-  Asess available information
-  Restate explicity requirements
-  identify implciit requirements
-spend enoug time, dont rush this step.
+  Assess available information
+  Restate explicit requirements
+  identify implicit requirements
+spend enough time, don’t rush this step.
 
-Ex: Given a string, produce a new strign with every other word removed
+Ex: Given a string, produce a new string with every other word removed
 
 explicit requirements:
   input is a string
@@ -23,36 +23,35 @@ Questions:
   how do we define a word in this context?
       -Word are delimited by spaces.
 
-E = Exmaples/test cases
+E = Examples/test cases
 
 - Can confirm or refute assumptions
-- Help to answer questions about implciit requirements
+- Help to answer questions about implicit requirements
 - Act as assertions which help to codify the rules and boundaries
-
 
 D = Data structure
 
 - Help to reason with data more logically
 - Help interact with data at implementation level
-- Thinking of data structuces is part of the overall problem solving process
-- Data structures are closely linked to algorithims
+- Thinking of data structures is part of the overall problem solving process
+- Data structures are closely linked to algorithms
     - set of steps from input to solution
       -involve structuring data in a certain way
 
-A = Algorithims
+A = Algorithms
 
 - A logical sequence of steps for completing a task or objective.
     - Closely linked to data structures
     - Series of steps to structure data to produce the required output
 - Stay abstract and high level
     - Avoid implementation detail
-    - Dont worry aobut efficiency for now
+    - Don’t worry about efficiency for now
 
 C = Implementing a solution in Code
 
-- Translating our solution algorithin into code
+- Translating our solution algorithm into code
 - Think about the problem in context of the program language
-    - Langauge features and constraints
+    - Language features and constraints
     - Characteristics of data structures
     - Built in functions and methods
     - Syntax and coding patterns
@@ -62,13 +61,13 @@ C = Implementing a solution in Code
 # Final thoughts:
 - Not a completely linear process
 - Be prepared to move back and forth between the steps.
-- Switch from implemenation mode to abstract problem solving mode whe necessary.
+- Switch from implementation mode to abstract problem solving mode when necessary.
 - Don't try to problem solve at the code level.
 
 ## Sum Even Number Rows
 
-Imagine a sequence of consecutive even integers beginning with 2. The intergers are grouped in
-rows, with the first row containing one integer, the second row two integers, and the thrid row three
+Imagine a sequence of consecutive even integers beginning with 2. The integers are grouped in
+rows, with the first row containing one integer, the second row two integers, and the third row three
 integers and so on. Given an integer representing the number of a particular row, return an
 integer representing the sum of all integers in that row.
 
@@ -78,13 +77,13 @@ integer representing the sum of all integers in that row.
 - Sequence begins with 2
 - Integers are consecutive
 - Sequence is grouped into rows
-- Each row is incrementaly larger than the last: 1, 2, 3,...
+- Each row is incrementally larger than the last: 1, 2, 3,...
 - Row 'number' equals num of elements in the row
       - Row 1 has 1 element, row 2 has 2 elements, ...
 - Input: single integer
     - Identifies a row, which is a subset of a sequence of integers.
 - Output: single integer
-    - Sum of integers in a row indentified by the input.
+    - Sum of integers in a row identified by the input.
 
 - Sequence:
 2,4,6,8,10,12,14,16,18, ...
@@ -107,7 +106,7 @@ row number: 4 --> sum of integers should be 68
 
 - Overall structure represents a sequence
 - Individual rows within that structure
-- Individual rows in a set order in context sequence
+- Individual rows in a set order in context of sequence
 - Individual rows contain integers
 - Can assume integers are in a set order in the context of the sequence
 
@@ -158,7 +157,7 @@ Algorithim:
   #start the loop
     - Add start integer to the row
     - Increment the starting integer by 2
-    - break out of the loop if length of row is equals row_length
+    - break out of the loop if length of row equals row_length
 5. Return the array
 
 

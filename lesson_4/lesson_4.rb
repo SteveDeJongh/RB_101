@@ -582,3 +582,48 @@ Additional_practice.rb
 
 
 =end
+
+################### RB 110 Lesson 1 ###############
+=begin
+
+# String Element Reference
+str = 'The grass is green'
+p str[4,5] # Actualy a call to string#slice(star_index, length) witch returns a new string.
+
+# Array element reference
+
+arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+p arr[2, 3] # returns ['c','d','e'], actually a call to `array#slice` which will return a new array.
+p arr[2, 3][0] # returns 'c'
+
+# Hash element reference
+hsh = { 'fruit' => 'apple', 'vegetable' => 'carrot' }
+
+hsh['fruit']    # => "apple" Returns value of key.
+hsh['fruit'][0] # => "a" element reference of the string return by `hsh[fruit]`
+
+# The PEDAC Process
+
+P - [Understand the] Problem
+  Read the problem description.
+  Check the test cases, if any.
+  If any part of the problem is unclear, ask the interviewer or problem requester to clarify the matter.
+
+  input: type of input
+  output: type of output
+
+  rules:
+    Explicit requirements:
+    Implicit requirements:
+
+E - Examples / Test cases
+
+D - Data Structure
+
+A - Algorithm
+
+  Return to algorithm stage if a step in the high level algorithm requires further work.
+
+C - Code
+
+=end
