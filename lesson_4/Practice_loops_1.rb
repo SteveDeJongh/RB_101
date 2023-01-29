@@ -101,3 +101,105 @@ for i in friends
 end
 
 =end
+
+#### Looping practice, Loops 1
+
+=begin
+#1) Runaway loop
+
+loop do
+  puts 'Just keep printing...'
+  break
+end
+
+#2) Loopception
+
+loop do
+  puts 'This is the outer loop.'
+
+  loop do
+    puts 'This is the inner loop.'
+    break
+  end
+  break
+end
+
+puts 'This is outside all loops.'
+
+#3) Control the Loop
+
+iterations = 1
+
+loop do
+  puts "Number of iterations = #{iterations}"
+  iterations += 1
+  break if iterations > 5
+end
+
+#4) Loop on Command
+
+loop do
+  puts 'Should I stop looping?'
+  answer = gets.chomp
+  break if answer == 'yes'
+end
+
+#5) Say Hello
+
+say_hello = true
+count = 0
+
+while say_hello
+  puts 'Hello!'
+  count += 1
+  say_hello =  false if count == 5 
+end
+
+5.times do 
+  puts "Hello!"
+end
+
+#6) Print While
+
+numbers = []
+
+while numbers.size < 5
+  numbers << rand(0..99) # or rand(100)
+end
+
+puts numbers
+
+#7) Count Up
+
+count = 1
+
+until count > 10
+  puts count
+  count += 1
+end
+
+#8) Print Until
+
+numbers = [7, 9, 13, 25, 18]
+
+count = 0
+until count == numbers.size
+  p numbers[count]
+  count += 1
+end
+
+#9) That's Odd
+
+for i in 1..100
+  puts i if i.odd?
+end
+
+#10) Greet Your Friends
+
+friends = ['Sarah', 'John', 'Hannah', 'Dave']
+
+for i in friends do
+  puts "Hello, #{i}!"
+end
+
+=end
