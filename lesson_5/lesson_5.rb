@@ -72,9 +72,9 @@ Example 3)
 Line(s) of code, action, object, side effect, return value, is return value used?
 1) method call map, the outer array, none, new array [1,3], no
 1-4) block execution, each sub-aray, none, sub-array integer at index 0, yes by map for transformation.
-2) method call first, each sub-array, none, 1, 3, yes by puts
+2) method call first, each sub-array, none, element at index [0] of sub array, yes by puts
 2) method call puts, first element in each sub array, outputs string, nil, no
-3) method call first, each sub-array, none, 1, 3, yes determines block return value
+3) method call first, each sub-array, none, element at index [0] of sub array, yes determines block return value
 
 Example 4)
 
@@ -85,15 +85,12 @@ Example 4)
 5)     end
 6)   end
 7) end
-8)
-9)
-10)
 
 Line(s) of code, action, object, side effect, return value, is return value used?
-1) variable asignment, array, none, arrray, no
-1) method call each, multi dim array, none, original array, yes by variable assignemnt.
+1) variable asignment, [[18, 7], [3, 12]], none, [[18, 7], [3, 12]], no
+1) method call each, [[18, 7], [3, 12]], none, original calling object [[18, 7], [3, 12]], yes by variable assignemnt.
 1-7) outer block execution, each sub-array, none, each sub-array, no
-2) method call each, each sub-array, none, original sub-array, no
+2) method call each, each sub-array, none, original sub-array, yes used to determine return value of outer block.
 2-6) inner block execution, each element in sub-array, none, nil, no
 3) comparison, element of the sub-array, none, boolean, yes evaluated by if
 3-5) conditional if statement, result of comparison expression, none, nil, yes used to 
@@ -700,6 +697,260 @@ end
 p uuid
 
 #or
+
+def generate_UUID
+  characters = []
+  (0..9).each { |digit| characters << digit.to_s }
+  ('a'..'f').each { |digit| characters << digit }
+
+  uuid = ""
+  sections = [8, 4, 4, 4, 12]
+  sections.each_with_index do |section, index|
+    section.times { uuid += characters.sample }
+    uuid += '-' unless index >= sections.size - 1
+  end
+
+  uuid
+end
+
+########### RB119 Review
+
+########### Practice Problems: Sorting, Nested Collections, and Working with Blocks
+
+# 1)
+
+arr = ['10', '11', '9', '7', '8']
+
+arr.sort do |a, b|
+  b.to_i <=> a.to_i
+end
+
+# 2)
+
+books = [
+  {title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967'},
+  {title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925'},
+  {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
+  {title: 'Ulysses', author: 'James Joyce', published: '1922'}
+]
+
+books.sort_by do |book|
+  book[:published]
+end
+
+# 3)
+
+arr1 = ['a', 'b', ['c', ['d', 'e', 'f', 'g']]]
+
+p arr1[2][1][3]
+
+arr2 = [{first: ['a', 'b', 'c'], second: ['d', 'e', 'f']}, {third: ['g', 'h', 'i']}]
+
+p arr2[1][:third][0]
+
+arr3 = [['abc'], ['def'], {third: ['ghi']}]
+
+p arr3[2][:third][0][0]
+
+hsh1 = {'a' => ['d', 'e'], 'b' => ['f', 'g'], 'c' => ['h', 'i']}
+
+p hsh1['b'][1]
+
+hsh2 = {first: {'d' => 3}, second: {'e' => 2, 'f' => 1}, third: {'g' => 0}}
+
+p hsh2[:third].keys(0)
+
+# 4)
+
+arr1 = [1, [2, 3], 4]
+arr1[1][1] = 4
+p arr1
+
+arr2 = [{a: 1}, {b: 2, c: [7, 6, 5], d: 4}, 3]
+arr2[2] = 4
+p arr2
+
+hsh1 = {first: [1, 2, [3]]}
+hsh1[:first][2][0] = 4
+p hsh1
+
+hsh2 = {['a'] => {a: ['1', :two, 3], b: 4}, 'b' => 5}
+hsh2[['a']][:a][2] = 4
+p hsh2
+
+# 5)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+total_male_age = 0
+munsters.each do |_, details| # This could be changed to #each_value with single details param.
+  total_male_age += details['age'] if details['gender'] == 'male'
+end
+
+p total_male_age
+
+# 6)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+munsters.each do |name, details|
+  puts "#{name} is a #{details['age']}-yeard-old #{details['gender']}."
+end
+
+# 7)
+
+a = 2
+b = [5, 8]
+arr = [a, b]
+#arr = [2, [5,8]]
+arr[0] += 2 #modifies `arr`, not `a`, this is in effect reassignment.
+#arr = [4,[5,8]]
+#a = 2
+arr[1][0] -= a
+#arr = [4,[3,8]]
+#a = 2
+#b = [3,8]
+
+# 8)
+
+hsh = {first: ['the', 'quick'], second: ['brown', 'fox'], third: ['jumped'], fourth: ['over', 'the', 'lazy', 'dog']}
+
+hsh.each do |_, value|
+  value.each do |string|
+    string.chars.each do |char|
+      p char if char =~ /[aeiou]/
+    end
+  end
+end
+
+# 9)
+
+arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
+
+arr.map do |array|
+  array.sort do |a,b|
+  b <=> a
+  end
+end
+
+# 10)
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |hash|
+  incremented_hash = {}
+  hash.each do |key, val|
+    incremented_hash[key] = val + 1
+  end
+  incremented_hash
+end
+
+# 11)
+
+arr = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+
+results = arr.map do |subarr|
+  subarr.select do |ele|
+    ele % 3 == 0
+  end
+end
+
+p results
+
+# 12)
+
+arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# expected return value: {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
+hash = {}
+arr.each do |array|
+  hash[array[0]] = array[1]
+end
+p hash
+
+# 13)
+
+arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+
+sorted = arr.sort_by do |subarr|
+  subarr.select do |num|
+    num.odd?
+  end
+end
+
+p sorted
+
+# 14)
+
+hsh = {
+  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+}
+
+results = []
+
+hsh.each do |_, details|
+  results << details[:colors].map {|color| color.capitalize} if details[:type] == 'fruit'
+  results << details[:size].upcase if details[:type] == 'vegetable'
+end
+p results
+
+#or with if/else
+
+hsh.map do |_, value|
+  if value[:type] == 'fruit'
+    value[:colors].map do |color|
+      color.capitalize
+    end
+  elsif value[:type] == 'vegetable'
+    value[:size].upcase
+  end
+end
+# => [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+# 15)
+
+arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+
+results = arr.select do |hash|
+  hash.all? do |_, val|
+    val.all? do |num|
+      num.even?
+    end
+  end
+end
+
+p results
+
+# 16)
+
+def hexadecimal
+  characters = %w(1 2 3 4 5 6 7 8 9 0 a b c d e f)
+  string = ''
+  32.times do
+    number = rand(0..15)
+    string << characters[number]
+  end
+  p string
+  "#{string[0,8]}-#{string[8,4]}-#{string[12,4]}-#{string[16,4]}-#{string[20,12]}"
+end
+
+p hexadecimal
+
+# or
 
 def generate_UUID
   characters = []
