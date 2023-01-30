@@ -396,4 +396,165 @@ p munsters
 key and value named `name` and `details`. We then check the value in the value's hash key "age", and create a new key with
 the appropriate string value.
 
+#### Additional practice review
+
+# 1)
+flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+
+flintstones_hash = {}
+flintstones.each_with_index do |ele, index|
+  flintstones_hash[ele] = index
+end
+
+p flintstones_hash
+
+
+# 2)
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
+
+sum_of_ages = 0
+
+ages.each do |_,v|
+  sum_of_ages += v
+end
+
+p sum_of_ages
+
+# Or
+
+ages.values.inject(:+)
+
+# 3)
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
+
+ages.select! do |_,v|
+  v < 100
+end
+
+# or
+
+ages.keep_if { |_, v| v < 100 }
+
+# 4)
+
+ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
+
+ages.values.min
+
+# 5)
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+p flintstones.index {|name| name.start_with?('Be')}
+#or
+p flintstones.index {|name| name[0,2] =='Be'}
+
+# 6)
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+flintstones.map! { |name| name[0,3] }
+
+p flintstones
+
+# 7)
+
+statement = "The Flintstones Rock"
+
+characters = Hash.new(0)
+
+statement.chars do |char|
+  characters[char] += 1 unless char == ' '
+end
+
+p characters
+
+# or
+
+result = {}
+characters = ('A'..'Z').to_a + ('a'..'z').to_a
+
+characters.each do |char|
+  letter_frequency = statement.count(char)
+  result[char] = letter_frequency if letter_frequency > 0
+end
+
+p result
+
+# 8)
+
+numbers = [1, 2, 3, 4]
+numbers.each do |number|
+  p number
+  numbers.shift(1)
+end
+
+#=> 1
+#=> 3
+
+# This is best explained by showing the state of the array during each iteration.
+
+# Iteration 1)
+# numbers array is [1,2,3,4]
+# the current block paramter `number` is assigned the 1st element 1
+# the block prints the block parameter `number` 1
+# the array is modified, removing the first element, to [2,3,4]
+
+# Iteration 2)
+# Numbers array is [2,3,4]
+# the current block parameter `number` is assigned to the 2nd element 3
+# the block prints the block parameter `number` 3
+# the array is modified, removing the first element, to [3,4]
+
+# Iteration 3)
+# Numbers array is [3,4]
+# As the array is now only 2 elements long, this iteration does not occur.
+
+numbers = [1, 2, 3, 4]
+numbers.each do |number|
+  p number
+  numbers.pop(1)
+end
+
+#=> 1
+#=> 2
+
+# In this second example, as the modification is done to the end of the array, the block iterates 2 times before
+# reaching the end of the array and stopping.
+
+# 9)
+
+words = "the flintstones rock"
+
+def titleize(string)
+  string.split(' ').map! { |word| word.capitalize }.join(' ')
+end
+
+p titleize(words)
+
+# 10)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+munsters.each do |name, details|
+  case
+  when details['age'] < 18
+    details['age_group'] = "Kid"
+  when details['age'] < 65
+    details['age_group'] = 'Adult'
+  else
+    details['age_group'] = 'Senior'
+  end
+end
+
+p munsters
+
 =end
