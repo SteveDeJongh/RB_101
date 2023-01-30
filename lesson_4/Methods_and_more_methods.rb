@@ -112,4 +112,93 @@ outputs:
 returns:
 #=> [1,nil, nil]
 
+############# Practice Problems review
+
+# 1)
+
+[1, 2, 3].select do |num|
+  num > 5
+  'hi'
+end
+
+# Returns [1,2,3]
+
+# 2)
+
+ ['ant', 'bat', 'caterpillar'].count do |str|
+  str.length < 4
+end
+
+# Retruns 2
+# .count with a block returns the count of the number of elements that return a true value.
+
+# 3)
+
+[1, 2, 3].reject do |num|
+  puts num
+end
+
+# Returns [1,2,3], #return returns a new array containing items where the blocks return value is falsy.
+
+# 4)
+
+['ant', 'bear', 'cat'].each_with_object({}) do |value, hash|
+  hash[value[0]] = value
+end
+
+# returns { 'a' => 'ant', 'b' => 'bear', 'c' => 'cat}
+
+# 5)
+
+hash = { a: 'ant', b: 'bear' }
+hash.shift
+
+# returns [:a, 'ant']
+
+# 6)
+
+['ant', 'bear', 'caterpillar'].pop.size
+
+# returns 11, .pop returns the last element of the array, .size is called on that last element.
+
+# 7) 
+
+[1, 2, 3].any? do |num|
+  puts num
+  num.odd?
+end
+
+# block iterations will return `true`, and the block will only execute once as #any stop iterating as soon as
+# any `truthy` value is returned.
+# #any? Returns `true`.
+
+# 8) 
+
+arr = [1, 2, 3, 4, 5]
+arr.take(2)
+
+# #take return the first x number of element. Returns `[1,2]`
+
+# 9)
+
+{ a: 'ant', b: 'bear' }.map do |key, value|
+  if value.size > 3
+    value
+  end
+end
+
+# map returns [nil, 'bear']. Map will always return an array, and as none of the if conditions are met on the first
+# value, the statement returns nil.
+
+# 10)
+
+[1, 2, 3].map do |num|
+  if num > 1
+    puts num
+  else
+    num
+  end
+end
+
+# Returns [1, nil, nil]
 =end
