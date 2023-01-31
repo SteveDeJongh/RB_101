@@ -1,4 +1,16 @@
 ####################### Walk-Through: Tic Tac Toe ###########################
+
+# 1. Display the nitial empty 3x3 board.
+# 2. Ask the user to mark a square.
+# 3. Computer marks a square.
+# 4. Display the update board state.
+# 5. If winner, display winner.
+# 6. If board is full, display tie.
+# 7. If neither winner nor board is full, got to #2.
+# 8. Play again?
+# 9. If yes, got to #1
+# 10. Good bye!
+
 require 'pry'
 
 INITIAL_MARKER = ' '
@@ -50,7 +62,7 @@ def joinor(arr, delimiter=', ', word='or')
   when 2 then arr.join(" #{word} ")
   else
     arr[-1] = "#{word} #{arr.last}"
-    # mutates last elelement in the array, prepaying for #join.
+    # mutates last elelement in the array, preparing for #join.
     arr.join(delimiter)
   end
 end
@@ -135,7 +147,7 @@ def alternate_player(curr_play)
   curr_play == "computer" ? "player" : "computer"
 end
 
-loop do
+loop do # main game loop
   player_score = 0
   computer_score = 0
   prompt "Who should go first? (1 for Player, 2 for Computer)"
@@ -146,8 +158,7 @@ loop do
     current_player = "computer"
   end
 
-  #binding.pry
-  loop do
+  loop do # game loop for each round
     board = initialize_board
     loop do
       display_board(board)
