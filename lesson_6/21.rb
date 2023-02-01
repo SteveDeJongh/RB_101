@@ -43,6 +43,11 @@ def initialize_deck
   deck.shuffle # Adding #shuffle to avoid the need to use sample in dealer_card.
 end
 
+# Alternate intialize_deck syntax.
+# def initialize_deck
+#   CARD_SUITS.product(CARD_VALUES).shuffle
+# end
+
 # def initialize_deck(suits, values)
 #   suits.map do |suit|
 #     values.each do |val|
