@@ -190,34 +190,40 @@ Algorithm:
 
 define switches method with parameter `num`
 initialize an array `lights`
-add to `lights` array `num` of switches in the `on` position.
-loop `num` times
-  toggle every `num`'s switch
+add to `lights` array `num` of switches in the `off` position.
+loop `num` times, keeping track of current num
+  toggle every `current num`'s switch
 iterate over all switches making note of which light is in the "on" position.
 return array of switch numbers in the `on` position
 
 Code:
 def switches(num)
   lights = []
-  num.times { |_| lights << 'off'}
-  1.upto(lights.size) do |x|
+
+  num.times { |_| lights << 'off'} # Creates initial switches, places them in `lights`.
+
+  1.upto(lights.size) do |x| # Toggles every nth switch.
     index = x - 1
     loop do
-      break if (index + 1) > num
+      break if index >= num
       lights[index] == "off" ? lights[index] = "on" : lights[index] = "off"
       index += x
     end
   end
-  result = []
-  lights.each_with_index do |light, index|
+
+  on_lights = []
+
+  lights.each_with_index do |light, index| # Gets "on" light switch posiitons.
     if light == "on"
-      result << (index + 1)
+      on_lights << (index + 1)
     end
   end
-  result  
+
+  on_lights  
 end
 
 p switches(5)
+p switches(10)
 p switches(10)
 
 # or using a hash and it's keys.
@@ -255,7 +261,89 @@ p switches(5)
 p switches(10)
 p switches(1000)
 
-# 5) 
+# 5) Diamonds! # Practice algorithm again on FE.
+
+Problem:
+Input: integer number
+Output: text field of `*` characters.
+
+Rules:
+Diamond must have 4 points
+diamond must have n x n grid
+integer provided will always be odd
+
+Examples:
+
+# diamond(3)
+
+#  *
+# ***
+#  *
+
+Data: integer
+rows of strings
+
+Algorithm:
+
+define `diamond` method which takes `num`, an odd number as an argument representing the number rows of diamonds
+calculate number of rows above and below max width (num)
+  as num is odd, we can divide by 2
+create top rows x number of times until middle row
+create middle row
+create bottom rows x number of times
+end
+
+Code:
+def diamond(num)
+  rows = num / 2
+  puts " "
+  top_stars = 1
+  rows.downto(1) do |top_spaces|
+    puts "#{" " * top_spaces}#{'*' * top_stars }"
+    top_stars += 2
+  end
+  puts "#{'*' * num}"
+  bottom_stars = num - 2
+  1.upto(rows) do |bottom_spaces|
+    puts "#{' ' * bottom_spaces}#{'*' * bottom_stars}"
+    bottom_stars -= 2
+  end
+  puts " "
+end
+
+diamond(9)
+
+# Alternatively, using center instead of calculating spaces.
+
+def print_row(grid_size, distance)
+  num_of_stars = grid_size - (2 * distance)
+  stars = '*' * num_of_stars
+  puts stars.center(grid_size)
+end
+
+def diamond2(num)
+  distance = num / 2
+  distance.downto(0) {|row| print_row(num,row)}
+  1.upto(distance) {|row| print_row(num, row)}
+end
+
+diamond2(9)
+
+# Alternatively, creating an array of number of stars/row
+
+def diamond3(num)
+  number_of_stars = (1.upto(num) + (num - 1).downto(1)).to_a.select(&:odd?)
+
+  number_of_stars.each do |stars|
+    puts "#{'*' * stars}".center(num)
+  end
+end
+
+diamond3(9)
+
+# 6) Stack Machine Interpretation
+
+
 
 
 =end
