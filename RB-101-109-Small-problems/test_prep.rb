@@ -166,17 +166,17 @@ x 21. Find the Mine!
 ############### RB119 Written Exam Prep
 
 Specific topics of interest:
-/ String and Array operations: indexing, range indexing (slicing), negative indexes, assigning elements
-  Hash operations: indexing, string and symbol keys
+X String and Array operations: indexing, range indexing (slicing), negative indexes, assigning elements
+X Hash operations: indexing, string and symbol keys
 X String methods: chars, concat, count, downcase, downcase!, each, each_with_index, each_with_object, freeze,
     include?, map, map!, replace, reverse, reverse!, size, slice, slice!, split, strip, strip!, 
     `upcase, upcase!, upto
-  Array methods: all?, any?, each, each_with_index, each_with_object, fetch, first, include?, join,
+X  Array methods: all?, any?, each, each_with_index, each_with_object, fetch, first, include?, join,
     last, map, map!, partition, pop, push, reverse, reverse!, select, select!, shift, slice, 
     sort, splice, unshift
-  Hash methods: all?, any?, each_key, each_value, empty?, include?, key, key?, keys, map, select,
+X Hash methods: all?, any?, each_key, each_value, empty?, include?, key, key?, keys, map, select,
     select!, value?, values
-  iteration, break and next
+X iteration, break and next
   selection and transformation
   nested data structures and nested iteration
   shallow copy and deep copy
@@ -184,7 +184,6 @@ X String methods: chars, concat, count, downcase, downcase!, each, each_with_ind
 
 Review the following sections from the RB109 exam study guide:
 
-Specific Topics of Interest. You have already mastered all that material, but you may still need to review it.
 Using a REPL
 How to Answer the Assessment Questions
   Example
@@ -193,7 +192,6 @@ How to Answer the Assessment Questions
 Time Management
 Online Resources
 Additional Tips
-
 
 ############## Launch School Live Session Beginning Ruby Part 1
 
