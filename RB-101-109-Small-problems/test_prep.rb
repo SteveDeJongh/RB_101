@@ -177,21 +177,21 @@ X  Array methods: all?, any?, each, each_with_index, each_with_object, fetch, fi
 X Hash methods: all?, any?, each_key, each_value, empty?, include?, key, key?, keys, map, select,
     select!, value?, values
 X iteration, break and next
-  selection and transformation
-  nested data structures and nested iteration
-  shallow copy and deep copy
-  method chaining
+X selection and transformation
+X nested data structures and nested iteration
+X shallow copy and deep copy
+X method chaining
 
 Review the following sections from the RB109 exam study guide:
 
-Using a REPL
-How to Answer the Assessment Questions
-  Example
-  Bullet Points
-  Precision of Language
-Time Management
-Online Resources
-Additional Tips
+X Using a REPL
+X How to Answer the Assessment Questions
+X   Example
+X   Bullet Points
+X   Precision of Language
+X Time Management
+X Online Resources
+X Additional Tips
 
 ############## Launch School Live Session Beginning Ruby Part 1
 
