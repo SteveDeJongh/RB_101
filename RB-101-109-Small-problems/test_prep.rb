@@ -460,3 +460,56 @@ p longest('z') == 'z'
 p longest('zyba') == 'z'
 
 =end
+
+# RB 119 Interview, easy example question.
+
+# Write a method that takes in a number and returns a string, placing a dash in between odd digits.
+
+# Problem:
+# Input: Integer
+# output: String of integers with dashes between odd digits.
+
+# Examples:
+# p dasherizer(2112) == '21-12'
+# p dasherizer(201105742) == '201-105-742'
+# p dasherizer(123456789) == '123456789'
+# p dasherizer(21121) == '21-121'
+
+# Data:
+# integer -> string -> array of characters -> String
+
+# Algorithm:
+# define dasherizer method with a paramter `num`
+# convert `num` to a String
+# initialize a variable `digits` to the digits of the `num` string.
+# initialize a `result` variable to contain digits in an array
+# loop over every digit and add them to the result array with odd numbers split by a dash
+#   if digits.last is odd and current number is odd
+#     digits << '-' << digit
+#   else
+#     digits << define
+#   end
+# return the `result` array joined and converted back to a String
+# end
+
+# code:
+
+# def dasherizer(num)
+#   digits = num.to_s.chars
+#   result = []
+#   digits.each do |digit|
+#     if result.empty?
+#       result << digit
+#     elsif result.last.to_i.odd? && digit.to_i.odd?
+#       result << '-' << digit
+#     else
+#       result << digit
+#     end
+#   end
+#   result.join('')
+# end
+
+# p dasherizer(2112) == '21-12'
+# p dasherizer(201105742) == '201-105-742'
+# p dasherizer(123456789) == '123456789'
+# p dasherizer(21121) == '21-121'
