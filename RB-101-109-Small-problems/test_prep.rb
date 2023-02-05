@@ -193,6 +193,15 @@ X Time Management
 X Online Resources
 X Additional Tips
 
+############### RB119 Interview Exam Prep
+
+- working with simple data structures like arrays and hashes
+- how to iterate over an array, string, or a hash's elements, and know exactly how to control the iteration flow. 
+  Specifically, understand when to use break and continue.
+- manipulating arrays and hashes. For example, an exercise might be "reverse an array without using the built-in 
+  Array#reverse method", or "select the element out of the array if its index is a Fibonacci number," or "write a 
+  function that removes every other element from an array."
+
 ############## Launch School Live Session Beginning Ruby Part 1
 
 ### Ruby's syntactical sugar and Where does the code come from?
@@ -513,3 +522,58 @@ p longest('zyba') == 'z'
 # p dasherizer(201105742) == '201-105-742'
 # p dasherizer(123456789) == '123456789'
 # p dasherizer(21121) == '21-121'
+
+########################## Practice Problems for RB119 Interview ########################## 
+
+# Problem 1)
+
+# Given an array of numbers, for each number find out how many numbers
+# in the array are smaller than it. When counting numbers, only count
+# unique values. That is, if a given number occurs multiple times in
+# the array, it should only be counted once.
+
+# Problem:
+# Input: an array of numbers
+# output: array of numbers, number being the count of other numbers in the array being smaller than number at that index.
+# Rules: 
+  # Other number must be less than current number.
+  # Only count uniq instances of other numbers.
+
+# Examples:
+# smaller_numbers_than_current([8,1,2,2,3]) == [3, 0, 1, 1, 2]
+# smaller_numbers_than_current([1,4,6,8,13,2,4,5,4]) == [0, 2, 4, 5, 6, 1, 2, 3, 2]
+# smaller_numbers_than_current([7,7,7,7]) == [0,0,0,0]
+# smaller_numbers_than_current([6,5,4,8]) == [2, 1, 0, 3]
+# smaller_numbers_than_current([1]) == [0]
+
+# Data:
+  # Arrays, numbers
+
+# Algorithm:
+
+# loop over each number in the array
+  # compare current number against all other numbers in the array
+    # all other numbers in the array must be unique
+  # if the current compared number is less than the current number, select it
+  # return the size of the array returned by select
+#end
+
+# Code:
+
+def smaller_numbers_than_current(array)
+  array.map do |number|
+    array.uniq.select do |comp_num|
+      number > comp_num
+    end.size
+  end
+end
+
+p smaller_numbers_than_current([8,1,2,2,3]) == [3, 0, 1, 1, 2]
+p smaller_numbers_than_current([1,4,6,8,13,2,4,5,4]) == [0, 2, 4, 5, 6, 1, 2, 3, 2]
+p smaller_numbers_than_current([7,7,7,7]) == [0,0,0,0]
+p smaller_numbers_than_current([6,5,4,8]) == [2, 1, 0, 3]
+p smaller_numbers_than_current([1]) == [0]
+
+# The tests above should print "true".
+
+# Problem 2)
