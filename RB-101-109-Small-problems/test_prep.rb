@@ -560,20 +560,143 @@ p longest('zyba') == 'z'
 
 # Code:
 
-def smaller_numbers_than_current(array)
-  array.map do |number|
-    array.uniq.select do |comp_num|
-      number > comp_num
-    end.size
-  end
-end
+# def smaller_numbers_than_current(array)
+#   array.map do |number|
+#     array.uniq.select do |comp_num|
+#       number > comp_num
+#     end.size
+#   end
+# end
 
-p smaller_numbers_than_current([8,1,2,2,3]) == [3, 0, 1, 1, 2]
-p smaller_numbers_than_current([1,4,6,8,13,2,4,5,4]) == [0, 2, 4, 5, 6, 1, 2, 3, 2]
-p smaller_numbers_than_current([7,7,7,7]) == [0,0,0,0]
-p smaller_numbers_than_current([6,5,4,8]) == [2, 1, 0, 3]
-p smaller_numbers_than_current([1]) == [0]
+# p smaller_numbers_than_current([8,1,2,2,3]) == [3, 0, 1, 1, 2]
+# p smaller_numbers_than_current([1,4,6,8,13,2,4,5,4]) == [0, 2, 4, 5, 6, 1, 2, 3, 2]
+# p smaller_numbers_than_current([7,7,7,7]) == [0,0,0,0]
+# p smaller_numbers_than_current([6,5,4,8]) == [2, 1, 0, 3]
+# p smaller_numbers_than_current([1]) == [0]
 
 # The tests above should print "true".
 
 # Problem 2)
+
+# Write a method that takes one argument: an array of integers.
+# The method should return the minimum sum of 5 consecutive
+# numbers in the array. If the array contains fewer than 5
+# elements, the method should return nil.
+
+# Problem:
+# Input: Array of integers
+# Output: an integer representing the sum of 5 consecutive integers in the array.
+# Rules:
+  # sum must be made up of consecutive numbers in the array.
+  # sum must be made up of at least 5 numbers
+  # if input array doesn't have 5 numbers return nil
+
+# Examples:
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+# Data:
+# Array of integers
+# returning an integer
+
+# Algorithim:
+
+# define minimum_sum method with an argument `arr`
+# check if `arr` is less than 5 elements in length, if it does return `nil`
+# create a results array
+# create the sum of every 5 consecutive numbers in the array.
+#   starting from index 0, up to the length of the array less 5
+#     add together all numbers in the array from index to index +5 and return it to a results array
+# return the lowest sum number in the results array
+# end
+
+# Code:
+
+# def minimum_sum(arr)
+#   return nil if arr.size < 5
+#   results = [] # Refactor possible to avoid an array and instead just hold a current value to check against.
+#   0.upto(arr.size - 5) do |start_index|
+#     results << arr[start_index, 5].sum
+#   end
+#   results.min
+# end
+
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+# The tests above should print "true".
+
+# Problem 3)
+
+# Write a method named to_weird_case that accepts a string, and
+# returns the same sequence of characters with every 2nd character
+# in every third word converted to uppercase. Other characters
+# should remain the same.
+
+# Problem:
+# Input: a string
+# Output: a string with every 3rd words every 2nd character uppercased
+# Rules:
+  # changes effect every 3rd word in the string
+  # changes effect EVERY 2nd character in the word (chars at 2,4,6...)
+  # if word is less than 2 characters in length no changes are made.
+
+# Examples:
+
+# p to_weird_case('Lorem Ipsum is simply dummy text of the printing') ==
+#                 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+# p to_weird_case(
+#   'It is a long established fact that a reader will be distracted') ==
+#   'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+# p to_weird_case(
+#   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
+#   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
+
+# Data:
+# a String, split into an array, then returned as a rejoined string.
+
+# Algorithm:
+
+# define `to_weird_case` method which takes an argument `string`
+#   initialize `words` array
+#   split `string` into words and return them to the `words` array
+#   loop over the words in the `words` array, keeping track of their index
+#   if the words occurance in the string is divisible by 3 then:
+#     split the word in characters
+#     loop over characters changing the case of every 2nd character to upper case
+#     return modified word back to words array or word if position in string is not a 3rd.
+#   join words array back together with space and return the string
+# end
+
+# Code:
+
+# def to_weird_case(string)
+#   words = string.split
+#   words.map!.with_index do |word, idx|
+#     if (idx + 1) % 3 == 0
+#       word.chars.map!.with_index do |char, idx|
+#         (idx + 1) % 2 == 0 ? char.upcase : char
+#       end.join('')
+#     else
+#       word
+#     end
+#   end
+#   words.join(' ')
+# end
+
+# p to_weird_case('Lorem Ipsum is simply dummy text of the printing') ==
+#                 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+# p to_weird_case(
+#   'It is a long established fact that a reader will be distracted') ==
+#   'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+# p to_weird_case(
+#   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
+#   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
+
+# The tests above should print "true".
