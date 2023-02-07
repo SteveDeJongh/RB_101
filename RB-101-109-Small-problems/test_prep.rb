@@ -700,3 +700,125 @@ p longest('zyba') == 'z'
 #   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
 
 # The tests above should print "true".
+
+# Problem 4)
+
+# Write a method that takes an array of integers and returns the
+# two numbers that are closest together in value.
+
+# Problem:
+# Input: Array of integers
+# Output: Array of 2 integers closest in value
+# Rules:
+  # return 2 numbers closest in value
+  # numbers do not need to be consecutive
+  # Ensure not to compare against itself (as this wold be closest)
+  
+# Examples:
+
+# ([5, 25, 15, 11, 20]) == [15, 11]
+# ([19, 25, 32, 4, 27, 16]) == [25, 27]
+# ([12, 7, 17]) == [12, 7]
+
+# Data:
+# array of integers, and integers
+
+# Algorithm:
+
+# define `closest_numbers` method which takes an `arr` parameter
+#   initalize `current_closest` variable to an empty array
+#   loop over each element in the array
+#     find distance betweem current element and every other element in the array
+#     if the distance is less than the distance between the two elements in the `current_closest` array, or if the
+#       array is empty, place the current element and compared element in the `current_closest` array
+#   return the current_closest array
+# end
+
+# Code:
+
+# def closest_numbers(arr)
+#   pair = []
+#   arr.each_with_index do |num, idx|
+#     (idx + 1).upto(arr.size - 1) do |idx2|
+#       if pair.empty?
+#         pair = [num, arr[idx2]]
+#       elsif ((num - arr[idx2]).abs) < ((pair[0] - pair[1]).abs)
+#         pair = [num, arr[idx2]]
+#       end
+#     end
+#   end
+#   pair
+# end
+
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 7, 17]) == [12, 7]
+
+# The tests above should print "true".
+
+# PRoblem 5)
+
+# Write a method that takes a string as an argument and returns
+# the character that occurs least often in the given string.
+# If there are multiple characters with the equal lowest number
+# of occurrences, then return the one that appears first in the
+# string. When counting characters, consider the uppercase and
+# lowercase version to be the same.
+
+# Problem:
+# Input: a string
+# output: a string
+# rules:
+  # uppercase and lowercase characters are the same for occurance count
+  # return character that appears first the string if there are lowest occurance count is the same for multiple characters
+  # spaces and punctuation count as characters
+  # result character should be lowercase
+
+# Examples:
+
+# ("Hello World") #== "h"
+# ("Peter Piper picked a peck of pickled peppers") #== "t"
+# ("Mississippi") #== "m"
+# ("Happy birthday!") #== ' '
+# ("aaaaaAAAA") #== 'a'
+
+# Data:
+# a string, array of characters, new string
+
+# Algorithm:
+# define `least_common_char` method with parameter `string`
+#   convert string to downcase
+#   initialize `least_common` to and empty string
+#   initialize `count` to nil
+#   loop over each character in `string`
+#     scan `string` for occurances of `character`
+#     if `count` is `nil` or if current count is less than `count`
+#       set `least_common` to `character`
+#       set `count` to `current count`
+#     end
+#   return `least_common`
+# end    
+
+# Code:
+
+# def least_common_char(str)
+#   string = str.downcase
+#   least_common = ''
+#   count = nil
+#   string.chars.each do |char|
+#     charcount = string.scan(char).size
+#     if count == nil || count > charcount
+#       least_common = char
+#       count = charcount
+#     end
+#   end
+#   least_common
+# end
+
+# p least_common_char("Hello World") == "h"
+# p least_common_char("Peter Piper picked a peck of pickled peppers") == "t"
+# p least_common_char("Mississippi") == "m"
+# p least_common_char("Happy birthday!") == ' '
+# p least_common_char("aaaaaAAAA") == 'a'
+
+# The tests above should print "true".
