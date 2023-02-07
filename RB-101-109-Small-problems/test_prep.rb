@@ -822,3 +822,117 @@ p longest('zyba') == 'z'
 # p least_common_char("aaaaaAAAA") == 'a'
 
 # The tests above should print "true".
+
+##### Code Wars questions #########
+
+# 1) Count Letters in String (https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/train/ruby)
+
+#  You've to count lowercase letters in a given string and return the letter count in a hash with
+#  'letter' as key and count as 'value'. The key must be 'symbol' instead of string in Ruby and 'char' instead 
+#  of string in Crystal.
+
+# Problem:
+# Input: a string
+# Output: a hash of symbols and integer counts.
+# Rules:
+  # input will be lowercase characters
+  # hash keys to be character represented as a symbol
+  # values to be integers
+  # result hash to be sorted alphabetically
+
+# Example:
+
+# letterCount('arithmetics') #=> {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
+
+# Data:
+# string
+# hash
+
+# Algorithm:
+
+# define letterCount method with paramter `string`
+# initialize letters array to all lowercase letter of the alphabet
+# initialize results hash
+# loop over characters in the letters array
+#   scan `string` for current letter
+#   create new key/value pair for letter and count unless count is 0
+# return results hash
+# end
+
+# Code:
+
+# def letterCount(string)
+#   letters = ('a'..'z').to_a
+#   results = Hash.new
+#   letters.each do |letter|
+#     count = string.scan(letter).size
+#     results[letter.to_sym] = count unless count == 0
+#   end
+#   results
+# end
+
+# p letterCount('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
+
+# 2) Find all pairs (https://www.codewars.com/kata/5c55ad8c9d76d41a62b4ede3/train/ruby)
+
+# You are given array of integers, your task will be to count all pairs in that array and return their count.
+# Notes:
+# Array can be empty or contain only one value; in this case return 0
+# If there are more pairs of a certain number, count each pair only once. E.g.: for [0, 0, 0, 0] the return value
+#  is 2 (= 2 pairs of 0s)
+# Random tests: maximum array length is 1000, range of values in array is between 0 and 1000
+
+# Problem:
+# input: array of numbers
+# output: integer representing number of pairs
+# rules:
+  # count each pair only once
+  # if array is empty or contains only one value return `0`
+  # 
+
+# Examples
+# [1, 2, 5, 6, 5, 2]  -->  2
+# [1, 2, 2, 20, 6, 20, 2, 6, 2]  -->  4
+
+# Data:
+# array of integers
+# integer result
+
+# Algorithm:
+
+# define pairs method with parameter `numbers`
+# initialize `result` variable to 0
+# return `result` if numbers has less than 2 numbers
+# loop through the sorted numbers array
+#   starting at the second number, check to see if the previous number is the same
+#     if the number is the same increment `result` by 1 and skip ahead 2 numbers
+#     if the number is NOT the same, increment by 1 number
+# return result
+# end
+
+# Code:
+
+# def pairs(numbers)
+#   numbers = numbers.sort
+#   result = 0
+#   return result if numbers.size < 2
+#   index = 1
+#   loop do
+#     break if index >= numbers.size
+#     if numbers[index] == numbers[(index-1)]
+#       result += 1
+#       index += 2
+#     else
+#       index += 1
+#     end
+#   end
+#   result
+# end
+
+
+# p pairs([1, 2, 5, 6, 5, 2])  ==  2
+# # ...because there are 2 pairs: 2 and 5
+
+# p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2])  ==  4
+# # ...because there are 4 pairs: 2, 20, 6 and 2 (again)
+
