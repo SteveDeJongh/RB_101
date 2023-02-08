@@ -936,3 +936,47 @@ p longest('zyba') == 'z'
 # p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2])  ==  4
 # # ...because there are 4 pairs: 2, 20, 6 and 2 (again)
 
+# 3) Return substring instance count (https://www.codewars.com/kata/5168b125faced29f66000005/train/ruby)
+
+# Complete the solution so that it returns the number of times the search_text is found within the full_text.
+
+# Problem:
+# Input: two strings, 1) longer string to search, 2) substring to search for
+# Output: integer count
+# Rules:
+  # inferred rules: once character is counted in 1 substring, it does not count for future substrings
+
+# Example:
+# solution('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up twice
+# solution('aaabbbcccc', 'bbb') # should return 1
+
+# Data:
+# strings
+
+# Algorithm:
+
+# define `solution` method with two parameters `string` and `search`
+#   initialize local variable `results`
+#   use `scan` to search `string` for occurances of `search`.
+#   return size of returned array by scan to `results`
+#   return results
+# end
+
+# Code:
+
+# def solution(string, search)
+#   results = string.scan(search).size
+# end
+
+# Assignment of the result of the expression to `results` in uneccesary in the end, but may improved read-ability?
+
+# p solution('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up twice
+# p solution('aaabbbcccc', 'bbb') # should return 1
+
+# 4) Longests Vowel Chain (https://www.codewars.com/kata/59c5f4e9d751df43cf000035/train/ruby)
+
+# The vowel substrings in the word codewarriors are o,e,a,io. The longest of these has a length of 2. Given a lowercase
+# string that has alphabetic characters only (both vowels and consonants) and no spaces, return the length of the longest
+# vowel substring. Vowels are any of aeiou.
+
+# Problem:
