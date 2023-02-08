@@ -823,6 +823,59 @@ p longest('zyba') == 'z'
 
 # The tests above should print "true".
 
+########################### Problems from "Watch others code" video series #################################
+# Video 1)
+
+# Video 2)
+
+# Video 3)
+# Write out a method to find the longest common prefix string amongst an array of strings.
+# If there is no commmon prefix, return an empty string "".
+# All given inputs are in lowercase letters a-z.
+
+# Problem:
+# input: array of strings
+# output: string
+# rules:
+  # all strings will be lower case
+  # if there is not match, return an empty string
+  # prefix characters must match all strings in array
+
+# Examples:
+
+# p common_prefix(["flower", "flow", "flight"]) == "fl"
+# p common_prefix(["dog", "racecar", "car"]) == ""
+# p common_prefix(["interspecies", "interstellar", "interstate"]) == "inters"
+# p common_prefix(["throne", "dungeon"]) == ""
+# p common_prefix(["throne", "throne"]) == "throne"
+
+# Data:
+# array, strings
+
+# Algorithm:
+# define common_prefix method with paramter `words`
+# loop length of first work in the array times
+# compare characters in the first word againt the starting characters of each other string
+# if they match, return string
+#   otherwise, reduce the length of the string to compare by one character and test again
+# return an empty string if nothing is returned by the loop
+# end
+
+# Code:
+
+# def common_prefix(words)
+#   (words[1].length).downto(0) do |length|
+#     return words[0][0,length] if words.all? {|word| words[0][0,length] == word[0,length]}
+#   end
+#   return ""
+# end
+
+# p common_prefix(["flower", "flow", "flight"]) == "fl"
+# p common_prefix(["dog", "racecar", "car"]) == ""
+# p common_prefix(["interspecies", "interstellar", "interstate"]) == "inters"
+# p common_prefix(["throne", "dungeon"]) == ""
+# p common_prefix(["throne", "throne"]) == "throne"
+
 ##### Code Wars questions #########
 
 # 1) Count Letters in String (https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/train/ruby)
@@ -980,3 +1033,11 @@ p longest('zyba') == 'z'
 # vowel substring. Vowels are any of aeiou.
 
 # Problem:
+# input: string, lowercase alphabetic characters only and no spaces
+# output: integer of the size of the longest substring of input string consisting of only vowels.
+# Rules:
+  # substring must be made up of only vowels
+  # vowels are aeiou
+
+  # examples:
+  # "Codewarriors" => 2 (o, e, a, io)
