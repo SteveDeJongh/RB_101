@@ -1061,12 +1061,77 @@ p longest('zyba') == 'z'
 #   status
 # end
 
+# Alternatively, ensure count of each char in str2 is equal to or greater than the count of char in str1
+
+# def scramble(str1, str2)
+#   str2chars = str2.chars
+#   str2chars.all? do |char|
+#     str1.count(char) >= str2chars.count(char)
+#   end
+# end
+
 # p scramble('javaass', 'jjss') == false
 # p scramble('rkqodlw', 'world') == true
 # p scramble('cedewaraaossoqqyt', 'codewars') == true
 # p scramble('katas', 'steak') == false
 # p scramble('scriptjava', 'javascript') == true
 # p scramble('scriptingjava', 'javascript') == true
+
+# Video 5)
+
+# Problem 1)
+# Find the length of the longest substring in the given string that is the same in reverse.
+# As an example, if the input was "I like racecars that go fast", the substring (racecar) length would be 7.
+# If the length of the input string is 0, return value must be 0.
+
+# Problem:
+# Input: string
+# Output: integer representing length of longest reversible substring
+# Rules:
+  # substring must be the same in reverse
+  # if input string is empty return 0
+
+# Examples:
+
+# p longest_palindrome("a") == 1
+# p longest_palindrome("aa") == 2
+# p longest_palindrome("baa") == 2
+# p longest_palindrome("aab") == 2
+# p longest_palindrome("baabcd") == 4
+# p longest_palindrome("baab1kj12345432133d") == 9
+
+# Data:
+# strings
+# arrays
+
+# Algorithm:
+# define longest_palindrome method with 1 parameter `string`
+# initialize substrings to an empty array
+# create all substrings, but only add them to substrings array if they are reversible
+  # loop from first character to last
+  # loop from shorted to longest possible length
+  # check if substring is equal to substring reverse
+    # if it is, return substring to substrings array
+# find longest string in substrings array and return it's length
+
+# Code:
+
+# def longest_palindrome(string)
+#   substrings = []
+#   (0...string.length).each do |index|
+#     (1..(string.length - index)).each do |length|
+#       substrings << string[index, length] if string[index, length] == string[index, length].reverse
+#     end
+#   end
+#   substrings.max_by {|string| string.length}.size
+# end
+
+# p longest_palindrome("a") == 1
+# p longest_palindrome("aa") == 2
+# p longest_palindrome("baa") == 2
+# p longest_palindrome("aab") == 2
+# p longest_palindrome("baabcd") == 4
+# p longest_palindrome("baab1kj12345432133d") == 9
 
 ##### Code Wars questions #########
 
