@@ -829,6 +829,64 @@ p longest('zyba') == 'z'
 # Video 2)
 
 # Video 3)
+# Problem 1)
+# The maximum sum subarray problem consist in finding the maximum sum of a contiguous subsequence in an array of itnegers.
+# When the array is made up of only positive number and the maximum sum is the sum of the whole array. If the array is made
+# up of only negative numbers, return 0 instead.
+# Empty array is considered to have 0 greatest sum.
+
+# Problem:
+# Input: an array
+# Output: integer
+# Rules:
+  # If array is made up of only negative numbers return 0
+  # sub array must be made up of continuous numbers
+
+# Examples:
+
+# p max_sequence([]) == 0
+# p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 3]) == 6
+# p max_sequence([11]) == 11
+# p max_sequence([-32]) == 0
+# p max_sequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) == 12
+
+# Data:
+# arrays
+# numbers
+
+# Algorithm:
+# define `max_sequence` method with parameter `numbers`
+# check if all numbers in `numbers` are negative
+#   return 0 if true
+# initialize `results` array to contain subarrays
+# loop `numbers` length times, keeping track of iteration number
+# loop iteration number less remaining length times
+# slice array into sub array using start index and length and append sub array to results
+# exit loops
+
+# sort `results` array by the sum of the digits in each subarray and return the sum
+# end
+
+# Code:
+
+# def max_sequence(numbers)
+#   return 0 if numbers.all? {|num| num < 0 }
+#   results = []
+#   (0...numbers.length).each do |start_index|
+#     (start_index...numbers.length).each do |end_index|
+#       results << numbers[start_index..end_index]
+#     end
+#   end
+#   results.max_by {|array| array.sum}.sum
+# end
+
+# p max_sequence([]) == 0
+# p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 3]) == 6
+# p max_sequence([11]) == 11
+# p max_sequence([-32]) == 0
+# p max_sequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) == 12
+
+# Problem 2)
 # Write out a method to find the longest common prefix string amongst an array of strings.
 # If there is no commmon prefix, return an empty string "".
 # All given inputs are in lowercase letters a-z.
@@ -875,6 +933,140 @@ p longest('zyba') == 'z'
 # p common_prefix(["interspecies", "interstellar", "interstate"]) == "inters"
 # p common_prefix(["throne", "dungeon"]) == ""
 # p common_prefix(["throne", "throne"]) == "throne"
+
+# Video 4)
+
+# Problem 1)
+# Given two strings, your job is to find out if there is a substring
+# that appears in both strings. You will return true if you find a 
+# Substring that appears in both strings, or false if you do not.
+# We only care about substrings that are longer than one letter long.
+
+#Problem:
+# Input: two strings
+# output: true or false
+# rules:
+  # Matching substring must be atleast two characters long
+  # Substring must appear in both strings
+  # Substring comparison is not case sensitive
+
+# Examples:
+
+# p substring_test("Something", "Fun") == false
+# p substring_test("Something", "Home") == true
+# p substring_test("Something", "Fun") == false
+# p substring_test("Something", '') == false
+# p substring_test("", "Something") == false
+# p substring_test("BANANA", "banana") == true
+# p substring_test("test", "111t") == false
+# p substring_test("", "") == false
+# p substring_test("1234567", "541265") == true
+# p substring_test("supercalifragilisticexpiadlidocious", "SondOfItIsAtrociou") == true
+
+# Data:
+# strings
+# substrings
+# arrays
+
+# Algorithm:
+
+# define substring_test method with two parameters `string1` and `string2`
+#   initialize `substrings1` array to contain eligible substrings from `string1`
+#   initialize `substrings2` array to contain eligible substrings from `string2`
+#   create all 2+ character substrings from `string1`
+#   create all 2+ character substrings from `string2`
+#   search `substrings2` for any occurance of any substring from `substrin1`
+# end
+
+# Code:
+
+# def substring_test(string1, string2)
+#   substrings1 = []
+#   substrings2 = []
+#   (0...string1.length).each do |start|
+#     (2..(string1.length - start)).each do |length|
+#       substrings1 << string1[start,length].downcase
+#     end
+#   end
+#   (0...string2.length).each do |start|
+#     (2..(string2.length - start)).each do |length|
+#       substrings2 << string2[start,length].downcase
+#     end
+#   end
+#   substrings1.each do |substring|
+#     return true if substrings2.any? {|word| word == substring}
+#   end
+#   false
+# end
+
+# p substring_test("Something", "Fun") == false
+# p substring_test("Something", "Home") == true
+# p substring_test("Something", "Fun") == false
+# p substring_test("Something", '') == false
+# p substring_test("", "Something") == false
+# p substring_test("BANANA", "banana") == true
+# p substring_test("test", "111t") == false
+# p substring_test("", "") == false
+# p substring_test("1234567", "541265") == true
+# p substring_test("supercalifragilisticexpiadlidocious", "SondOfItIsAtrociou") == true
+
+# Problem 2)
+# Write a function sramble(str1,str2) that returns true if a portion of str1 characters can be rearranged
+# to match str2, otherwise returns false.
+
+# For example:
+# Str1 is 'rkqodlw' and str2 is 'world' the output should return true
+# str1 is 'cedewaraaossoqqyt' and str2 is 'codewars' should return true
+
+# Problem:
+# input: 2 strings
+# output: true or false
+# rules:
+  # all characters in str2 must be in str1 to return true
+
+#Examples:
+
+# p scramble('javaass', 'jjss') == false
+# p scramble('rkqodlw', 'world') == true
+# p scramble('cedewaraaossoqqyt', 'codewars') == true
+# p scramble('katas', 'steak') == false
+# p scramble('scriptjava', 'javascript') == true
+# p scramble('scriptingjava', 'javascript') == true
+
+# Data:
+# strings
+# arrays of characters
+
+# Algorithm:
+# define `scramble` method with two parameters `str1` and `str2`
+#   initialize `str1chars` to contain characters found in `str1`
+#   initialize `str2chars` to contain characters found in `str2`
+#   loop over characters in `str2chars`
+#     check if all characters are also in `str1chars`
+#       if character is in str1chars, delete that instance of the character so it cant be used for further characters in `str2chars`
+#         return the result of all check
+#       end
+
+
+# Code:
+
+# def scramble(str1, str2)
+#   str1chars = str1.chars
+#   str2chars = str2.chars
+#   status = nil
+#   str2chars.each do |char|
+#     str1chars.include?(char) ? (status = true) : (return false)
+#     str1chars.delete_at(str1chars.index(char) || str1chars.length)
+#   end
+#   status
+# end
+
+# p scramble('javaass', 'jjss') == false
+# p scramble('rkqodlw', 'world') == true
+# p scramble('cedewaraaossoqqyt', 'codewars') == true
+# p scramble('katas', 'steak') == false
+# p scramble('scriptjava', 'javascript') == true
+# p scramble('scriptingjava', 'javascript') == true
 
 ##### Code Wars questions #########
 
