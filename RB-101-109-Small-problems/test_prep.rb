@@ -1418,7 +1418,7 @@ p longest('zyba') == 'z'
 
 # 4) Longests Vowel Chain (https://www.codewars.com/kata/59c5f4e9d751df43cf000035/train/ruby)
 
-# The vowel substrings in the word codewarriors are o,e,a,io. The longest of these has a length of 2. Given a lowercase
+# The vowel substrings in the word `codewarriors` are o,e,a,io. The longest of these has a length of 2. Given a lowercase
 # string that has alphabetic characters only (both vowels and consonants) and no spaces, return the length of the longest
 # vowel substring. Vowels are any of aeiou.
 
@@ -1431,3 +1431,112 @@ p longest('zyba') == 'z'
 
   # examples:
   # "Codewarriors" => 2 (o, e, a, io)
+
+# Examples:
+# "codewarriors" => 2
+# "suoidea" => 3
+
+# Data:
+# strings
+# arrays
+
+# Algorithm:
+
+# define `solve` with 1 parameter `string`
+#   initialize `substring` array
+#   create all vowel only substrings
+#   check if all chars in substring are AEIOU
+
+#   sort substring `array` by string length and return the longest length 
+
+
+# Code:
+
+# def solve(string)
+#   substrings = []
+#   vowels = %w(a e i o u)
+
+#   (0..string.length).each do |start|
+#     (1..(string.length - start)).each do |length|
+#       substring = string[start, length]
+#       # p substring.chars
+#       if substring.chars.all? { |char| vowels.include?(char) }
+#         substrings << substring
+#       end
+#     end
+#   end
+
+#   substrings.max_by {|string| string.size}.size
+# end
+
+# Or using REGEX
+
+# def solve(string)
+#   vowelstrings = string.scan(/[aeiou]*/)
+#   vowelstrings.max_by {|string| string.size}.size
+# end
+
+# p solve("codewarriors") == 2
+# p solve("suoidea") == 3
+# p solve("iuuvgheaae") == 4
+# p solve("ultrarevolutionariees") == 3
+# p solve("strengthlessnesses") == 1
+# p solve("cuboideonavicuare") == 2
+# p solve("chrononhotonthuooaos") == 5
+# p solve("iiihoovaeaaaoougjyaw") == 8
+
+# 5) Non-even substrings (https://www.codewars.com/kata/59da47fa27ee00a8b90000b4/train/ruby)
+
+# Given a string of integers, return the number of odd-numbered substrings that can be formed.
+# For example, in the case of "1341", they are 1, 1, 3, 13, 41, 341, 1341, a total of 7 numbers.
+# solve("1341") = 7. See test cases for more examples.
+
+# Problem:
+# Input: a string representation of an integer
+# Output: integer
+# Rules:
+  # number must be odd to count towards total
+  # substring number does not need to be unique
+
+# Example:
+# p solve("1341") == 7
+# p solve("1357") == 0
+# p solve("13471") == 2
+# p solve("134721") == 3
+# p solve("1347231") == 0
+# p solve("13472315") == 8
+
+# Data:
+# Strings, arrays, and integers.
+
+# Algorithm:
+
+# define `solve` with 1 paramter `number`
+# initialize `odd_numbers` array
+# create all substrings by looping from index 0 to `number` length
+#   then loop from 1 to substring length less index
+#   if substring converted to an integer is odd, add to odd_numbers array
+# count elements in `odd_numbers` array and return that number
+
+# Code:
+
+# def solve(number)
+#   odd_numbers = []
+
+#   (0..number.length).each do |index|
+#     (1..(number.length - index)).each do |length|
+#       num = number[index, length]
+#       odd_numbers << num if num.to_i.odd?
+#     end
+#   end
+
+#   odd_numbers.size
+# end
+
+
+# p solve("1341") == 7
+# p solve("1357") == 10
+# p solve("13471") == 12
+# p solve("134721") == 13
+# p solve("1347231") == 20
+# p solve("13472315") == 28
