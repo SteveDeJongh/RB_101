@@ -826,6 +826,69 @@ p longest('zyba') == 'z'
 ########################### Problems from "Watch others code" video series #################################
 # Video 1)
 
+# Problem 1)
+# Given a non-empty string check if it can be constructed by taking a substring of it and appending mutliple copies of the 
+# substring together. You may assume that given string consists of lowercase English letters only.
+
+# Example 1)
+# Input: "abab"
+# Output: True
+# Explanation: It's the substring "ab" twice.
+
+# Problem:
+# Input: string
+# output: true or false
+# rules:
+  # substring must repeat itself in `string` to be true
+  # string must be equally divisible by `string` length to be possible
+# question:
+  # is there a minimum length of the substrings? Can it be 1 character? ie: "aa" is "a" eligble?
+
+# Examples:
+# p repeated_substring_pattern("abab") == true
+# p repeated_substring_pattern("aba") == false
+# p repeated_substring_pattern("aabaaba") == false
+# p repeated_substring_pattern("abaababaab") == true
+# p repeated_substring_pattern("abcabcabcabc") == true
+
+# Data:
+# strings
+# arrays
+
+# Algorithm:
+
+# option 1)
+# define repeated_substring_pattern method with 1 parameter `string`
+#   initialize `substrings` array to contain all of subarray of `string`
+#   create all substrings of `string`, stopping at the halfway point of `string`
+#     #steps...
+#   check if any of the strings in substrings can be multiplied to equal `string`
+#   return true if 1 can, false otherwise
+# end
+
+# Code:
+
+# def repeated_substring_pattern(string)
+#   substrings = []
+
+#   (0..(string.length / 2)).each do |start|
+#     (1..(string.length / 2)).each do |length|
+#       substrings << string[start, length]
+#     end
+#   end
+#   substrings.any? do |substring|
+#     multiplier = string.length / substring.length
+#     string == substring*multiplier
+#   end
+# end
+
+
+# p repeated_substring_pattern("abab") == true
+# p repeated_substring_pattern("aba") == false
+# p repeated_substring_pattern("aabaaba") == false
+# p repeated_substring_pattern("abaababaab") == true
+# p repeated_substring_pattern("abcabcabcabc") == true
+
 # Video 2)
 
 # Video 3)
@@ -1132,6 +1195,76 @@ p longest('zyba') == 'z'
 # p longest_palindrome("aab") == 2
 # p longest_palindrome("baabcd") == 4
 # p longest_palindrome("baab1kj12345432133d") == 9
+
+# Video 6)
+
+# Problem 1)
+# You are going to be given an array of integers. Your job is to take that array and find an index N where the sum of 
+# the integers to the left of N is equal to the sum of the integers to the right of N. If there is no index that 
+# would make this happen, return -1.
+
+# For example:
+# Given [1,2,3,4,3,2,1]
+# Your method will return the index 3, because at the 3rd positon of the array, the sumof the left side of the index [1,2,3]
+# and the sum of the right side of the index [3,2,1] both equal 6.
+
+#Problem:
+# Input: An array of integers
+# Output: integer
+# Rules:
+  # Both sums of numbers before and after index N must be equal.
+  # if no sums are equal, return -1
+# Questions?
+  # what should i do if the array is empty?
+  # what should i do if the array is 1 number?
+
+# Examples:
+
+# p find_even_index([1,2,3,4,3,2,1]) == 3
+# p find_even_index([1,100,50,-51,1,1]) == 1
+# p find_even_index([1,2,3,4,5,6]) == -1
+# p find_even_index([20,10,30,10,10,15,35]) == 3
+# p find_even_index([20,10,-80,10,10,15,35]) == 0
+# p find_even_index([10,-80,10,10,15,35,20]) == 6
+# p find_even_index([-1,-2,-3,-4,-3,-2,-1]) == 3
+
+# Data:
+# array
+# integers
+
+# Algorithm:
+
+# define find_even_index with parameter `numbers`
+#   initialize `result` to return -1
+#   iterate over numbers in array keeping track of index
+#   on each iteration, check if the sum of the numbers to the left and right of index are equal
+#     if they are equal, reassign `result` to index
+#     end
+#   return `result`
+#   end
+
+# Code:
+
+# def find_even_index(numbers)
+#   result = -1
+
+#   numbers.each_with_index do |num, index|
+#     if numbers[0..index].sum == numbers[index..-1].sum
+#       result = index
+#     end
+#   end
+
+#   result
+# end
+
+# p find_even_index([1,2,3,4,3,2,1]) == 3
+# p find_even_index([1,100,50,-51,1,1]) == 1
+# p find_even_index([1,2,3,4,5,6]) == -1
+# p find_even_index([20,10,30,10,10,15,35]) == 3
+# p find_even_index([20,10,-80,10,10,15,35]) == 0
+# p find_even_index([10,-80,10,10,15,35,20]) == 6
+# p find_even_index([-1,-2,-3,-4,-3,-2,-1]) == 3
+
 
 ##### Code Wars questions #########
 
