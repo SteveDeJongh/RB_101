@@ -889,7 +889,82 @@ p longest('zyba') == 'z'
 # p repeated_substring_pattern("abaababaab") == true
 # p repeated_substring_pattern("abcabcabcabc") == true
 
+# Problem 2)
+
+# Given an array of strings made only from lowercase letters, return an array of all characters that show up in all strings
+# within the given array (including duplicates). For example, if a character occurs 3 times in all strings but not 4 times, 
+# you need to include that character three times in the final answer.
+
+# Problem:
+# Input: array of strings
+# Output is an array of characters as strings.
+# Rules:
+  # characters must be in all strings.
+  # characters can appear in the result more than once, providing they appear in all strings more than once.
+
+# examples:
+
+# p common_chars(['bella', 'label', 'roller']) == ['e', 'l', 'l']
+# p common_chars(['cool', 'lock', 'cook']) == ['c', 'o']
+# p common_chars(['hello', 'goodbye', 'booya', 'random']) == ['o']
+# p common_chars(['aabbaaaa', 'ccddddddd', 'eeffee', 'ggrrrr', 'yyyzzz']) == []
+
+# Data:
+# Strings
+# arrays
+
+# Algorithm:
+#Ideas: scan and count? chars and delete_at?
+
+# define `common_chars` method with 1 parameter `words`
+#   transform all words in the `words` array to arrays of characters
+#   initialize `results` array
+#   loop over each of the characters in the first word
+#   check if that character appears in the all of the words array of characters
+#     if it does add character to results array
+#       delete that character from each words array of characters 1 time
+#   return array of characters
+# end
+
+# Code:
+
+# def common_chars(words)
+#   charsets = words.map {|word| word.chars}
+#   first_chars = charsets.shift
+#   results = []
+#   first_chars.each do |char|
+#     if charsets.all? {|sets| sets.include?(char)}
+#       results << char
+#       charsets.each do |set|
+#         set.delete_at(set.index(char) || set.size)
+#       end
+#     end
+#   end
+#   results
+# end
+
+#Or
+
+# def common_chars(words)
+#   words = words.map {|word| word.dup}
+
+#   chars = words.shift.chars
+
+#   chars.select do |char|
+#     words.all? {|word| word.sub!(char, '')}
+#   end
+# end
+
+# p common_chars(['bella', 'label', 'roller']) == ['e', 'l', 'l']
+# p common_chars(['cool', 'lock', 'cook']) == ['c', 'o']
+# p common_chars(['hello', 'goodbye', 'booya', 'random']) == ['o']
+# p common_chars(['aabbaaaa', 'ccddddddd', 'eeffee', 'ggrrrr', 'yyyzzz']) == []
+
 # Video 2)
+
+
+
+
 
 # Video 3)
 # Problem 1)
@@ -1109,7 +1184,6 @@ p longest('zyba') == 'z'
 #       if character is in str1chars, delete that instance of the character so it cant be used for further characters in `str2chars`
 #         return the result of all check
 #       end
-
 
 # Code:
 
@@ -1540,3 +1614,65 @@ p longest('zyba') == 'z'
 # p solve("134721") == 13
 # p solve("1347231") == 20
 # p solve("13472315") == 28
+
+# 6) Repeated Substring (https://www.codewars.com/kata/5491689aff74b9b292000334/train/ruby)
+
+# For a given nonempty string `s` find a minimum substring `t` and the maximum number `k`, such that the
+# entire string `s` is equal to `t` repeated `k` times.
+
+# The input string consists of lowercase latin letters.
+
+# Your function should return :
+# an array [t, k] (in Ruby and JavaScript)
+
+# Example #1:
+
+# for string:
+# s = "ababab";
+# the answer is:
+# ("ab", 3)
+
+# Problem:
+# Input: a string
+# output: an array of a string and int
+# Rules:
+  # find the shorted substring of the given string that can be multiplied to be equal to the given string
+  # Return the substring and the multiplier
+  # lowercase letter only in given string
+
+# Examples:
+# p solve("ababab") == ["ab", 3]
+# p solve("abcde") == ["abcde", 1]
+
+# Data:
+# strings, arrays, integers
+
+# Algorithm:
+
+# define `solve` method with 1 parameter `input`
+#   initialize `substrings` to an empty array
+#   create leading substrings
+#     check if created substring is mutliplyable to be equal to `input`
+#     if it is, add substring to `substrings` array
+#   initialize `result` to empty array
+#   sort `substrings` array by string length and return the minimum string to results
+#   divide `input` string length by `substring` in `result` and append `result` with the result
+# end
+
+# Code:
+
+# def solve(input)
+#   substrings = []
+#   (1..(input.size)).each do |length|
+#     substrings << input[0,length] if (input.length % length == 0) && ((input[0,length] * (input.length / length)) == input)
+#   end
+#   results = []
+#   results << substrings.min_by {|substring| substring.length}
+#   results << input.length / (substrings.min_by {|string| string.length}.size)
+#   results
+# end
+
+# p solve("ababab") == ["ab", 3]
+# p solve("abcde") == ["abcde", 1]
+
+# 7) 
