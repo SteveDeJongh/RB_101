@@ -1397,6 +1397,19 @@ p longest('zyba') == 'z'
 #   results.select {|num| num > 0 }.reverse.join(' + ')
 # end
 
+# or:
+
+# def expanded_form(num)
+#   digits = num.digits
+#   exp_form = []
+#   digits.each_with_index do |digit, i|
+#     next if digit == 0
+#     exp_form.unshift(digit * 10**i)
+#   end
+
+#   exp_form.join(' + ')
+# end
+
 # p expanded_form(10203) == '10000 + 200 + 3'
 # p expanded_form(12) == '10 + 2'
 # p expanded_form(42) == '40 + 2'
@@ -1486,6 +1499,126 @@ p longest('zyba') == 'z'
 # p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
 # p letter_changes('xyz') == ('abc')
 
+# <<<<<<<<<<<<<< Try solving with map? !!!!!!!!!!!!!!!!!!!!!!!
+
+############################################ PEDAC Study Session ############################################
+
+# Focus on P, A, and C at this stage in the curriculum.
+# Use a template.
+
+# Problem:
+
+# Given an array of n positive integers and a positive integer, find the minimal length of a contiguous subarray for which the sum >= integer.
+
+# Problem:
+# Input: array of integers
+# Output: integer
+# Rules:
+#   numbers in sub array must appear consecutively in array
+#   sum of numbers must be greater than or equal to given positive integer
+#   if sum of all integers in array is not larger than target return 0
+
+# Examples:
+# ([2, 3, 1, 2, 4, 3], 7) == 2
+# ([1, 10, 5, 2, 7], 9) == 1
+# ([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+# ([1, 2, 4], 8) == 0
+
+# Data:
+# Integers, arrays
+
+# Algorithm:
+# define `minSubLength` method with two paramter `array` and `target`
+#   return `0` if `array`` sum is less than `target`
+#   initialize `subarrays` array to contain valid subarrays
+#   create all subarrays
+#     return subarray to `subarrays` if subarray sum is greater than or equal to `target`
+#   sort subarrays by size of sub array # step isn't needed if returning min
+#   return size of min subarray
+#   end
+
+# Code:
+
+# def minSubLength(array, target)
+#   return 0 if array.sum < target
+#   subarrays = []
+#   (0...array.length).each do |index|
+#     (1..(array.length - index)).each do |length|
+#       subarrays << array[index, length] unless array[index, length].sum < target
+#     end
+#   end
+  
+#   subarrays.min_by {|arr| arr.size}.size
+
+# end
+
+# p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+# p minSubLength([1, 10, 5, 2, 7], 9) == 1
+# p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+# p minSubLength([1, 2, 4], 8) == 0
+
+# Problem 2)
+
+# Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, 
+# a and b are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the
+# alphabet, which are positions 4 and 5.
+
+# Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word. For example,
+
+# p symm(["abode","ABc","xyzD"]) == [4, 3, 1]
+# p symm(["abide","ABc","xyz"]) == [4, 3, 0]
+# p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+# Problem:
+# Input: array of strings
+# output: array of integers
+# Rules:
+#   letter counts if it is at the same position in the string as position in the alphabet
+#   position is case-insensitive
+
+# Examples:
+
+# (["abode","ABc","xyzD"]) == [4, 3, 1]
+# (["abide","ABc","xyz"]) == [4, 3, 0]
+# (["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# (["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+# Data:
+# Strings, Arrays, integers
+
+# Algorithm:
+
+# define `symm` method with 1 parameter `strings`
+#   initialize `alphabet` array to letter in the alphabet
+#   iterate over elements in `strings` array
+#   initialize `count` variable
+#     downcase string
+#     iterate over each letter in string, keeping track of the character and  index
+#     if the characters index in the alphabet array is the same as the current index, interate count by 1
+#   return count to map
+#   return array returned by map
+# end
+
+# Code:
+
+# def symm(array)
+#   alphabet = ('a'..'z').to_a
+#   array.map do |string|
+#     count = 0
+#     string.downcase.chars.each_with_index do |char, idx|
+#       if idx == alphabet.index(char)
+#         count += 1
+#       end
+#     end
+#     count
+#   end
+# end
+
+# p symm(["abode","ABc","xyzD"]) == [4, 3, 1]
+# p symm(["abide","ABc","xyz"]) == [4, 3, 0]
+# p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
 ################################### Code Wars questions #################################################
 
