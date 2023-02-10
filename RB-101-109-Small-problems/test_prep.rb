@@ -1954,5 +1954,93 @@ p longest('zyba') == 'z'
 # p solve("ababab") == ["ab", 3]
 # p solve("abcde") == ["abcde", 1]
 
-# 7) 
+# 7) Detect Panagram (https://www.codewars.com/kata/545cedaa9943f7fe7b000048/train/ruby)
+
+# A panagram is a sentence that contains every single letter of the alphabet at least once. For example, 
+# the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z 
+# at least once (case is irrelevant).
+
+# Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+
+# Problem:
+# input: a string
+# output: true or false
+# Rules:
+  # input string must contain all letters of the alhpabet
+  # case is irrelevant
+
+# Examples:
+# "The quick brown fox jumps over the lazy dog" == true
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+
+# define `pangram?` method with 1 parameter `input`
+#   initialize `alphabet` to an array containing each letter of the alphabet
+#   check to see if the input string contains all of the letters in `alphabet`
+# end
+
+# Code:
+
+# def pangram?(input)
+#   alphabet = ('a'..'z').to_a
+#   alphabet.all? do |letter|
+#     input.downcase.include?(letter)
+#   end
+# end
+
+# p pangram?("The quick brown fox jumps over the lazy dog") == true
+# p pangram?("This is not a pangram.") == false
+
+# 8) Scramblies (https://www.codewars.com/kata/55c04b4cc56a697bb0000048/train/ruby)
+
+# Complete the function scramble(str1, str2) that returns true if a portion of str1 characters can be rearranged
+# to match str2, otherwise returns false.
+
+# Notes:
+# Only lower case letters will be used (a-z). No punctuation or digits will be included.
+# Performance needs to be considered.
+
+# Problem:
+# input: two strings
+# output: true or false
+# Rules:
+  # all characters to make up str2 must be in str1
+  # Once a character is used, it can't be used again.
+
+# Examples:
+
+# scramble('rkqodlw', 'world') ==> True
+# scramble('cedewaraaossoqqyt', 'codewars') ==> True
+# scramble('katas', 'steak') ==> False
+
+# Data:
+# Strings and arrays
+
+# Algorithm:
+
+# define `scramble` with two parameters `str1` and `str2`
+#   initialize `alphabet` to contain all letters of the alphabet
+#   check if the count of each letter in the alphabet in `str2` is equal to or greater than in `str1`
+# end
+
+# Code:
+
+# def scramble(str1, str2)
+#   ('a'..'z').all? {|letter| str1.count(letter) >= str2.count(letter)}
+# end
+
+# p scramble('rkqodlw',           'world'     ) == true
+# p scramble('cedewaraaossoqqyt', 'codewars'  ) == true
+# p scramble('katas',             'steak'     ) == false
+# p scramble('scriptjava',        'javascript') == true
+# p scramble('scriptingjava',     'javascript') == true
+
+# s1 = "abcdefghijklmnopqrstuvwxyz" * 100_000
+# s2 = "zyxcba" * 90_000
+# p scramble(s1, s2) == true
+
+# 9) Multiples of 3 or 5 (https://www.codewars.com/kata/514b92a657cdc65150000006/train/ruby)
 
