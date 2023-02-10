@@ -152,7 +152,7 @@ x 21. Find the Mine!
 54. Are they the "same"?
 55. Grouping and Counting
 56. Find the Nexus of the Codewars Universe
-57. Count letters in string
+x 57. Count letters in string
 58. Triple trouble
 59. Which are in?
 60. Format a string of names like 'Bart, Lisa & Maggie'.
@@ -756,7 +756,7 @@ p longest('zyba') == 'z'
 
 # The tests above should print "true".
 
-# PRoblem 5)
+# Problem 5)
 
 # Write a method that takes a string as an argument and returns
 # the character that occurs least often in the given string.
@@ -1607,7 +1607,6 @@ p longest('zyba') == 'z'
 #   odd_numbers.size
 # end
 
-
 # p solve("1341") == 7
 # p solve("1357") == 10
 # p solve("13471") == 12
@@ -1676,3 +1675,147 @@ p longest('zyba') == 'z'
 # p solve("abcde") == ["abcde", 1]
 
 # 7) 
+
+# RB119 interview study group Question
+
+# You will be given a number and you will need to return it as a string in expanded form. For example:
+#
+# expanded_form(12); # Should return '10 + 2'
+# expanded_form(42); # Should return '40 + 2'
+# expanded_form(70304); # Should return '70000 + 300 + 4'
+#
+# Note: All numbers will be whole numbers greater than 0.
+
+# p expanded_form(12) == '10 + 2'
+# p expanded_form(42) == '40 + 2'
+# p expanded_form(70304) == '70000 + 300 + 4'
+
+# Problem:
+# Input: Integer
+# ouptut: a string
+# Rules:
+  # numbers in expanded form should be joined by a `+`
+
+# Examples:
+
+# p expanded_form(12) == '10 + 2'
+# p expanded_form(42) == '40 + 2'
+# p expanded_form(70304) == '70000 + 300 + 4'
+
+# Data:
+# Integers
+# Strings
+# Arrays
+
+# Algorithm:
+
+# Option 1)
+# define `expanded_form` method with 1 paramter `num`
+# initialize `results` Array
+# initialize `numstring` to num converted to a String
+# initialize `substrings` Array
+# create all trailing substsrings
+#   only substring starts with a `0` and if it does don't include in substrings
+#   otherwise changed all trailing characters to zero in substring
+# join the elements in the results array with (" + ")
+# end
+
+# Code:
+
+Still to work on:
+
+def expanded_form(num)
+  results = []
+  numstring = num.to_s
+  substrings = []
+  ((numstring.length)..0).each do |index|
+    substrings << numstring[index..-1] unless numstring[index..-1][0] == "0"
+  end
+  substrings
+end
+
+p expanded_form(12) #== '10 + 2'
+
+# Question 2)
+
+# Have the method letter_changes(str) take the str parameter being passed and
+# modify it using the following algorithm. Replace every letter in the string
+# with the 3rd letter following it in the alphabet (ie. c becomes f, Z becomes C).
+# Then return this modified string.
+
+# Problem:
+# Input: a string
+# Output: a modified string
+# Rules:
+  # replace letter with letter that comes 3 letter after it in the alphabet.
+  # alphabet loops around (ie: Z => C)
+  # If letter is capitalized, return a capitalized letter.
+  # punctuation does not change
+
+# Examples:
+# letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+# letter_changes("Road trip9") == "Urdg wuls9"
+# letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+# letter_changes('xyz') == ('abc')
+
+# Data:
+# strings
+# arrays
+
+# Algorithm:
+
+# define letter_changes method with 1 parameter `input`
+#   initialize `alphatbet` array for lowercase alphabet
+#   initialize `alphabetup` array for uppercase alphabet
+#   initialize `result` string to ''
+#   loop over characters in `input`
+#     if character is in `alphabet`
+#       find index for character in alphabet
+#       case statement
+#         if index is less than 23 simply return element in alphabet at index + 3
+#           if index is 23 return "a"
+#           if index is 24 return "b"
+#           if index is 25 return "c"
+#     if character is in `alphabetup`
+#       find index for character in alphabetup
+#       case statement
+#         if index is less than 23 simply return element in alphabet at index + 3
+#           if index is 23 return "A"
+#           if index is 24 return "B"
+#           if index is 25 return "C"
+#     otherwise
+#     return character to result
+#           End
+
+# Code:
+
+# def letter_changes(input)
+#   alphabet = ('a'..'z').to_a
+#   alphabetup = ('A'..'Z').to_a
+#   result = ''
+#   input.chars.each do |char|
+#     if alphabet.include?(char)
+#       case
+#       when alphabet.index(char) == 23 then result << "a"
+#       when alphabet.index(char) == 24 then result << "b"
+#       when alphabet.index(char) == 25 then result << "c"
+#       else result << alphabet[(alphabet.index(char)+3)]
+#       end
+#     elsif alphabetup.include?(char)
+#       case 
+#       when alphabetup.index(char) == 23 then result << "A"
+#       when alphabetup.index(char) == 24 then result << "B"
+#       when alphabetup.index(char) == 25 then result << "C"
+#       else result << alphabetup[(alphabetup.index(char)+3)]
+#       end
+#     else
+#       result << char
+#     end
+#   end
+#   result
+# end
+
+# p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+# p letter_changes("Road trip9") == "Urdg wuls9"
+# p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+# p letter_changes('xyz') == ('abc')
