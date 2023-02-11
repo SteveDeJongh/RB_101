@@ -2136,3 +2136,252 @@ p longest('zyba') == 'z'
 # end
 
 # p greatestProduct("123834539327238239583") == 3240
+
+# 11) Counting Duplicates (https://www.codewars.com/kata/54bf1c2cd5b56cc47f0007a1/train/ruby)
+
+# Count the number of Duplicates
+# Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric 
+# digits that occur more than once in the input string. The input string can be assumed to contain only alphabets 
+# (both uppercase and lowercase) and numeric digits.
+
+# Example
+# "abcde" -> 0 # no characters repeats more than once
+# "aabbcde" -> 2 # 'a' and 'b'
+# "aabBcde" -> 2 # 'a' occurs twice and 'b' twice (`b` and `B`)
+# "indivisibility" -> 1 # 'i' occurs six times
+# "Indivisibilities" -> 2 # 'i' occurs seven times and 's' occurs twice
+# "aA11" -> 2 # 'a' and '1'
+# "ABBA" -> 2 # 'A' and 'B' each occur twice
+
+# Problem:
+# Input: a string, made up of upper and lower case letters and numerical digits.
+# Output: integer
+# Rules:
+  # letter must repeat itself in the string to count towards total returned
+  # all letters can be treated the same, ie: downcase whole string.
+  # return zero if no characters repeat more than once
+
+# Examples:
+# p duplicate_count("") == 0
+# p duplicate_count("abcde") == 0
+# p duplicate_count("abcdeaa") == 1
+# p duplicate_count("abcdeaB") == 2
+# p duplicate_count("Indivisibilities") == 2
+
+# Data:
+# arrays and strings
+
+# Algorithm:
+
+#Option 1)
+# define `duplicate_count` method with 1 parameter `input`
+#   downcase input string and reassign to `input`
+#   initialize `characters` array to contian downcase alphabet and 0-9 digits as strings
+#   initialize count
+#   loop over each character in `characters`
+#     check if the count of that character is greather than 1 in `input` string
+#       if it is, increase count by 1
+#   return count
+# End
+
+#Option 2)
+
+# define duplicate_count method with 1 paramter input
+#   downcase input string and reassign to `input`
+#   initialize `charcters` array to acontain downcase alphabet and 0-9 digits as strings
+#   call select! on characters, on selecting the character if it appears in the input string 2 or more times
+#   return the size of characters array
+#       end
+
+# Code:
+
+# Option 1
+
+# def duplicate_count(input)
+#   input = input.downcase
+#   characters = ('a'..'z').to_a + ('0'..'9').to_a
+#   count = 0
+#   characters.each do |char|
+#     count += 1 if input.count(char) > 1
+#   end
+#   count
+# end
+
+# Option 2
+
+# def duplicate_count(input)
+#   input = input.downcase
+#   characters = ('a'..'z').to_a + ('0'..'9').to_a
+#   characters.select {|char| input.count(char) > 1}.size
+# end
+
+# p duplicate_count("") == 0
+# p duplicate_count("abcde") == 0
+# p duplicate_count("abcdeaa") == 1
+# p duplicate_count("abcdeaB") == 2
+# p duplicate_count("Indivisibilities") == 2
+
+# 12) Transform to Prime (https://www.codewars.com/kata/5a946d9fba1bb5135100007c/train/ruby)
+
+# Problem: Find the smallest number need to be added to the sum of the array of numbers to get to the closest prime number
+# A prime number is a number that can not be equally devided by any number other than itself.
+# Input: array of numbers
+# Output: integer
+# Rules:
+  # List size will be atleast 2 numbers
+  # if the exisitng sum of numbers is a prime number return 0
+  # 
+
+# Examples:
+
+# p minimum_number([3,1,2]) == 1
+# p minimum_number([5,2]) == 0
+# p minimum_number([1,1,1]) == 0
+# p minimum_number([2,12,8,4,6]) == 5
+# p minimum_number([50,39,49,6,17,28]) == 2
+
+# Data:
+# Arrays and integers
+
+# Algorithm:
+
+# define `minimum_number` method which takes 1 parameter `input`
+#   find the sum of the input array and assign it to `sum`
+#   loop from 0 to sum
+#   add loop iteration number to sum and check if if number is prime
+#     if number is now prime, return loop iteration
+#     end
+
+
+# Code:
+
+# Could also require "prime" and use that to check.
+
+# def isprime?(num)
+#   return false if num <= 1
+#   (2..Math.sqrt(num)).none? {|i| (num % i).zero?}
+# end
+
+# def minimum_number(input)
+#   sum = input.sum
+#   0.upto(sum) do |num|
+#     if isprime?(sum + num)
+#       return num
+#     end
+#   end
+# end
+
+# p minimum_number([3,1,2]) == 1
+# p minimum_number([5,2]) == 0
+# p minimum_number([1,1,1]) == 0
+# p minimum_number([2,12,8,4,6]) == 5
+# p minimum_number([50,39,49,6,17,28]) == 2
+
+# 13) Equal Side Of An Array (https://www.codewars.com/kata/5679aa472b8f57fb8c000047/train/ruby)
+
+# You are going to be given an array of integers. Your job is to take that array and find an index N where 
+# the sum of the integers to the left of N is equal to the sum of the integers to the right of N. If there 
+# is no index that would make this happen, return -1.
+
+# Problem:
+# Input: array of integers
+# Output: integer representation of an index
+# Rules:
+  # equal sizes of the array from given index must sum to equal
+  # index will be included on left and right side comparison
+  # if there is no index where this occurs, return -1
+
+# Examples:
+# p find_even_index([1,2,3,4,3,2,1]) == 3
+# p find_even_index([1,100,50,-51,1,1]) == 1
+# p find_even_index([1,2,3,4,5,6]) == -1
+# p find_even_index([20,10,30,10,10,15,35]) == 3
+# p find_even_index([20,10,-80,10,10,15,35]) == 0
+# p find_even_index([10,-80,10,10,15,35,20]) == 6
+# p find_even_index(Array(1..100)) == -1
+# p find_even_index([0,0,0,0,0]) == 0
+# p find_even_index([-1,-2,-3,-4,-3,-2,-1]) == 3
+# p find_even_index(Array(-100..-1)) == -1
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+
+# define `find_even_index` method with 1 paramter `input`
+#   initialize `result` to -1
+#   loop from 0 to index size tracking start index
+#     check if input sum from start up to index is equal to input sum from index to end
+#       if it is, return current index
+#       end
+#     end
+#     return result
+#   end
+
+# Code:
+
+# def find_even_index(input)
+#   result = -1
+#   (0..(input.size)).each do |index|
+#     if input[0..index].sum == input[index..-1].sum
+#       return index
+#     end
+#   end
+#   result
+# end
+
+# p find_even_index([1,2,3,4,3,2,1]) == 3
+# p find_even_index([1,100,50,-51,1,1]) == 1
+# p find_even_index([1,2,3,4,5,6]) == -1
+# p find_even_index([20,10,30,10,10,15,35]) == 3
+# p find_even_index([20,10,-80,10,10,15,35]) == 0
+# p find_even_index([10,-80,10,10,15,35,20]) == 6
+# p find_even_index(Array(1..100)) == -1
+# p find_even_index([0,0,0,0,0]) == 0
+# p find_even_index([-1,-2,-3,-4,-3,-2,-1]) == 3
+# p find_even_index(Array(-100..-1)) == -1
+
+# 14) Find the odd int (https://www.codewars.com/kata/54da5a58ea159efa38000836/train/ruby)
+
+# Given an array of integers, find the one that appears an odd number of times.
+
+# There will always be only one integer that appears an odd number of times.
+
+# Problem:
+# Input: array of intgers
+# Output: integer
+# Rules:
+  # integer must appear in array an odd number of times
+  # only one integer will fit the criteria
+  # integers can be positive or negative
+
+# Examples:
+# p find_it([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5]) == 5
+# p find_it([1,1,2,-2,5,2,4,4,-1,-2,5]) == -1
+# p find_it([20,1,1,2,2,3,3,5,5,4,20,4,5]) == 5
+# p find_it([10]) == 10
+# p find_it([1,1,1,1,1,1,10,1,1,1,1]) == 10
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+# define `find_it` method with 1 paramter `input`
+#   iterate over each element in `input`
+#   count occurances of element in `input`, if count is odd, return element
+# end
+
+# Code:
+
+# def find_it(input)
+#   input.each do |num|
+#     return num if input.count(num).odd?
+#   end
+# end
+
+
+# p find_it([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5]) == 5
+# p find_it([1,1,2,-2,5,2,4,4,-1,-2,5]) == -1
+# p find_it([20,1,1,2,2,3,3,5,5,4,20,4,5]) == 5
+# p find_it([10]) == 10
+# p find_it([1,1,1,1,1,1,10,1,1,1,1]) == 10
