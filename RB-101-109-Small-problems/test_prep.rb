@@ -2385,3 +2385,95 @@ p longest('zyba') == 'z'
 # p find_it([20,1,1,2,2,3,3,5,5,4,20,4,5]) == 5
 # p find_it([10]) == 10
 # p find_it([1,1,1,1,1,1,10,1,1,1,1]) == 10
+
+# 15) Find the unique number (https://www.codewars.com/kata/585d7d5adb20cf33cb000235/train/ruby)
+
+# There is an array with some numbers. All numbers are equal except for one. Try to find it!
+
+# find_uniq([ 1, 1, 1, 2, 1, 1 ]) == 2
+# find_uniq([ 0, 0, 0.55, 0, 0 ]) == 0.55
+# It’s guaranteed that array contains at least 3 numbers.
+
+# The tests contain some very huge arrays, so think about performance.
+
+# Problem:
+# Input: array of integers
+# Output: element which appears only once in array
+# Rules:
+  # array can be made up of integers or floats
+  # arrays will always contain at least 3 numbers
+  # arrays will only be made up of 2 different numbers
+
+# Examples:
+
+# p find_uniq([1,1,1,1,0]) == 0
+# p find_uniq([ 1, 1, 1, 2, 1, 1 ]) == 2
+# p find_uniq([ 0, 0, 0.55, 0, 0 ]) == 0.55
+
+# Data:
+# arrays, floats and integers
+
+# Algorithm:
+
+# define `find_uniq` with 1 parameter `input`
+#   intiailize uniques to the unique digits in `input`
+#   iterate over each element in `uniques`
+#     check if element only appears in `input` array once
+#       if it does, return that element
+#       end
+#     end
+#   end
+# end
+
+# Code:
+
+# def find_uniq(input)
+#   uniques = input.uniq
+#   uniques.each do |element|
+#     return element if input.count(element) == 1
+#   end
+# end
+
+# p find_uniq([1,1,1,1,0]) == 0
+# p find_uniq([ 1, 1, 1, 2, 1, 1 ]) == 2
+# p find_uniq([ 0, 0, 0.55, 0, 0 ]) == 0.55
+
+# 16) Are the "same"? (https://www.codewars.com/kata/550498447451fbbd7600041c/train/ruby)
+
+# Given two arrays a and b write a function comp(a, b) (orcompSame(a, b)) that checks whether the 
+# two arrays have the "same" elements, with the same multiplicities (the multiplicity of a member is 
+# the number of times it appears). "Same" means, here, that the elements in b are the elements in a 
+# squared, regardless of the order.
+
+# Problem:
+# Input: two arrays
+# Output: true or false
+# Rules:
+  # arrays are equal if each element in array `a` squared, appear in array `b`
+  # both arrays must have the same number of elements to be equal
+  # 
+
+# Example:
+# comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]) == true
+
+# Data:
+# arrays, integers
+
+# Algorithm:
+# define `comp` method with two paramters `ar1` and `ar2`
+#   rule out unequal length arrays to return false
+#   initialize `sorted1` to the sorted array of the result of squareing each number in ar1
+#   initialize `sorted2` to `ar2` sorted
+#   check if `sorted1` is equal to `sorted2`
+# end
+
+# Code:
+# def comp(ar1, ar2)
+#   return false if ar1 == nil || ar2 == nil unless ar1 == nil && ar2 == nil
+#   return false if (ar1.size != ar2.size)
+#   sorted1 = ar1.map {|num| num**2}.sort
+#   sorted2 = ar2.sort
+#   sorted1 == sorted2
+# end
+
+# p comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]) == true
