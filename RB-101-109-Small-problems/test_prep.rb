@@ -2044,3 +2044,54 @@ p longest('zyba') == 'z'
 
 # 9) Multiples of 3 or 5 (https://www.codewars.com/kata/514b92a657cdc65150000006/train/ruby)
 
+# If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
+# The sum of these multiples is 23.
+
+# Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in. 
+# Additionally, if the number is negative, return 0 (for languages that do have them).
+
+# Note: If the number is a multiple of both 3 and 5, only count it once.
+
+# Problem:
+# input: an integer
+# output: an integer
+# rules:
+  # number must be divisible by 3 or 5 to count towards sum
+  # number counts up from 1 (or 3) to 1 less than the given num
+  # if number is divisble by 3 and 5, return it only once.
+  # if input number is negative, return 0
+
+# examples:
+# 10 => 23
+# 20 => 78
+# 5 => 8
+
+# Data:
+# arrays and integers
+
+# Algorithm:
+# define `solution` methdo with 1 parameter `num`
+#   return 0 if num is less than 0
+#   intialize results array
+#   loop from 3 to `num` - 1 tracking current iteration
+#   if iteration num is divisble by 3 or 5 add to results array
+
+#   return the sum of results array.
+# end
+
+# Code:
+
+# def solution(num)
+#   return 0 if num < 0
+#   results = []
+#   3.upto(num-1) do |x|
+#     results << x if (x % 3 == 0) || (x % 5 == 0)
+#   end
+#   results.sum
+# end
+
+# p solution(10) == 23
+# p solution(20) == 78
+# p solution(200) == 9168
+
+# 10) Largest product in a series
