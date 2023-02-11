@@ -2094,4 +2094,45 @@ p longest('zyba') == 'z'
 # p solution(20) == 78
 # p solution(200) == 9168
 
-# 10) Largest product in a series
+# 10) Largest product in a series (https://www.codewars.com/kata/529872bdd0f550a06b00026e/train/ruby)
+
+# Complete the greatestProduct method so that it'll find the greatest product of five consecutive digits in the given string of digits.
+
+# For example:
+# greatestProduct("123834539327238239583") // should return 3240
+# The input string always has more than five digits.
+
+# Problem:
+# input: an integer represented as a strink
+# output: integer
+# rules:
+  # product must be made up of consecutive digits
+  # product mud be made up of 5 digits
+
+# examples:
+# ("123834539327238239583") == 3240
+
+# Data:
+# strings, integers, arrays
+
+# Algorithm:
+# define `greatestProduct` method with 1 parameter `input`
+#   convert input string to integer
+#   initialize `digits` to array of digits from input
+#   initialize `products` to an array
+#   create each sub array of 5 consecutive numbers and return the product of those numbers to products
+#   return the max of products
+# end
+
+# Code:
+
+# def greatestProduct(input)
+#   digits = input.to_i.digits.reverse
+#   products = []
+#   digits.each_cons(5) do |x|
+#     products << x.inject(:*)
+#   end
+#   products.max
+# end
+
+# p greatestProduct("123834539327238239583") == 3240
