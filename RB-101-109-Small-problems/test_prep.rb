@@ -2679,3 +2679,190 @@ p longest('zyba') == 'z'
 
 # p weirdcase( "String" ) == "StRiNg"
 # p weirdcase( "Weird string case" ) == "WeIrD StRiNg CaSe"
+
+# 20) Typoglycemia Generator (https://www.codewars.com/kata/55953e906851cf2441000032/train/ruby)
+
+# There is a message that is circulating via public media that claims a reader can easily read a message where
+#  the inner letters of each words is scrambled, as long as the first and last letters remain the same and the
+#   word contains all the letters.
+
+# In this kata we will make a generator that generates text in a similar pattern, but instead of scrambled or reversed
+# , ours will be sorted alphabetically
+
+# Requirement
+# return a string where:
+
+# 1) the first and last characters remain in original place for each word
+# 2) characters between the first and last characters must be sorted alphabetically
+# 3) punctuation should remain at the same place as it started, for example: shan't -> sahn't
+
+# Assumptions
+# 1) words are seperated by single spaces
+# 2) only spaces separate words, special characters do not, for example: tik-tak -> tai-ktk
+# 3) special characters do not take the position of the non special characters, for example: -dcba -> -dbca
+# 3) for this kata puctuation is limited to 4 characters: hyphen(-), apostrophe('), comma(,) and period(.)
+# 5) ignore capitalisation
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # first and last character of each word remain in the same position
+  # middle characters sorted alphabettically
+  # punctuation should remain in the same place
+  # if first letter is non-alphabetical, maintain place of second letter.
+  # if input string length is 3 characters or less return original string
+
+# Examples:
+
+# p scramble_words('professionals') == 'paefilnoorsss'
+# p scramble_words('i') == 'i'
+# p scramble_words('') == ''
+# p scramble_words('me') == 'me'
+# p scramble_words('you') == 'you'
+# p scramble_words('card-carrying') == 'caac-dinrrryg'
+# p scramble_words("shan't") == "sahn't"
+# p scramble_words('-dcba') == '-dbca'
+# p scramble_words('dcba.') == 'dbca.'
+# p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+
+# Data:
+
+# Algorithm:
+# define `scramble_words` method with 1 paramter `input`
+#   return `input` if input length is 3 or less
+#   intialize words to the seperate words of `input`
+#   loop over words in `words` array
+#     scramble inside characters of the word according to the criteria
+#       if word length is less than 3 return word
+#       create an array of the characters in `words`
+#       check if the first character is alphabetical, if it is report that index + 1 to start
+#       check if the last character is alphabetical, if it is reprot htat index to end
+#       shuffle the remaining characters and return to "shuffle"
+#       recreate the word starting from start index to end index with letter in shuffle, check to make sure the current character is alphabetical
+
+#   join words in words array with a space
+# end
+
+# Code:
+
+# def scramble_words(input)
+#   return input if input.size <= 3
+#   words = input.split
+#   words.map do |word|
+#     if word.size <= 3
+#       word
+#     else
+#       start = nil
+#       finish = nil
+#       (0..word.length).each do |index|
+#         start = (index + 1) if ('a'..'z').include?(word[index])
+#         break if start != nil
+#       end
+#       -1.downto(-10) do |index|
+#         finish = index if ('a'..'z').include?(word[index])
+#         break if finish != nil
+#       end
+      
+#       shuffled = word.chars[start...finish].sort.select {|char| ('a'..'z').include?(char)}
+#       word.chars.map.with_index do |char, idx|
+#         if idx < start
+#           char
+#         elsif ('a'..'z').include?(char) == false
+#           char
+#         elsif shuffled.empty?
+#           char
+#         else
+#           word[idx] = shuffled.shift
+#         end
+#       end.join('')
+#     end
+#   end.join(' ')
+# end
+
+
+# p scramble_words('professionals') == 'paefilnoorsss'
+# p scramble_words('i') == 'i'
+# p scramble_words('') == ''
+# p scramble_words('me') == 'me'
+# p scramble_words('you') == 'you'
+# p scramble_words('card-carrying') == 'caac-dinrrryg'
+# p scramble_words("shan't") == "sahn't"
+# p scramble_words('-dcba') == '-dbca'
+# p scramble_words('dcba.') == 'dbca.'
+# p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+
+# 21) Most frequently used words in a text (https://www.codewars.com/kata/51e056fe544cf36c410000fb/train/ruby)
+
+# Write a function that, given a string of text (possibly with punctuation and line-breaks), returns an array 
+# of the top-3 most occurring words, in descending order of the number of occurrences.
+
+# Assumptions:
+# 1) A word is a string of letters (A to Z) optionally containing one or more apostrophes (') in ASCII.
+# 2) Apostrophes can appear at the start, middle or end of a word ('abc, abc', 'abc', ab'c are all valid)
+# 3) Any other characters (e.g. #, \, / , . ...) are not part of a word and should be treated as whitespace.
+# 4) Matches should be case-insensitive, and the words in the result should be lowercased.
+# 5) Ties may be broken arbitrarily.
+# 6) If a text contains fewer than three unique words, then either the top-2 or top-1 words should be returned, 
+# or an empty array if a text contains no words.
+
+# Problem:
+# Input: A string
+# Output: array 3 most commonly appearing words
+# Rules:
+  # words are split on spaces
+  # matches are case incensitve
+  # if text have fewer than 3 unique word, return top 2 or top 1 word
+
+# Examples:
+# p top_3_words("a a a  b  c c  d d d d  e e e e e") == ["e", "d", "a"]
+# p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") == ["e", "ddd", "aa"]
+# p top_3_words("  //wont won't won't ") == ["won't", "wont"]
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `top_3_words` method with 1 paramter `input`
+#   split input into an array of words
+#   create a results hash
+#   for each unique word in the array
+#     count how many times that word occurs in the words array
+#     return the count as key, and word as value to the results hash
+#   sort the hash by the key (count) value
+#   return the first three values of the results hash
+#   end
+
+# Code:
+
+# def top_3_words(input)
+#   words = input.downcase.chars.select{|char| (('a'..'z').to_a + [" "]+ ["'"]).include?(char)}.join
+#   words = words.downcase.split(' ')
+#   results = {}
+#   words.uniq.each do |word|
+#     next if word.chars.all? {|char| char == "'"}
+#     num = words.count(word)
+#     results[word] = num
+#   end
+#   results.sort_by { |k, v| v}.reverse.to_h.keys.first(3)
+# end
+
+# p top_3_words("  '''  ") == []
+# p top_3_words("a a a  b  c c  d d d d  e e e e e") == ["e", "d", "a"]
+# p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") == ["e", "ddd", "aa"]
+# p top_3_words("  //wont won't won't ") == ["won't", "wont"]
+
+
+# def top_3_words(input)
+#   input.scan(/[A-Za-z']+/) # scans for instances of groups of letters and apostrophes, returns array
+#        .select {|x| /[A-Za-z]+/ =~ x} #ensure word isn't only made up of non-alphabetical characters? returns array
+#        .group_by { |x| x.downcase } # Returns a hash of key (word) and value (instances of word)
+#        .sort_by { |k,v| -v.count } # Sorts hash by count of words in value, from most to least. Return sorted ARRAY
+#        .first(3) # returns first 3 elements of sorted array
+#        .map(&:first) # returns first element for each of the 3 multi dimensial arrays. First element is one occurance of the word
+# end
+
+# p top_3_words("  '''  ") #== []
+# p top_3_words("a a a  b  c c  d d d d  e e e e e") #== ["e", "d", "a"]
+# p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") #== ["e", "ddd", "aa"]
+# p top_3_words("  //wont won't won't ") #== ["won't", "wont"]
