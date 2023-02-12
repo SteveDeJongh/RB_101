@@ -104,7 +104,7 @@ x 6.Non-even substrings
 x 7.Substring fun
 x 8.Repeated Substring
 x 9.Typoglycemia Generator (Hard! Revisit if possible.)
-10.Most frequently used words in a text]
+x 10.Most frequently used words in a text]
 x 11.Extract the domain name from a URL (Revisit, better use of REGEX)
 x 12. Detect Pangram
 x 13. Kebabize
@@ -117,8 +117,8 @@ x 19. Title Case
 x 20. Count and Group Character Occurrences in a String
 x 21. Find the Mine!
 x 22. Scramblies
-23. Longest alphabetical substring
-24. The Hashtag Generator
+x 23. Longest alphabetical substring
+x 24. The Hashtag Generator
 25. Pete, the baker
 26. Mean Square Error
 27. Exponent method
@@ -2866,3 +2866,149 @@ p longest('zyba') == 'z'
 # p top_3_words("a a a  b  c c  d d d d  e e e e e") #== ["e", "d", "a"]
 # p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") #== ["e", "ddd", "aa"]
 # p top_3_words("  //wont won't won't ") #== ["won't", "wont"]
+
+# 22) Longest alphabetical substring
+
+# Find the longest substring in alphabetical order.
+# Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
+# There are tests with strings up to 10 000 characters long so your code will need to be efficient.
+# The input will only consist of lowercase characters and will be at least one letter long.
+# If there are multiple solutions, return the one that appears first.
+
+# Problem:
+# Input: String
+# Output: string
+# Rules:
+  # characters in substring must be in alphabetical order
+  # if there are multiple results of the same length, return first occurance
+  # input will only be lowercase letters
+
+# Examples:
+# p longest('asd') == 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') == 'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') == 'fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
+
+# Data:
+
+# Alogrithm:
+# Define `longest` method with 1 parameter `input`
+#   initialize result to an empty string
+#   loop from 0 to string length
+#     loop from 0 to string length - index
+#     check if chars in that substring are equal to chars in that substrings sorted
+#     if they are, if current substring length is longer than result length assign to result
+#     end
+#     return result
+
+
+# Code:
+
+# Passes but not fast enough
+# def longest(input)
+#   result = ''
+#   (0..(input.length)).each do |index|
+#     (1..(input.length - index)).each do |length|
+#       break if 
+#       substring = input[index, length]
+#       characters = substring.chars
+#       if characters == characters.sort && substring.size > result.size
+#         result = substring
+#       end
+#     end
+#   end
+#   result
+# end
+
+# Works and is faster. stops iterating over characters as soon as substring starts with anything out of order.
+# def longest(input)
+#   result = ''
+#   (0..(input.length)).each do |index|
+#     (1..(input.length - index)).each do |length|
+#       substring = input[index, length]
+#       characters = substring.chars
+#       if characters == characters.sort
+#         result = substring if substring.size > result.size
+#       else
+#         break
+#       end
+#     end
+#   end
+#   result
+# end
+
+# p longest('asd') == 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') == 'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') == 'fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
+
+# 23) The Hashtag Generator (https://www.codewars.com/kata/52449b062fb80683ec000024)
+
+# The marketing team is spending way too much time typing in hashtags.
+# Let's help them with our own Hashtag Generator!
+
+# Here's the deal:
+
+# It must start with a hashtag (#).
+# All words must have their first letter capitalized.
+# If the final result is longer than 140 chars it must return false.
+# If the input or the result is an empty string it must return false.
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # Returned string must start with a #
+  # Return string must not be any longer than 140 characters in length including the hashtag, if it is return false
+  # If input is empty, return false
+  # Output string should not have any spaces
+  # Each word should be capitalized
+
+# Examples:
+# " Hello there thanks for trying my Kata"  =>  "#HelloThereThanksForTryingMyKata"
+# "    Hello     World   "                  =>  "#HelloWorld"
+# ""                                        =>  false
+
+# Data:
+# Strings
+# Arrays
+
+# Algorithm:
+
+# define `generateHashtag` method with 1 parameter `input`
+#   initialize words to input split
+#   if words is empty return false
+#   iterate over words capitalizing each word
+#   intialize results string to "#"
+#   append joint words array to results
+#   check if results is longer than 140 characters, if it is return false
+#   returnr results
+#   end
+
+# Code:
+
+# def generateHashtag(input)
+#   words = input.split
+#   return false if words.empty?
+#   words.map! {|word| word.capitalize}
+#   results = '#' << words.join('')
+#   return false if results.size > 140
+#   results
+# end
+
+# p generateHashtag("") == false
+# p generateHashtag(" " * 200) == false
+# p generateHashtag("Do We have A Hashtag") == "#DoWeHaveAHashtag"
+# p generateHashtag("Codewars") == "#Codewars"
+# p generateHashtag("Codewars Is Nice") == "#CodewarsIsNice"
+# p generateHashtag("Codewars is nice") == "#CodewarsIsNice"
+# p generateHashtag("code" + " " * 140 + "wars") == "#CodeWars"
+# p generateHashtag("Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Cat") == false
+# p generateHashtag("a" * 139) == "#A" + "a" * 138
+# p generateHashtag("a" * 140) == false
