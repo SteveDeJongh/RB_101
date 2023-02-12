@@ -2438,7 +2438,7 @@ p longest('zyba') == 'z'
 # p find_uniq([ 1, 1, 1, 2, 1, 1 ]) == 2
 # p find_uniq([ 0, 0, 0.55, 0, 0 ]) == 0.55
 
-# 16) Are the "same"? (https://www.codewars.com/kata/550498447451fbbd7600041c/train/ruby)
+# 16) Are they the "same"? (https://www.codewars.com/kata/550498447451fbbd7600041c/train/ruby)
 
 # Given two arrays a and b write a function comp(a, b) (orcompSame(a, b)) that checks whether the 
 # two arrays have the "same" elements, with the same multiplicities (the multiplicity of a member is 
@@ -2477,3 +2477,146 @@ p longest('zyba') == 'z'
 # end
 
 # p comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]) == true
+
+# 17) Sum of Pairs (https://www.codewars.com/kata/54d81488b981293527000c8f/train/ruby)
+
+##################################################################################################################################
+##################################################################################################################################
+# revisit, code times out on longer tests
+##################################################################################################################################
+##################################################################################################################################
+##################################################################################################################################
+
+# Given a list of integers and a single sum value, return the first two values (parse from the left please) in order 
+# of appearance that add up to form the sum.
+
+# If there are two or more pairs with the required sum, the pair whose second element has the smallest index is the solution.
+
+# Problem:
+# Input: array of integers and a an integer
+# Output: array of two numbers
+# Rules:
+  # sum of two numbers must equal the given integer
+  # return the first instance where this is true. ie: start from indexes 0 and 1, continue on.
+  # if there are no pairs that result in sum, return nil
+  # Pair does not need to be next to each other in input array
+
+# Exampes:
+
+# p sum_pairs([1, 4, 8, 7, 3, 15], 8) == [1, 7]
+# p sum_pairs([1, -2, 3, 0, -6, 1], -6) == [0, -6]
+# p sum_pairs([20, -13, 40], -7) == nil
+# p sum_pairs([1, 2, 3, 4, 1, 0], 2) == [1, 1]
+# p sum_pairs([10, 5, 2, 3, 7, 5], 10) == [3, 7]
+# p sum_pairs([4, -2, 3, 3, 4], 8) == [4, 4]
+# p sum_pairs([0, 2, 0], 0) == [0, 0]
+# p sum_pairs([5, 9, 13, -3], 10) == [13, -3]
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+# define `sum_pairs` method with two parameters, `input` and `target`
+# iterate over each number of numbers in `input`
+#   iterate over the remaining numbers in `input`
+#   add two numbers together, check if they equal target
+#   if they do, return that pair, otherwise move on
+#   end
+
+#Algorithm:
+
+# define `sum_pairs` method with two parameters, `input` and `target`
+#   create pairs of numbers, with as low of an index as possible???
+    
+#   check if pairs sum is equal to target
+#   return pair
+# end
+
+
+# Code:
+
+# Works but too slow to pass extended tests
+# def sum_pairs(input, target)
+#   valid_pairs = []
+#   input.each_with_index do |num1, idx|
+#     ((idx+1)..(input.size-1)).each do |idx2|
+#       pair = [num1, input[idx2]]
+#       valid_pairs << pair if pair.sum == target
+#     end
+#   end
+#   return nil if valid_pairs.empty?
+#   valid_pairs.min_by {|pair| pair.min_by{|numbers| input.index(numbers)}}
+# end
+
+# def sum_pairs(input, target)
+#   valid_pairs = []
+#   (1..input.length-1).each do |idx|
+#     (0...idx).each do |index2|
+#       break if valid_pairs.empty? == false
+#       # p "index 1 is #{idx}, 2 is #{index2}"
+#       # p [input[idx], input[index2]]
+#       valid_pairs << [input[index2], input[idx]] if input[idx] + input[index2] == target
+#     end
+#   end
+#   p valid_pairs
+#   valid_pairs[0]
+# end
+
+# p sum_pairs([1, 4, 8, 7, 3, 15], 8) == [1, 7]
+# p sum_pairs([1, -2, 3, 0, -6, 1], -6) == [0, -6]
+# p sum_pairs([20, -13, 40], -7) == nil
+# p sum_pairs([1, 2, 3, 4, 1, 0], 2) == [1, 1]
+# p sum_pairs([10, 5, 2, 3, 7, 5], 10) == [3, 7]
+# p sum_pairs([4, -2, 3, 3, 4], 8) == [4, 4]
+# p sum_pairs([0, 2, 0], 0) == [0, 0]
+# p sum_pairs([5, 9, 13, -3], 10) == [13, -3]
+
+# 18) Grouping and counting (https://www.codewars.com/kata/53a452dd0064085711001205/train/ruby)
+
+# Your goal is to write the group_and_count method, which should receive and array as unique parameter 
+# and return a hash. Empty or nil input must return nil instead of a hash. This hash returned must contain
+# as keys the unique values of the array, and as values the counting of each value.
+
+# Problem:
+# Input: an array of integers
+# Output: a hash, integers as keys, and count of integer in array as values
+# Rules:
+  # Array#count and Array#length disabled.
+  # if input is empty return nil
+  
+
+# examples:
+# group_and_count([0,1,1,0]) == {0=>2, 1=>2}
+
+# Data:
+# Integers, arrays, hashes
+
+# Algorithm:
+# define `group_and_count` method with paramter `input`
+#   return `nil` if input is empty
+#   initialize results hash
+#   iterate over uniq values in `input` array
+#     create new key in `results` hash for given integer
+#       intialize `count` to 0
+#       loop over input array and check if element is equal to given char
+#         increase count by 1
+#       assign count to value of key
+#   return results hash
+# end
+
+# Code:
+
+# def group_and_count(input)
+#   return nil if input == nil || input.empty?
+#   results = {}
+#   input.uniq.each do |num|
+#     count = 0
+#     input.each do |comp|
+#       count += 1 if comp == num
+#     end
+#     results[num] = count
+#   end
+#   results
+# end
+
+# p group_and_count([0,1,1,0]) == {0=>2, 1=>2}
