@@ -3012,3 +3012,5 @@ p longest('zyba') == 'z'
 # p generateHashtag("Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Cat") == false
 # p generateHashtag("a" * 139) == "#A" + "a" * 138
 # p generateHashtag("a" * 140) == false
+
+# 24) 

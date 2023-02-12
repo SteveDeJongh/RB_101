@@ -656,6 +656,69 @@ end
 
 p word_to_digit4('Please call me at one two three five Five fIve one two three four. Thanks.') #== 'Please call me at (123)555-1234. Thanks.'
 
+Revisted
+
+# Word to Digit
+
+# Problem:
+# Input: A string
+# Output: String with word numbers converted to numbers
+# Rules:
+  # any instance of a number appearing as a word should be converted to number
+
+# example:
+# word_to_digit('Please call me at five five five one two three four. Thanks.') 
+# == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
+# Data:
+# Strings, arrays, integers
+
+# Algorithm:
+# define `word_to_digit` method with 1 paramter `input`
+  # initialize a hash of key value pairs where key is "one" value is "1" etc...
+  # split input into words
+  # iterate over array of words
+  #   check to see if word is equal to a key in hash
+  #     if it is, replace it with the keys value
+  # return teh words array joined with spaces
+      # End
+
+# Code:
+
+# def word_to_digit(input)
+#   wordnums = {"zero" => "0","one" => "1","two" => "2","three" => "3","four" => "4",
+#               "five" => "5","six" => "6","seven" => "7","eight" => "8","nine" => "9"}
+#   input.scan(/[A-Za-z']+/).map! do |word| 
+#     if wordnums.has_key?(word)
+#       wordnums[word]
+#     else
+#       word
+#     end
+#   end.join(" ")
+# end
+
+def word_to_digit(input)
+  wordnums = {"zero" => "0","one" => "1","two" => "2","three" => "3","four" => "4",
+              "five" => "5","six" => "6","seven" => "7","eight" => "8","nine" => "9"}
+  wordnums.each do |k, v|
+    input.gsub!(k, v)
+    input.gsub!(k.upcase, v)
+    input.gsub!(k.capitalize, v)
+  end
+  chars = input.chars
+  results = ""
+  chars.each_with_index do |char, idx|
+    if ('0'..'9').to_a.include?(chars[idx-1]) && char == " "
+      results << ""
+    else
+      results << char
+    end
+  end
+  results
+end
+
+p word_to_digit('Please call me at five Five FIVE one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
 8) Fibonacci Numbers (Recursion) # Worth revisiting. #####################
 
 def fibonacci(num)
