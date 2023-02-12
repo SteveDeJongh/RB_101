@@ -102,7 +102,7 @@ x 4.Alphabet symmetry
 x 5.Longest vowel chain
 x 6.Non-even substrings
 x 7.Substring fun
-8.Repeated Substring
+x 8.Repeated Substring
 x 9.Typoglycemia Generator (Hard! Revisit if possible.)
 10.Most frequently used words in a text]
 x 11.Extract the domain name from a URL (Revisit, better use of REGEX)
@@ -116,7 +116,7 @@ x 18. Persistent Bugger.
 x 19. Title Case
 x 20. Count and Group Character Occurrences in a String
 x 21. Find the Mine!
-22. Scramblies
+x 22. Scramblies
 23. Longest alphabetical substring
 24. The Hashtag Generator
 25. Pete, the baker
@@ -131,26 +131,26 @@ x 21. Find the Mine!
 34. Sherlock on pockets
 35. Mexican Wave
 36. Delete a Digit
-37. Multiples of 3 or 5
+x 37. Multiples of 3 or 5
 38. String transformer
-39. Largest product in a series
+x 39. Largest product in a series
 40. Duplicate Encoder
 41. Backspaces in string
 42. Sort Arrays (Ignoring Case)
-43. Transform To Prime
-44. Counting Duplicates
+x 43. Transform To Prime
+x 44. Counting Duplicates
 45. Alphabetized
 46. Sum of Digits / Digital Root
 47. Array.diff
 48. Where is my parent!?(cry)
 49. Playing with digits
-50. Equal Sides Of An Array
+x 50. Equal Sides Of An Array
 51. Reverse or rotate?
 51. Decipher this!
 52. Bouncing Balls
-53. WeIrD StRiNg CaSe
-54. Are they the "same"?
-55. Grouping and Counting
+x 53. WeIrD StRiNg CaSe
+x 54. Are they the "same"?
+x 55. Grouping and Counting
 56. Find the Nexus of the Codewars Universe
 x 57. Count letters in string
 58. Triple trouble
@@ -2630,3 +2630,52 @@ p longest('zyba') == 'z'
 
 # 19) WeIrD StRiNg CaSe (https://www.codewars.com/kata/52b757663a95b11b3d00062d/train/ruby)
 
+# Write a function weirdCase that accepts a string, and returns the same string with all
+#  even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. 
+#  The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be 
+#  upper cased and you need to start over for each word.
+
+# The passed in string will only consist of alphabetical characters and spaces(' '). Spaces will only be present 
+# if there are multiple words. Words will be separated by a single space(' ').
+
+# Problem:
+# Input: a string
+# Output: string
+# Rules:
+  # Every word starts it's own index. First char == index 0
+  # Every character at an even index must be upper case, otherweise lowercased.
+
+# Examples:
+# weirdcase( "String" )#=> returns "StRiNg"
+# weirdcase( "Weird string case" );#=> returns "WeIrD StRiNg CaSe"
+
+# Data:
+# Strings and Arrays
+
+# Algorithm:
+# define `weirdCase` method with 1 parameter `input`
+# initialize `result` to an empty string
+# loop over each character in `input` tracking index
+#   if index is even
+#     append that character uppercased
+#   otherwise
+#     append that character downcased
+# return result string
+#   End
+
+# Code:
+
+# def weirdcase(input)
+#   input.split.map do |word|
+#     word.chars.map.with_index do |char, idx|
+#       if idx % 2 == 0
+#         char.upcase
+#       else
+#         char.downcase
+#       end
+#     end.join('')
+#   end.join(' ')
+# end
+
+# p weirdcase( "String" ) == "StRiNg"
+# p weirdcase( "Weird string case" ) == "WeIrD StRiNg CaSe"
