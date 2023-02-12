@@ -2480,13 +2480,6 @@ p longest('zyba') == 'z'
 
 # 17) Sum of Pairs (https://www.codewars.com/kata/54d81488b981293527000c8f/train/ruby)
 
-##################################################################################################################################
-##################################################################################################################################
-# revisit, code times out on longer tests
-##################################################################################################################################
-##################################################################################################################################
-##################################################################################################################################
-
 # Given a list of integers and a single sum value, return the first two values (parse from the left please) in order 
 # of appearance that add up to form the sum.
 
@@ -2548,19 +2541,33 @@ p longest('zyba') == 'z'
 #   valid_pairs.min_by {|pair| pair.min_by{|numbers| input.index(numbers)}}
 # end
 
+# require 'benchmark'
+
+# Solution works! Very fast with the skips check.
+
 # def sum_pairs(input, target)
+#   # time = Benchmark.measure {
 #   valid_pairs = []
+#   skips = []
 #   (1..input.length-1).each do |idx|
+#     num2 = input[idx]
+#     next if skips.include?(num2)
+#     skips << num2 if input.none? {|num| num + num2 == target}
 #     (0...idx).each do |index2|
-#       break if valid_pairs.empty? == false
-#       # p "index 1 is #{idx}, 2 is #{index2}"
-#       # p [input[idx], input[index2]]
-#       valid_pairs << [input[index2], input[idx]] if input[idx] + input[index2] == target
+#       return valid_pairs[0] if valid_pairs.empty? == false
+#       num1 = input[index2]
+#       valid_pairs << [num1, num2] if num1 + num2 == target
 #     end
 #   end
-#   p valid_pairs
+#   p skips
 #   valid_pairs[0]
+# # }
+# # puts time.real
 # end
+
+# l1 = ([0,0,0]*10000 + [1,2])
+
+# p sum_pairs(l1, 3)
 
 # p sum_pairs([1, 4, 8, 7, 3, 15], 8) == [1, 7]
 # p sum_pairs([1, -2, 3, 0, -6, 1], -6) == [0, -6]
@@ -2620,3 +2627,6 @@ p longest('zyba') == 'z'
 # end
 
 # p group_and_count([0,1,1,0]) == {0=>2, 1=>2}
+
+# 19) WeIrD StRiNg CaSe (https://www.codewars.com/kata/52b757663a95b11b3d00062d/train/ruby)
+
