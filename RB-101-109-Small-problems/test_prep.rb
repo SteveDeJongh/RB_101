@@ -3013,4 +3013,116 @@ p longest('zyba') == 'z'
 # p generateHashtag("a" * 139) == "#A" + "a" * 138
 # p generateHashtag("a" * 140) == false
 
-# 24) 
+# 24) Pete, the baker (https://www.codewars.com/kata/525c65e51bf619685c000059/train/ruby) (13 minutes)
+
+# Pete likes to bake some cakes. He has some recipes and ingredients. Unfortunately he is not good
+# in maths. Can you help him to find out, how many cakes he could bake considering his recipes?
+
+# Write a function cakes(), which takes the recipe (object) and the available ingredients (also an object)
+# and returns the maximum number of cakes Pete can bake (integer). For simplicity there are no units for
+# the amounts (e.g. 1 lb of flour or 200 g of sugar are simply 1 or 200). Ingredients that are not present
+# in the objects, can be considered as 0.
+
+# Problem:
+# Input: 2 hashes
+# Output: integer
+# Rules:
+  # recipe ingredient must be availalbe in available ingredients
+  # maximum number of times the recipe can be made is the lowest number of of all ingredients
+  # if ingredient is not present, return 0
+
+# Examples:
+# // must return 2
+# cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}); 
+# // must return 0
+# cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}); 
+
+# Data:
+# Hashes, integers
+
+# Algorithm:
+# define `cakes` method with 2 parameters `recipe` and `ingredients`
+#   initialize `quantity` variable
+#   iterate over each recipe ingredient
+#     check if you have the ingredient in available ingredients
+#     if you don't, return 0 to quantity
+#     if you do, check how many times you can use that ingredient
+#     if the number of times is less than the current number of times in `quantity` assign it to quantity
+#   return quantity
+#     end
+
+# Code:
+
+# def cakes(recipe, ingredients)
+#   num = 100
+#   recipe.each do |item, quantity|
+#     if ingredients.has_key?(item)
+#       times = ingredients[item] / quantity
+#       num = times unless times > num
+#     else
+#       num = 0
+#     end
+#   end
+#   num
+# end
+
+# p cakes({"flour"=>500, "sugar"=>200, "eggs"=>1},{"flour"=>1200, "sugar"=>1200, "eggs"=>5, "milk"=>200}) == 2
+# p cakes({"cream"=>200, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},{"sugar"=>1700, "flour"=>20000, "milk"=>20000, "oil"=>30000, "cream"=>5000}) == 11
+# p cakes({"apples"=>3, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},{"sugar"=>500, "flour"=>2000, "milk"=>2000}) == 0
+# p cakes({"apples"=>3, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},{"sugar"=>500, "flour"=>2000, "milk"=>2000, "apples"=>15, "oil"=>20}) == 0
+# p cakes({"eggs"=>4, "flour"=>400},{}) == 0
+# p cakes({"cream"=>1, "flour"=>3, "sugar"=>1, "milk"=>1, "oil"=>1, "eggs"=>1},{"sugar"=>1, "eggs"=>1, "flour"=>3, "cream"=>1, "oil"=>1, "milk"=>1}) == 1
+
+# 25) Mean Square Error (https://www.codewars.com/kata/51edd51599a189fe7f000015/train/ruby) ( 10 Minutes )
+
+# Complete the function that
+
+# accepts two integer arrays of equal length
+# compares the value each member in one array to the corresponding member in the other
+# squares the absolute value difference between those two values
+# and returns the average of those squared absolute value difference between each member pair.
+
+# Rules:
+# Input: 2 arrays of integers
+# Output: integer
+# Rules:
+  # find difference between integer at index in first array vs second array
+  # 
+
+# Examples:
+# [1, 2, 3], [4, 5, 6]              -->   9   because (9 + 9 + 9) / 3
+# [10, 20, 10, 2], [10, 25, 5, -2]  -->  16.5 because (0 + 25 + 25 + 16) / 4
+# [-1, 0], [0, -1]                  -->   1   because (1 + 1) / 2
+
+# Data:
+# Arrays, Integers
+
+# Algorithm:
+# define `solution` method with 2 paramters `ar1` and `ar2`
+#   initialize `results` to an empty array
+#   iterate over each number in `ar1`, tracking index
+#     subtract current number from number at ar2[current index]
+#     return the absolute value to results
+#   iterate over numbers in results
+#     reassign the number to the value of the number * number
+#   return the average of the results array
+# end
+
+# Code:
+
+# def solution(ar1, ar2)
+#   results = []
+#   ar1.each_with_index do |num, index|
+#     results << (ar2[index].to_f - num).abs # .to_f to account for float numbers.
+#   end
+#   results.map! do |num|
+#     num * num
+#   end
+#   results.sum / results.size
+# end
+
+# p solution([1, 2, 3], [4, 5, 6]) == 9
+# p solution([10, 20, 10, 2], [10, 25, 5, -2]) == 16.5
+# p solution([-1, 0], [0, -1]) == 1
+
+# 26) 
