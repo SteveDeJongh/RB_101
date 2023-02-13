@@ -635,4 +635,64 @@ p sum_square_difference(100) == 25164150
 # p block_word?('BUTCH') == false
 # p block_word?('jest') == true
 
-# 3) 
+# 3) Lettercase Percentage Ratio ( 10 minutes)
+
+#Problem: 
+# Input: a string
+# Output: a hash
+# rules:
+  # hash to be made up of uppercase, lowercase, and neither keys
+  # values to be percentages of characters in input string are either category
+  # percentages to be rouned to 1 deicmal point
+
+# Examples:
+
+# p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
+# p etter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
+# p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
+
+# Data: 
+# strings, hashes, arrays?
+
+# Algorithm:
+
+# define `letter_percentages` method with 1 parameter `input`
+#   initialize array for uppercase letters
+#   initialize array for lowercase letters
+#   initialize lowercase, uppercase, neither variables to 0
+#   iterate over characters in the input string
+#    check if they are in uppercase array
+#       increase uppercase by 1
+#     check if it's in lowercase array
+#       increase lowercase by one
+#     otherwise
+#       increase neither by 1
+#   end
+#   intiailize charcount to string size
+#   initialize hash to {lowercase: (uppercase / charcount).round(1), uppercase: 0, neither: 0}
+# end
+
+# Code:
+
+def letter_percentages(input)
+  uppercase_letters = ('A'..'Z').to_a
+  lowercase_letters = ('a'..'z').to_a
+  uppercase = 0
+  lowercase = 0
+  neither = 0
+  input.chars.each do |char|
+    if uppercase_letters.include?(char)
+      uppercase +=1
+    elsif lowercase_letters.include?(char)
+      lowercase += 1
+    else
+      neither +=1
+    end
+  end
+  charcount = input.size.to_f
+  {lowercase: (lowercase / charcount)*100.round(1), uppercase: (uppercase / charcount)*100.round(1), neither: (neither / charcount)*100.round(1)}
+end
+
+p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
+p letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
+p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
