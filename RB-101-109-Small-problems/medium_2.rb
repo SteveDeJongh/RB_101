@@ -479,3 +479,160 @@ p sum_square_difference(1) == 0
 p sum_square_difference(100) == 25164150
 
 =end
+
+# 1) Longest Sentence (8 minutes)
+# Write a program that reads the content of a text file and then prints the longest sentence
+#  in the file based on number of words. Sentences may end with periods (.), exclamation points
+#   (!), or question marks (?). Any sequence of characters that are not spaces or sentence-ending
+#    characters should be treated as a word. You should also print the number of words in the longest sentence.
+
+# Problem:
+# Input: a string of text
+# output: the longest sentence, and integer representing the number of words in the longest string
+# Rules:
+  # setence can finish with ". ! ?"
+  # anything seperated by a space should be treated as it's own word.
+  # 
+
+# Sample text:
+
+# Four score and seven years ago our fathers brought forth
+# on this continent a new nation, conceived in liberty, and
+# dedicated to the proposition that all men are created
+# equal.
+
+# Now we are engaged in a great civil war, testing whether
+# that nation, or any nation so conceived and so dedicated,
+# can long endure. We are met on a great battlefield of that
+# war. We have come to dedicate a portion of that field, as
+# a final resting place for those who here gave their lives
+# that that nation might live. It is altogether fitting and
+# proper that we should do this.
+
+# But, in a larger sense, we can not dedicate, we can not
+# consecrate, we can not hallow this ground. The brave
+# men, living and dead, who struggled here, have
+# consecrated it, far above our poor power to add or
+# detract. The world will little note, nor long remember
+# what we say here, but it can never forget what they
+# did here. It is for us the living, rather, to be dedicated
+# here to the unfinished work which they who fought
+# here have thus far so nobly advanced. It is rather for
+# us to be here dedicated to the great task remaining
+# before us -- that from these honored dead we take
+# increased devotion to that cause for which they gave
+# the last full measure of devotion -- that we here highly
+# resolve that these dead shall not have died in vain
+# -- that this nation, under God, shall have a new birth
+# of freedom -- and that government of the people, by
+# the people, for the people, shall not perish from the
+# earth.
+
+# returns 86
+
+# Data:
+# strings, arrays
+
+# Alogorithm:
+# define `longest_sent` method with 1 paramter `text`
+#   initialize results to `text` split on . ! ?
+#   iterate over results and replacing the contents with the count of words in that string
+#   return the largest number
+# end
+
+# Code:
+
+# text = "Four score and seven years ago our fathers brought forth
+# on this continent a new nation, conceived in liberty, and
+# dedicated to the proposition that all men are created
+# equal.
+
+# Now we are engaged in a great civil war, testing whether
+# that nation, or any nation so conceived and so dedicated,
+# can long endure. We are met on a great battlefield of that
+# war. We have come to dedicate a portion of that field, as
+# a final resting place for those who here gave their lives
+# that that nation might live. It is altogether fitting and
+# proper that we should do this.
+
+# But, in a larger sense, we can not dedicate, we can not
+# consecrate, we can not hallow this ground. The brave
+# men, living and dead, who struggled here, have
+# consecrated it, far above our poor power to add or
+# detract. The world will little note, nor long remember
+# what we say here, but it can never forget what they
+# did here. It is for us the living, rather, to be dedicated
+# here to the unfinished work which they who fought
+# here have thus far so nobly advanced. It is rather for
+# us to be here dedicated to the great task remaining
+# before us -- that from these honored dead we take
+# increased devotion to that cause for which they gave
+# the last full measure of devotion -- that we here highly
+# resolve that these dead shall not have died in vain
+# -- that this nation, under God, shall have a new birth
+# of freedom -- and that government of the people, by
+# the people, for the people, shall not perish from the
+# earth."
+
+# def longest_sent(text)
+#   results = text.split(/\.|\!|\?/)
+#   longest_string = results.max_by{ |string| string.split().size }.strip
+#   # p longest_string
+#   p "The longest string is: #{longest_string}."
+#   p "It contains #{longest_string.split.size} words."
+# end
+
+# longest_sent(text)
+
+# 2) Now know my ABCs ( 10 minutes )
+
+# Problem:
+# Input: a word
+# Output: true or false
+# rules:
+  # each letter block can be used only once
+  # if the letter block is needed again in the word, return false
+  # return true if the word can be spelled using a letter block only once
+
+  # Letter blocks:
+  # B:O   X:K   D:Q   C:P   N:A
+  # G:T   R:E   F:S   J:W   H:U
+  # V:I   L:Y   Z:M
+
+# Examples:
+# block_word?('BATCH') == true
+# block_word?('BUTCH') == false
+# block_word?('jest') == true
+
+# Data:
+# strings, arrays
+
+# Algorithm:
+# intiialize `block_word?` method with 1 paramter `input`
+#   Initialize `blocks` array containing all letter blocks
+#   for each character in the `input` word
+#     check if the character is available on one of the blocks in letter blocks
+#     if it is, remove the block from blocks
+#     if it isn't, return false
+#   return true
+#     end
+
+# code:
+# def block_word?(word)
+#   blocks = [["b", "o"], ["x","k"], ["d","q"], ["c","p"], ["n",'a'], ['g','t'], ['r','e'],
+#             ['f','s'], ['j','w'], ['h','u'], ['v','i'], ['l','y'], ['z','m']]
+#   word.downcase.chars.each do |char|
+#     if blocks.any? {|block| block.include?(char)}
+#       blocks.delete_if {|block| block.include?(char)}
+#     else
+#       return false
+#     end
+#   end
+#   true
+# end
+
+# p block_word?('BATCH') == true
+# p block_word?('BUTCH') == false
+# p block_word?('jest') == true
+
+# 3) 

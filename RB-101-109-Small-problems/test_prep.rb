@@ -3125,4 +3125,133 @@ p longest('zyba') == 'z'
 # p solution([10, 20, 10, 2], [10, 25, 5, -2]) == 16.5
 # p solution([-1, 0], [0, -1]) == 1
 
-# 26) 
+# 26) Exponenent Method (https://www.codewars.com/kata/5251f63bdc71af49250002d8) (13 minutes)
+
+# Create a method called "power" that takes two integers and returns the value of the first
+#  argument raised to the power of the second. Return nil if the second argument is negative.
+
+# Note: The ** operator has been disabled.
+
+# Problem:
+# Input: integer
+# Output: integer
+# Rules:
+  # if exponenent is negative return nil
+  # can't use ** method
+
+# Examples:
+# power(2, 3) # 8
+# power(10, 0) # 1
+# power(-5, 3) # -125
+# power(-4, 2) # 16
+
+# Data:
+# Integers, arrays
+
+# Algorithm:
+
+# define `power` method with two parameters `num` and `exp`
+#   check if `exp` is negative, return nil if it is
+#   create a `numbers` array
+#   add `num` to the `numbers` array `exp` times
+#   multiply all of the numbers in `numbers` array together and return that result
+# end
+
+# Code:
+# def power(num, exp)
+#   return nil if exp < 0
+#   return 1 if exp == 0 # Second condition need to account for `0` exp
+#   numbers = []
+#   exp.times { |_| numbers << num }
+#   numbers.inject(:*)
+# end
+
+# p power(2, 3) # 8
+# p power(10, 0) # 1
+# p power(-5, 3) # -125
+# p power(-4, 2) # 16
+
+# 27) Where my anagrams at? (https://www.codewars.com/kata/523a86aa4230ebb5420001e1) ( 5 minutes)
+
+# Write a function that will find all the anagrams of a word from a list. You will be given
+#  two inputs a word and an array with words. You should return an array of all the anagrams
+#   or an empty array if there are none.
+
+# Problem:
+# Input: a string, and an array of strings
+# Output: an array of string
+# Rules:
+  # selected words must contain the same letters as the given string
+  # if no matches are found, return an empty array
+
+# Examples:
+# anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
+# anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) => ['carer', 'racer']
+# anagrams('laser', ['lazing', 'lazy',  'lacer']) => []
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `anagrams` method with two paramters `word` and `arr`
+#   initialized `sorted` to the characters of the `word` string sorted
+#   select the words from `arr` whose characters sorted match the ones in `sorted`
+# end
+
+# Code:
+# def anagrams(word, arr)
+#   sorted = word.chars.sort
+#   arr.select { |word| word.chars.sort == sorted}
+# end
+
+# p anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) == ['aabb', 'bbaa']
+# p anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) == ['carer', 'racer']
+# p anagrams('laser', ['lazing', 'lazy',  'lacer']) == []
+
+# 28) Split Strings (https://www.codewars.com/kata/515de9ae9dcfc28eb6000001) ( 10 minutes ) Problems with Codewards tests?
+
+# Complete the solution so that it splits the string into pairs of two characters. If the string 
+# contains an odd number of characters then it should replace the missing second character of the 
+# final pair with an underscore ('_').
+
+# Problem:
+# Input: a string
+# Output: an array of strings
+# Rules:
+  # split string into two character long strings
+  # if string length is odd, add an underscore to the last pair
+
+# Examples:
+
+# * 'abc' =>  ['ab', 'c_']
+# * 'abcdef' => ['ab', 'cd', 'ef']
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `solution` method with a parameter `input`
+#   check if the string length is odd, and if it is, append the string with a '_'
+#   create `results` array
+#   until the string is empty
+#     destructively append the first two characters of the string to the results array
+#   end
+#   return the results array
+# end
+
+# Code:
+
+# def solution(input)
+#   input << "_" if input.size.odd?
+#   results = []
+#   until input.empty?
+#     results << input.slice!(0,2)
+#   end
+#   results
+# end
+
+# p solution("abcdef") == ["ab", "cd", "ef"]
+# p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
+# p solution("") == []
+
+# 29) 
