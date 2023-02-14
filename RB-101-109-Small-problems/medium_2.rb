@@ -674,25 +674,194 @@ p sum_square_difference(100) == 25164150
 
 # Code:
 
-def letter_percentages(input)
-  uppercase_letters = ('A'..'Z').to_a
-  lowercase_letters = ('a'..'z').to_a
-  uppercase = 0
-  lowercase = 0
-  neither = 0
-  input.chars.each do |char|
-    if uppercase_letters.include?(char)
-      uppercase +=1
-    elsif lowercase_letters.include?(char)
-      lowercase += 1
-    else
-      neither +=1
-    end
-  end
-  charcount = input.size.to_f
-  {lowercase: (lowercase / charcount)*100.round(1), uppercase: (uppercase / charcount)*100.round(1), neither: (neither / charcount)*100.round(1)}
-end
+# def letter_percentages(input)
+#   uppercase_letters = ('A'..'Z').to_a
+#   lowercase_letters = ('a'..'z').to_a
+#   uppercase = 0
+#   lowercase = 0
+#   neither = 0
+#   input.chars.each do |char|
+#     if uppercase_letters.include?(char)
+#       uppercase +=1
+#     elsif lowercase_letters.include?(char)
+#       lowercase += 1
+#     else
+#       neither +=1
+#     end
+#   end
+#   charcount = input.size.to_f
+#   {lowercase: (lowercase / charcount)*100.round(1), uppercase: (uppercase / charcount)*100.round(1), neither: (neither / charcount)*100.round(1)}
+# end
 
-p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
-p letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
-p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
+# def letter_percentages(string)
+#   counts = {}
+#   length = string.size.to_f
+#   input = string.chars
+
+#   counts[:lowercase] = input.count { |char| char =~ /[a-z]/}/ length * 100 .round(1)
+#   counts[:uppercase] = input.count {|char| char =~ /[A-Z]/}/ length * 100 .round(1)
+#   counts[:neither] = input.count { |char| char =~ /[^a-zA-Z]/}/ length * 100 .round(1)
+#   counts
+# end
+
+# p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
+# p letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
+# p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
+
+# 4) Matching Parentheses? (8 minutes)
+
+# Problem:
+# Input: string
+# Output: true or false
+# Rules:
+  # number of open and closes parentheses must be equal
+  # parentheses must appear in correct order and be balanced
+    # ( open before close )
+  # parentheses may be nested
+
+# Examples:
+# balanced?('What (is) this?') == true
+# balanced?('What is) this?') == false
+# balanced?('What (is this?') == false
+# balanced?('((What) (is this))?') == true
+# balanced?('((What)) (is this))?') == false
+# balanced?('Hey!') == true
+# balanced?(')Hey!(') == false
+# balanced?('What ((is))) up(') == false
+
+# Data:
+# Strings, booleans
+
+# Algorithm:
+# define `balanced?` method with 1 parameter `input`
+#   initialize count
+#   iterate over each character in input
+#     if the character is a "("
+#       increase count by 1
+#     if character is ")"
+#       decrease count by 1
+#     end
+#     return false if count is less than 1
+#   end
+#   return true if count is 0, otherwise false
+# end
+
+ # Code:
+
+#  def balanced?(input)
+#   count = 0
+#   input.chars.each do |char|
+#     count += 1 if char == "("
+#     count -=1 if char == ")"
+#     return false if count < 0
+#   end
+#   count == 0 ? true : false
+# end
+
+# p balanced?('What (is) this?') == true
+# p balanced?('What is) this?') == false
+# p balanced?('What (is this?') == false
+# p balanced?('((What) (is this))?') == true
+# p balanced?('((What)) (is this))?') == false
+# p balanced?('Hey!') == true
+# p balanced?(')Hey!(') == false
+# p balanced?('What ((is))) up(') == false
+
+# 5) Triangle Side (8 minutes)
+
+# Problem:
+# Input: 3 numbers
+# Output: symbol
+# Rules:
+  # equilateral = all 3 sides are equal
+  # isosceles = 2 side are of equal length
+  # scalene = all 3 sides are different
+  # to be valid, all sides must have a length greater than 0 AND the 2 shortest sides combined but be greater than the longest side
+
+# Examples:
+# triangle(3, 3, 3) == :equilateral
+# triangle(3, 3, 1.5) == :isosceles
+# triangle(3, 4, 5) == :scalene
+# triangle(0, 3, 3) == :invalid
+# triangle(3, 1, 1) == :invalid
+
+# Data:
+# symbols, integers
+
+# Algorithm:
+
+# define `triangle` method with 3 parameters `side1`, `side2`, `side3`
+#   check if triangle is valid
+#     are all 3 sides greater than 0?
+#     are the two smallest sides greater than the longest side?
+  
+#   check if all 3 sides are equal
+#     if they are return equilateral
+#   check if two sides are the same
+#     return isosceles
+#     otherwise return scalene
+#     end
+
+# Code:
+
+# def triangle(s1, s2, s3)
+#   sides = [s1,s2,s3].sort
+#   return :invalid if (sides.any? {|side| side <= 0}) || ((sides[0]+sides[1]) < sides[2])
+#   return :equilateral if sides[0] == sides [1] && sides[1] == sides[2]
+#   return :isosceles if sides[0] == sides[1] || sides[1] == sides[2]
+#   return :scalene
+# end
+
+
+# p triangle(3, 3, 3) == :equilateral
+# p triangle(3, 3, 1.5) == :isosceles
+# p triangle(3, 4, 5) == :scalene
+# p triangle(0, 3, 3) == :invalid
+# p triangle(3, 1, 1) == :invalid
+
+# 6) Tri-Angles ( 6 minutes )
+
+# Problem:
+# Input: 3 integers
+# Output: symbol
+# Rules:
+  # to be valid, triangle angles must add up to 180 and none be less than 0
+  # for an right triangle, 1 angle must be 90
+  # for an acute triangle, all 3 angles must be less than 90
+  # for obtuse, one angle must be greater than 90
+
+# Examples:
+# triangle(60, 70, 50) == :acute
+# triangle(30, 90, 60) == :right
+# triangle(120, 50, 10) == :obtuse
+# triangle(0, 90, 90) == :invalid
+# triangle(50, 50, 50) == :invalid
+
+# Data:
+# Integers, symbols, arrays
+
+# Algorithm:
+# define `triangle` method with 3 paramters `a,b,c,`
+#   check if triangle is valid by checking sum of abc, and that none of abc are less than 0
+#     return invalid if true
+#   check if any of the angles are 90
+#   check if all three are less than 90
+#   check if any is greather than 90
+# end
+
+# Code:
+
+# def triangle(a,b,c)
+#   angles = [a,b,c]
+#   return :invalid if (angles.any? {|side| side <= 0}) || angles.sum != 180
+#   return :right if angles.any? {|side| side == 90}
+#   return :acute if angles.all? {|side| side < 90}
+#   return :obtuse if angles.any? {|side| side > 90}
+# end
+
+# p triangle(60, 70, 50) == :acute
+# p triangle(30, 90, 60) == :right
+# p triangle(120, 50, 10) == :obtuse
+# p triangle(0, 90, 90) == :invalid
+# p triangle(50, 50, 50) == :invalid
+

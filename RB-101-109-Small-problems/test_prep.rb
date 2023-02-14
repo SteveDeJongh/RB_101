@@ -119,11 +119,11 @@ x 21. Find the Mine!
 x 22. Scramblies
 x 23. Longest alphabetical substring
 x 24. The Hashtag Generator
-25. Pete, the baker
-26. Mean Square Error
-27. Exponent method
-28. Where my anagrams at?
-29. Split Strings
+x 25. Pete, the baker
+x 26. Mean Square Error
+x 27. Exponent method
+x 28. Where my anagrams at?
+x 29. Split Strings
 30. Anagram difference
 31. Anagram Detection
 32. Highest Scoring Word
