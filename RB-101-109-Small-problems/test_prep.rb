@@ -3609,5 +3609,64 @@ p longest('zyba') == 'z'
 # p delete_digit(1001) == 101
 # p delete_digit(10) == 1
 
-# 36) 
+# 36) Multiples of 3 or 5 (https://www.codewars.com/kata/514b92a657cdc65150000006/train/ruby) ( 4 minutes )
 
+# Algorithm:
+
+# define `solution` with parameter `num`
+#   initialize numbers to empty array
+#   loop from 3 up to but not including num
+#   add num to numbers if divisible by 3 or 5
+#   return sum of numbers
+# end
+
+# Code:
+# def solution(num)
+#   return 0 if num < 0
+#   numbers = []
+#   (3...num).each do |n|
+#     numbers << n if n % 3 == 0 || n % 5 == 0
+#   end
+#   numbers.sum
+# end
+
+# 37) String Transformer (https://www.codewars.com/kata/5878520d52628a092f0002d0/train/ruby) (? Test cases are unreliable)
+# Problem:
+# Input:  a string
+# Output: a string with case swapped and words reversed
+# Rules:
+  # case to be swapped for all alphabetical characters
+  # words order to be swapped
+  # spaces inbetween words to remain in the same place.
+
+# Examples:
+# "Example Input" ==> "iNPUT eXAMPLE"
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `string_transformer` with 1 parameter `input`
+#   call swapcase! on input to swap character case
+#   split string on word boundaries
+#   End
+
+# # Code:
+# def string_transformer(input)
+#   input.swapcase!
+#   input.split(/\b/).reverse.join
+# end
+
+# 38) Largest Product in a series (https://www.codewars.com/kata/529872bdd0f550a06b00026e/train/ruby) (2:35)
+
+# #each_cons(num) is a much better way to solve this.
+
+# def greatest_product(input)
+#   products = []
+#   (0...(input.length-4)).each do |start|
+#     products << input[start,5].chars.map(&:to_i).inject(:*)
+#   end
+#   products.max
+# end
+
+# 39) 
