@@ -3423,3 +3423,191 @@ p longest('zyba') == 'z'
 # p high('bb d') == 'bb'
 # p high('d bb') == 'd'
 # p high('aaa b') == 'aaa'
+
+# 32) Replace With Alphabet Position (https://www.codewars.com/kata/546f922b54af40e1e90001da) ( 8 minutes )
+
+# In this kata you are required to, given a string, replace every letter with its position in the alphabet.
+# If anything in the text isn't a letter, ignore it and don't return it.
+# "a" = 1, "b" = 2, etc.
+# Example
+# alphabet_position("The sunset sets at twelve o' clock.")
+# Should return "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11" ( as a string )
+
+# Problem:
+# Input: a string
+# Output: a sting made up of numbers representing that characters index in the alphabet
+# Rules:
+  # Case should be ignored
+  # non-alphabetical characters should be ignored
+
+# Examples:
+# p alphabet_position("The sunset sets at twelve o' clock.") == "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
+# p alphabet_position("-.-'") == ""
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `alphabet position` method with 1 parameter `input`
+#   initialize `result` to an empty array
+#   interate over a downcased version of inputs characters
+#     check if the character is alphabetical
+#       if it is, append `result` with the characters ord number minus 96 converted to a string
+#       end
+#       return results joined spaces
+#     end
+
+# Code:
+
+# def alphabet_position(input)
+#   results = []
+#   input.downcase.chars.each do |char|
+#     ('a'..'z').include?(char) ? results << (char.ord - 96).to_s : next
+#   end
+#   results.join(' ')
+# end
+
+# p alphabet_position("The sunset sets at twelve o' clock.") == "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
+# p alphabet_position("-.-'") == ""
+
+# 33) Sherlock on pockets (https://www.codewars.com/kata/53bb1201392478fefc000746) ( 18 minutes )
+
+# Problem:
+# Input: pockets or suspects, and array of numbers
+# Output: :keys
+# Rules:
+  # select key (name) if pockets contain items not in allowed items list
+  # return nil if no suspects are found
+
+# Examples:
+# find_suspects(pockets, [1, 2]) # => [:tom, :jane]
+# find_suspects(pockets, [1, 7, 5, 2]) # => nil
+# find_suspects(pockets, []) # => [:bob, :tom, :jane]
+# find_suspects(pockets, [7]) # => [:bob, :tom]
+
+# Data:
+# hashes, arrays, integers
+
+# Algorithm:
+
+# define `find_suspets` method with 2 parameter `pockets` and `items`
+#   iterate over the items in the `pockets` hash
+#     select the name if there pockets contain something that is not allowed
+#   if none, return nil
+# end
+
+# Code:
+
+# def find_suspects(pockets, items)
+#   suspects = pockets.select do |k, v| 
+#       next if v == nil || v.empty?
+#       v.any? {|x| !items.include?(x)}
+#     end
+#   return suspects.keys unless suspects.empty?
+# end
+
+# pockets = { 
+#   bob: [1], tom: [2, 5], jane: [7]
+# } 
+
+# p find_suspects(pockets, [1, 2])  == [:tom, :jane]
+# p find_suspects(pockets, [1, 7, 5, 2])  == nil
+# p find_suspects(pockets, [])  == [:bob, :tom, :jane]
+# p find_suspects(pockets, [7])  == [:bob, :tom]
+
+# 34) Mexican Wave (https://www.codewars.com/kata/58f5c63f1e26ecda7e000029/train/ruby) (17 minutes)
+
+# Problem:
+# Input: a string
+# output: an array of strings
+# Rules:
+  # input will always be downcased
+  # spaces should be skipped
+
+# Examples:
+# wave("hello") => ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+
+# define `wave` with 1 parameter `input`
+#   initialize `result` to an empty array
+#   iterate over each character in the string with index
+#     if the character is alphabetical
+#       downcase input string
+#       upcase the character at that index in the string and return the string to results (mutating)
+
+#     otherwise got to the next character
+#     return results
+#     end
+
+# Code:
+
+# def wave(input)
+#   result = []
+#   input.chars.each_with_index do |char, idx|
+#     chars = input.chars
+#     if ('a'..'z').include?(char)
+#       chars[idx] = char.upcase
+#       word = chars.join('')
+#       result << word
+#     end
+#   end
+#   result
+# end
+
+# p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+
+# 35) Delete a Digit (https://www.codewars.com/kata/5894318275f2c75695000146/train/ruby) ( 17 minutes )
+
+# Problem:
+# Input: an integer
+# Output: an integer
+# Rules:
+  # only 1 digit to be removed from given integer
+  # numbers stay in the same order
+
+# Examples:
+# p delete_digit(152) == 52
+# p delete_digit(1001) == 101
+# p delete_digit(10) == 1
+
+# Data:
+# Integers
+
+# Algorithm:
+# define `delete_digit` with 1 parameter `input`
+#   initialize `nums`
+#   iterate over the input numbers digits
+#     remove each digit and add new number to nums
+#   return the largest number in nums
+# end
+
+# Code:
+
+# def delete_digit(input)
+#   nums = []
+#   0.upto(input.to_s.size - 1) do |x|
+#     number = input.digits.reverse
+#     number[x] = []
+#     nums << number.join.to_i
+#   end
+#   nums.max
+# end
+
+# def delete_digit(input)
+#   digits = input.to_s.chars
+#   (0...digits.size).map do |idx|
+#     (digits[0...idx] + digits[idx + 1..-1]).join.to_i
+#   end.max
+# end
+
+# p delete_digit(123)
+# p delete_digit(152) == 52
+# p delete_digit(1001) == 101
+# p delete_digit(10) == 1
+
+# 36) 
+
