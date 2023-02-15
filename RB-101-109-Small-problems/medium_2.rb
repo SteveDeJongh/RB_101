@@ -1006,32 +1006,84 @@ p sum_square_difference(100) == 25164150
 # end
 
 # Code:
-def bubble_sort!(input)
-  loop do
-    index = 0
-    loop do
-      # binding.pry
-      if input[index] > input[index+1]
-        input[index], input[index+1] = input[index+1], input[index]
-        index = 0
-      else
-        index += 1
-      end
-      break if index == (input.size - 1)
-    end
-    break if index == (input.size - 1)
-  end
-  input
-end
+# def bubble_sort!(input)
+#   loop do
+#     index = 0
+#     loop do
+#       if input[index] > input[index+1]
+#         input[index], input[index+1] = input[index+1], input[index]
+#         index = 0
+#       else
+#         index += 1
+#       end
+#       break if index == (input.size - 1)
+#     end
+#     break if index == (input.size - 1)
+#   end
+# end
 
-p array = [5, 3]
-p bubble_sort!(array)
-p array == [3, 5]
+# def bubble_sort!(input)
+#   loop do
+#     swapped = false
+#     1.upto(input.size - 1) do |index|
+#       next if input[index - 1] <= input[index]
+#       input[index - 1], input[index] = input[index], input[index-1]
+#       swapped = true
+#     end
+#     break unless swapped
+#   end
+# end
 
-p array = [6, 2, 7, 1, 4]
-p bubble_sort!(array)
-p array == [1, 2, 4, 6, 7]
 
-p array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
-p bubble_sort!(array)
-p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+# p array = [5, 3]
+# p bubble_sort!(array)
+# p array == [3, 5]
+
+# p array = [6, 2, 7, 1, 4]
+# p bubble_sort!(array)
+# p array == [1, 2, 4, 6, 7]
+
+# p array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+# p bubble_sort!(array)
+# p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
+# 10) Sum Square - Square Sum ( 7 minnutes )
+
+# Problem:
+# Input: 1 integer
+# Output: integer
+# Rules:
+  # numbers to be used are up to and include input num
+  # (sum of numbers) squared - (numbers suared) sum
+
+# Examples:
+# sum_square_difference(3) == 22
+#    # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+# sum_square_difference(10) == 2640
+# sum_square_difference(1) == 0
+# sum_square_difference(100) == 25164150
+
+# Data:
+# Integers, arrays
+
+# Algorithm:
+# define sum_square_differene method with 1 parameter `num`
+#   initialize `numbers` to an array containing all the numbers up to and including num
+#   initialize `squared` to the resulting sum of the `numbers` array numbers squared
+#   initialize `summed` to the result sum of each number squared.
+#   return squared - summed
+# end
+
+# Code:
+# def sum_square_difference(num)
+#   numbers = (1..num).to_a
+#   squared = numbers.sum ** 2
+#   summed = numbers.map{|n| n**2}.sum
+#   squared - summed
+# end
+
+# p sum_square_difference(3) == 22
+#    # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+# p sum_square_difference(10) == 2640
+# p sum_square_difference(1) == 0
+# p sum_square_difference(100) == 25164150
