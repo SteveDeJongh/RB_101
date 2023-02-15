@@ -865,3 +865,173 @@ p sum_square_difference(100) == 25164150
 # p triangle(0, 90, 90) == :invalid
 # p triangle(50, 50, 50) == :invalid
 
+# 7) Unlucky days (:38) - :46
+
+# Problem:
+# Input: integer representation of a year
+# Output: integer representation fo the number of friday the 13ths for that year
+# Rules:
+  # For the integer to increase, date must be 13 and day must be friday
+  # only gregorian calendar years will be used
+
+# Examples:
+# friday_13th(2015) == 3
+# friday_13th(1986) == 1
+# friday_13th(2019) == 2
+
+# Data:
+# Integers
+
+# Algorithm:
+# define `friday_13th` method with 1 parameter `year`
+#   initialize `count`
+#   iterate over every 13th day of each month in the given year
+#   for that date, check if the day is `friday`
+#     if it is, increase count by 1
+#   return count
+# end
+
+# Code:
+
+# require 'date'
+
+# def friday_13th(year)
+#   count = 0
+#   (1..12).each do |month|
+#     # Date.new(year,month,13).friday? ? count += 1 : next # Either option works.
+#     Date.parse("#{year}-#{month}-13").friday? ? count += 1 : next
+#   end
+#   count
+# end
+
+# p friday_13th(2015) == 3
+# p friday_13th(1986) == 1
+# p friday_13th(2019) == 2
+
+# 8) Next Featured Number Higher than a Given Value (:54) (1:08)
+
+# Problem:
+# Input: integer
+# Output: integer
+# Rules:
+  # number must be higher than given integer
+  # number must be odd
+  # number must be divisible by 7
+  # numbers digits must only appear once
+
+# Examples:
+
+# featured(12) == 21
+# featured(20) == 21
+# featured(21) == 35
+# featured(997) == 1029
+# featured(1029) == 1043
+# featured(999_999) == 1_023_547
+# featured(999_999_987) == 1_023_456_987
+# featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+
+# Data:
+# Integers
+
+# Algorithm:
+# initialize `featured` method with 1 paramter `input`
+#   multi = find current multiplier of 7 to reach input
+#   loop
+#     initialize result to multi * 7
+#     check if result is odd, and has unique digits
+#     if it is, return result
+#     otherwise increase multi by 1
+#     break if results size is greater than 10
+#     end
+
+# Code:
+
+# def featured(input)
+#   multiplier = (input / 7) + 1
+
+#   loop do
+#     num = multiplier * 7
+#     return num if num.odd? && num.digits == num.digits.uniq
+#     multiplier += 1
+#     break if num >= 9876543210
+#   end
+
+#   "There is no possible number that fulfills those requirements"
+# end
+
+
+# p featured(12) == 21
+# p featured(20) == 21
+# p featured(21) == 35
+# p featured(997) == 1029
+# p featured(1029) == 1043
+# p featured(999_999) == 1_023_547
+# p featured(999_999_987) == 1_023_456_987
+
+# p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+
+# 9) Bubble Sort ( 31 minutes)
+
+# Problem:
+# Input: array of digits
+# Output: sorted array of digits from smallest to largest
+# Rules:
+  # current digit must be less than next digit
+  # Mutate the original collection
+
+# Examples:
+# array = [5, 3]
+# bubble_sort!(array)
+# array == [3, 5]
+
+# array = [6, 2, 7, 1, 4]
+# bubble_sort!(array)
+# array == [1, 2, 4, 6, 7]
+
+# array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+# bubble_sort!(array)
+# array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
+# Data:
+# Arrays, integers, strings
+
+# Algorithm:
+
+# define `bubble_sort!` with 1 parameter `input`
+#   iterate over elements in the array
+#     if current element is smaller than previous element, swap them and start again from the start
+#     if a swap is made, start over from Beginning
+#     once no swap has been made, exit and return the array
+#   once all swaps are done, return array
+# end
+
+# Code:
+def bubble_sort!(input)
+  loop do
+    index = 0
+    loop do
+      # binding.pry
+      if input[index] > input[index+1]
+        input[index], input[index+1] = input[index+1], input[index]
+        index = 0
+      else
+        index += 1
+      end
+      break if index == (input.size - 1)
+    end
+    break if index == (input.size - 1)
+  end
+  input
+end
+
+p array = [5, 3]
+p bubble_sort!(array)
+p array == [3, 5]
+
+p array = [6, 2, 7, 1, 4]
+p bubble_sort!(array)
+p array == [1, 2, 4, 6, 7]
+
+p array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+p bubble_sort!(array)
+p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
