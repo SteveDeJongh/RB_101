@@ -3254,4 +3254,172 @@ p longest('zyba') == 'z'
 # p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
 # p solution("") == []
 
-# 29) 
+# 29) Anagrams difference (https://www.codewars.com/kata/5b1b27c8f60e99a467000041) ( 23 minutes)
+
+# Given two words, how many letters do you have to remove from them to make them anagrams?
+# Input: two strings
+# Output: integer
+# Rules:
+  # character must appear in both words to not be removed
+
+#Example
+# First word : c od e w ar s (4 letters removed)
+# Second word : ha c k er r a nk (6 letters removed)
+# Result : 10
+
+# Data:
+# Strings, integers, arrays
+
+# Alogrithm:
+# define `anagram_difference` method with two parameter `str1` and `str2`
+#   initialize chars array to an empty array
+#   initialize char1 to str1.chars
+#   iterate over the characters in `str1`
+#     initialize char2 to str2.chars
+#     if character appears in char2
+#       remove that instance of the character from char2
+#       if it doens't appear
+#       add the character to chars
+# repeat for second string
+
+#   end
+
+# Code:
+
+# def anagram_difference(str1, str2)
+#   chars = []
+#   char2 = str2.chars
+#   char1 = str1.chars
+#   str1.chars.each do |char|
+#     if char2.include?(char)
+#       char2.delete_at (char2.index(char) || char2.length )
+#     else
+#       chars << char
+#     end
+#   end
+#   str2.chars.each do |char|
+#     if char1.include?(char)
+#       char1.delete_at (char1.index(char) || char1.length )
+#     else
+#       chars << char
+#     end
+#   end
+#   chars.size
+# end
+
+# p anagram_difference('', '') == 0
+# p anagram_difference('a', '') == 1
+# p anagram_difference('', 'a') == 1
+# p anagram_difference('ab', 'a') == 1
+# p anagram_difference('ab', 'ba') == 0
+# p anagram_difference('ab', 'cd') == 4
+# p anagram_difference('aab', 'a') == 2
+# p anagram_difference('a', 'aab') == 2
+# p anagram_difference('codewars', 'hackerrank') == 10
+
+# 30) Anagram Detection (https://www.codewars.com/kata/529eef7a9194e0cbc1000255) ( 4 minutes )
+
+# Problem:
+# Input: two strings
+# Output: true or false
+# Rules:
+  # the two strings must contain the same characters
+  # comparison should be done case insensitive
+
+# Examples:
+#  p is_anagram('Creative', 'Reactive') == true
+#  p is_anagram("foefet", "toffee") == true
+#  p is_anagram("Buckethead", "DeathCubeK") == true
+#  p is_anagram("Twoo", "WooT") == true
+#  p is_anagram("dumble", "bumble") == false
+#  p is_anagram("ound", "round") == false
+#  p is_anagram("apple", "pale") == false
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `is_anagram` method with 2 parameters `str` and `comp`
+#   compare the sorted characters of str against comp
+# end
+
+# Code:
+
+# def is_anagram(str, comp)
+#   str.downcase.chars.sort == comp.downcase.chars.sort
+# end
+
+#  p is_anagram('Creative', 'Reactive') == true
+#  p is_anagram("foefet", "toffee") == true
+#  p is_anagram("Buckethead", "DeathCubeK") == true
+#  p is_anagram("Twoo", "WooT") == true
+#  p is_anagram("dumble", "bumble") == false
+#  p is_anagram("ound", "round") == false
+#  p is_anagram("apple", "pale") == false
+
+# 31) Highest Scoring Word (https://www.codewars.com/kata/57eb8fcdf670e99d9b000272) ( 12 minutes )
+
+# Given a string of words, you need to find the highest scoring word.
+# Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc.
+# For example, the score of abad is 8 (1 + 2 + 1 + 4).
+# You need to return the highest scoring word as a string.
+# If two words score the same, return the word that appears earliest in the original string.
+# All letters will be lowercase and all inputs will be valid.
+
+# Problem:
+# Input: a string wth mutlitple words
+# Output: string
+# Rules:
+  # words are given scores based on the position of each letter in the alphabet
+  # all letter are lowercase
+  # if there's a tie, return the first word that has that score
+
+# examples:
+# p high('man i need a taxi up to ubud') == 'taxi'
+# p high('what time are we climbing up the volcano') == 'volcano'
+# p high('take me to semynak') == 'semynak'
+# p high('aa b') == 'aa'
+# p high('b aa') == 'b'
+# p high('bb d') == 'bb'
+# p high('d bb') == 'd'
+# p high('aaa b') == 'aaa'
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+
+# define `high` with 1 paramter `input`
+#   initalize `words` to contain the individual words in `input`
+#   intialize `alphabet` to an array containing 'a'..'z' and add a spacer to the front of the array
+#   iterate over the words in `words`
+#     for each word, seperate the word into characters
+#       intialize score
+#       add each index of character in alphabet to the score
+#       return score
+#     end
+#   find the first index of the highest number in scores
+#   return the word at that index in words
+# end
+
+# Code:
+
+# def high(input)
+#   words = input.split
+#   alphabet = [" "] + (('a'..'z').to_a)
+#   scores = words.map do |word|
+#     score = 0
+#     word.chars.each { |char| score += alphabet.index(char) }
+#     score
+#   end
+#   words[scores.index(scores.max)]
+# end
+
+# p high('man i need a taxi up to ubud') == 'taxi'
+# p high('what time are we climbing up the volcano') == 'volcano'
+# p high('take me to semynak') == 'semynak'
+# p high('aa b') == 'aa'
+# p high('b aa') == 'b'
+# p high('bb d') == 'bb'
+# p high('d bb') == 'd'
+# p high('aaa b') == 'aaa'
