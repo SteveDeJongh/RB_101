@@ -3669,4 +3669,38 @@ p longest('zyba') == 'z'
 #   products.max
 # end
 
-# 39) 
+# 39) Duplicate Encoder (https://www.codewars.com/kata/54b42f9314d9229fd6000d9c/train/ruby) ( 8 minutes )
+
+# Problem:
+# Input: a string
+# Output: a string made up of "(" and ")" characters
+# Rules:
+  # if character appears in the string only once, return (
+  # if character appears in the string more than once, return )
+  # igntore capitalization in input
+
+# Examples:
+# "din"      =>  "((("
+# "recede"   =>  "()()()"
+# "Success"  =>  ")())())"
+# "(( @"     =>  "))((" 
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `duplicate_encode` method with parameter `word`
+#   iterate over the characters in the word
+#     scan the word for occurances of the current character
+#      if it occurs greater than 1 time return )
+#       otehrwise return (
+#   return that string
+#       end
+
+# Code:
+
+# def duplicate_encode(word)
+#   word.downcase.chars.map { |char| word.downcase.count(char) > 1 ? ")" : "(" }.join
+# end
+
+# 40) 
