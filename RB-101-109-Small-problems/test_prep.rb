@@ -3703,4 +3703,125 @@ p longest('zyba') == 'z'
 #   word.downcase.chars.map { |char| word.downcase.count(char) > 1 ? ")" : "(" }.join
 # end
 
-# 40) 
+# 40) Backspaces in string (https://www.codewars.com/kata/5727bb0fe81185ae62000ae3/train/ruby) (9 minutes)
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # "#" symbol is backtick
+  # if there are more #s than characters before it, return an empty string
+  # return empty string if given string is empty
+
+# Examples:
+# "abc#d##c"      ==>  "ac"
+# "abc##d######"  ==>  ""
+# "#######"       ==>  ""
+# ""              ==>  ""
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `clean_string` with 1 parameter `input`
+#   if input.index("#") > 0
+#     input.delete_at(input.index("#") - 1)
+#     input.delete_at(input.index("#"))
+#   end
+# end
+
+# Code:
+
+# def clean_string(input)
+#   input = input.chars
+#   while input.count("#") > 0
+#     if input.index("#") > 0
+#       input.delete_at(input.index("#") - 1)
+#       input.delete_at(input.index("#"))
+#     else
+#       input.delete_at(input.index("#"))
+#     end
+#   end
+#   input.join('')
+# end
+
+# def clean_string(input)
+#   while input.include?("#")
+#     input.each_char.with_index do |char, idx|
+#       if char == "#"
+#         input[idx] = ""
+#         input[idx-1] = "" unless (idx - 1) == -1
+#         break # break required to refresh input string each time a character is removed.
+#       end
+#     end
+#   end
+#   input
+# end
+
+# p clean_string('abc#d##c') #== "ac"
+# p clean_string('abc####d##c#') #== "" 
+
+# 41) Sort Arrays (Ignoring Case) (https://www.codewars.com/kata/51f41fe7e8f176e70d0002b9/train/ruby) (2 minutes)
+
+# Problem:
+# Input: array of strings
+# Output: array of strings sorted
+# Rules:
+  # Sort should be case insensitive
+
+# Code:
+
+# def sortme(strings)
+#   strings.sort_by {|string| string.downcase}
+# end
+
+# 42) Tranforming to Prime (https://www.codewars.com/kata/5a946d9fba1bb5135100007c/train/ruby) (20 minutes)
+
+# Problem:
+# Input: array of numbers
+# Output: integer needed to reach next prime number
+# Rules:
+  #
+
+# Algorithm:
+# define `minium_number` method with parameter `numbers`
+#   initialize `sum` to sum of numbers
+#   loop from 0 to sum
+#     check if sum + current number is prime
+#       to check prime do:
+#         return false if number is 0 or less
+#         from 0 to the sqaure root of the number check if any of the chck number is evenly divisible by curr num
+#     if it is, return current number
+#     end
+#   End
+# end
+
+# Code:
+
+# def is_prime?(num)
+#   return false if num <= 1
+#   (2..Math.sqrt(num)).none? {|div| num % div == 0}
+# end
+
+# def minimum_number(numbers)
+#   sum = numbers.sum
+#   0.upto(sum) do |num|
+#     if isprime?(sum + num)
+#       return num
+#     end
+#   end
+# end
+
+# 43) Counting Duplicates (https://www.codewars.com/kata/54bf1c2cd5b56cc47f0007a1/train/ruby) (7 minutes)
+
+# Problem:
+
+# Code:
+
+# def duplicate_count(text)
+#   characters = text.downcase.chars
+#   alphabet = ('a'..'z').to_a
+#   alphabet.select {|char| characters.count(char) >= 2}.size
+# end
+
+# 44)
