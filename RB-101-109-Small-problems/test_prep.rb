@@ -124,19 +124,19 @@ x 26. Mean Square Error
 x 27. Exponent method
 x 28. Where my anagrams at?
 x 29. Split Strings
-30. Anagram difference
-31. Anagram Detection
-32. Highest Scoring Word
-33. Replace With Alphabet Position
-34. Sherlock on pockets
-35. Mexican Wave
-36. Delete a Digit
+x 30. Anagram difference
+x 31. Anagram Detection
+x 32. Highest Scoring Word
+x 33. Replace With Alphabet Position
+x 34. Sherlock on pockets
+x 35. Mexican Wave
+x 36. Delete a Digit
 x 37. Multiples of 3 or 5
-38. String transformer
+x 38. String transformer
 x 39. Largest product in a series
-40. Duplicate Encoder
-41. Backspaces in string
-42. Sort Arrays (Ignoring Case)
+x 40. Duplicate Encoder
+x 41. Backspaces in string
+x 42. Sort Arrays (Ignoring Case)
 x 43. Transform To Prime
 x 44. Counting Duplicates
 45. Alphabetized
@@ -3824,4 +3824,205 @@ p longest('zyba') == 'z'
 #   alphabet.select {|char| characters.count(char) >= 2}.size
 # end
 
-# 44)
+# 44) Alpabetized (https://www.codewars.com/kata/5970df092ef474680a0000c9/train/ruby) ( 11 minutes)
+
+# Problem:
+# Input:  a string
+# Output: a string output sorted by alphabet
+# Rules:
+  # string output should remove spaces and whitepsace
+  # string output should be sorted alphabetically case insensitive
+  # 
+
+# Examples
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ") == "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a") == "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+# p alphabetized("!@$%^&*()_+=-`,") == ""
+# p alphabetized("The Holy Bible") == "BbeehHilloTy"
+# p alphabetized("CodeWars can't Load Today") == "aaaaCcdddeLnooorstTWy"
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `alphabetized` with 1 paramter `input`
+#   initialize `characters` to the characters of `input`
+#   select only alphabetical characters in the `characters` array
+#   sort the characters in the `characters` array by all characters downcased
+#   return the characters array joined with no spaces
+# end
+
+# Code:
+
+# def alphabetized(input)
+#   characters = input.chars
+#   characters.select! {|char| ('a'..'z').include?(char.downcase)}
+#   characters.sort_by {|char| char.downcase}.join('')
+# end
+
+# def alphabetized(input) # This maintains sequence of uppercase and lowercase letters.
+#   alpha = ('a'..'z').to_a
+#   string = ""
+
+#   alpha.each do |alp|
+#     input.each_char do |char|
+#       if alp == char.downcase
+#         string << char
+#       end
+#     end
+#   end
+#   string
+# end
+
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ") == "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a") == "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+# p alphabetized("!@$%^&*()_+=-`,") == ""
+# p alphabetized("The Holy Bible") == "BbeehHilloTy"
+# p alphabetized("CodeWars can't Load Today") == "aaaaCcdddeLnooorstTWy"
+
+# 45) Sum of Digits / Digital Root (https://www.codewars.com/kata/541c8630095125aba6000c00/train/ruby) (8 minutes)
+
+# Problem:
+# Input: integer
+# Output: single digit intger
+# Rules:
+  # return the sum of the digits of a number down to 1 digit
+  # 
+
+# Examples:
+# 16  -->  1 + 6 = 7
+# 942  -->  9 + 4 + 2 = 15  -->  1 + 5 = 6
+# 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
+
+# Data:
+# Integers
+
+# Algorithm:
+# define `digital_root` method with 1 parameter `n`
+#   initialize sum to the result of `n` digits sum
+#   while sums length of digits is greater than 1 do
+#     split sum into digits, add them together
+#     return new sum back to sum
+#   end
+# end
+
+# Code:
+
+# def digital_root(n)
+#   sum = n.digits.sum
+#   while sum.digits.size > 1 do
+#     sum = sum.digits.sum
+#   end
+#   sum
+# end
+
+# 46) Array.diff (https://www.codewars.com/kata/523f5d21c841566fde000009/train/ruby) ( 9 minutes )
+
+#Problem:
+# Input: two arrays
+# Output: array of integers
+# Rules:
+  # element must appear in second array to not be included
+  # if element in first array DOESN'T appear in second array, return it.
+  # count of el in 1st and second does not matter
+
+# Examples:
+# p array_diff([1,2], [1]) == [2]
+# p array_diff([1,2,2], [1]) == [2,2]
+# p array_diff([1,2,2], [2]) == [1]
+# p array_diff([1,2,2], []) == [1,2,2]
+# p array_diff([], [1,2]) == []
+# p array_diff([1,2,3], [1,2]) == [3]
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+
+# define `array_diff` method with 2 parameters `ar1` and `ar2`
+#   intiialize result array
+#   for each element in ar1
+#     check if ar2 has that element
+#       if it doesn, go to next element
+#       if it doesnt, add element to results.
+
+#   return results
+
+# Code:
+
+# def array_diff(ar1, ar2)
+#   result = []
+#   ar1.each do |el|
+#     ar2.include?(el) ? next : result << el
+#     #   next
+#     # else
+#     #   result << el
+#     # end
+#   end
+#   result
+# end
+
+# def array_diff(ar1, ar2)
+#   ar1.select {|el| !ar2.include?(el)}
+# end
+
+# def array_diff(ar1, ar2)
+#   ar1 - ar2
+# end
+
+# p array_diff([1,2], [1]) == [2]
+# p array_diff([1,2,2], [1]) == [2,2]
+# p array_diff([1,2,2], [2]) == [1]
+# p array_diff([1,2,2], []) == [1,2,2]
+# p array_diff([], [1,2]) == []
+# p array_diff([1,2,3], [1,2]) == [3]
+
+# 47) Where is my parent? (https://www.codewars.com/kata/58539230879867a8cd00011c/train/ruby) (13 minutes)
+
+# Problem:
+# Input: a string of uppercase and lowercase letters
+# Output: a string with letter sorted, and uppercase letters appearing before lowercase letter
+# rules:
+  # Result should be sorted alphabettically, with first instance of each letter being the uppercase one.
+
+# examples:
+# p find_children("abBA") == "AaBb"
+# p find_children("AaaaaZazzz") == "AaaaaaZzzz"
+# p find_children("CbcBcbaA") == "AaBbbCcc"
+# p find_children("xXfuUuuF") == "FfUuuuXx"
+# p find_children("") == ""
+
+# Data:
+# strings
+
+# Algorithm:
+# define `find_children` method with 1 parameter `dancers`
+#   sort dancers characters by characters downcased
+# end
+
+# Code:
+
+# def find_children(dancers)
+#   dancers.chars
+#   .group_by {|char| char.downcase}
+#   .values
+#   .map {|el| el.sort}
+#   .sort
+#   .join('')
+# end
+
+# p find_children("abBA") == "AaBb"
+# p find_children("AaaaaZazzz") == "AaaaaaZzzz"
+# p find_children("CbcBcbaA") == "AaBbbCcc"
+# p find_children("xXfuUuuF") == "FfUuuuXx"
+# p find_children("") == ""
