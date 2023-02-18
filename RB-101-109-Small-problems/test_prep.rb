@@ -139,10 +139,10 @@ x 41. Backspaces in string
 x 42. Sort Arrays (Ignoring Case)
 x 43. Transform To Prime
 x 44. Counting Duplicates
-45. Alphabetized
-46. Sum of Digits / Digital Root
-47. Array.diff
-48. Where is my parent!?(cry)
+x 45. Alphabetized
+x 46. Sum of Digits / Digital Root
+x 47. Array.diff
+x 48. Where is my parent!?(cry)
 49. Playing with digits
 x 50. Equal Sides Of An Array
 51. Reverse or rotate?
@@ -4026,3 +4026,34 @@ p longest('zyba') == 'z'
 # p find_children("CbcBcbaA") == "AaBbbCcc"
 # p find_children("xXfuUuuF") == "FfUuuuXx"
 # p find_children("") == ""
+
+# 48) Playing with Digits (https://www.codewars.com/kata/5552101f47fc5178b1000050/train/ruby)
+
+# ?????
+
+# 49) Equal sides of an array (https://www.codewars.com/kata/5679aa472b8f57fb8c000047/train/ruby) (5 minutes)
+# Repeated solution, tried in original list of codewar problems.
+
+# def find_even_index(arr)
+#   equal = -1
+#   arr.each_with_index do |_, idx|
+#     if arr[0...idx].sum == arr[(idx+1)..-1].sum
+#       equal = idx
+#       break
+#     end
+#   end
+#   equal
+# end
+
+# # Or more elegant
+
+# def find_even_index(input)
+#   result = -1
+#   (0..(input.size)).each do |index|
+#    return index if input[0..index].sum == input[index..-1].sum
+#   end
+#   result
+# end
+
+# 50) Reverse or rotate? (https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991) (1:14)
+
