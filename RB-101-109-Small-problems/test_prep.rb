@@ -4029,7 +4029,7 @@ p longest('zyba') == 'z'
 
 # 48) Playing with Digits (https://www.codewars.com/kata/5552101f47fc5178b1000050/train/ruby)
 
-# ?????
+# Dead link to problem.
 
 # 49) Equal sides of an array (https://www.codewars.com/kata/5679aa472b8f57fb8c000047/train/ruby) (5 minutes)
 # Repeated solution, tried in original list of codewar problems.
@@ -4057,3 +4057,107 @@ p longest('zyba') == 'z'
 
 # 50) Reverse or rotate? (https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991) (1:14)
 
+# Problem:
+# Input: integer as a string and int
+# Rules:
+  # string is split into subsets of digits of `int`
+  # if string is unevenly divisble by `int`, last digits remain the same
+  # if the subsets sum of the cube of its digits is divisible by two reverse that chunk, otherwise rotate it left by one.
+  # If input is empty return ""
+  # if sz is less than or equal to 0 return ""
+  # if sz is greater than length of string return ""
+
+# Exmaples:
+# revrot("123456987654", 6) --> "234561876549"
+
+# Data:
+# strings and integers
+
+#Algorithm:
+# define `revrot` with 2 parameters `str` and `sz`
+#   defien start index
+#   loop until index is outside str length
+#   check if the digits cubed are divisible by two
+#     if they are reverse the chunk
+#     if not, rotate the chunk
+#   return the chunk back to the original string
+#   increase start index by sz
+#     end
+
+# Code:
+
+# def revrot(str, sz)
+#   return "" if sz < 1 || str.empty? || str.size < sz
+#   num = str.size / sz
+#   idx = 0
+#   res = ""
+#   num.times do
+#     if str[idx,sz].chars.map{|x| x.to_i ** 3}.sum % 2 == 0
+#       res << str[idx,sz].chars.reverse.join('')
+#     else
+#       res << str[idx,sz].chars.rotate.join('')
+#     end
+#     idx += sz
+#   end
+#   res
+# end
+
+# p revrot("1234", 0) == ""
+# p revrot("", 0) == ""
+# p revrot("1234", 5) == ""
+# p revrot("123456987654", 6) == "234561876549"
+# p revrot("733049910872815764", 5) == "330479108928157"
+
+# 51) Decipher this! (https://www.codewars.com/kata/581e014b55f2c52bb00000f8) (30 minutes)
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # 2nd and last letter have been switched
+  # first letter is replaced with it's character code
+
+# Examples:
+# p decipher_this("65 119esi 111dl 111lw 108dvei 105n 97n 111ka") == "A wise old owl lived in an oak"
+# p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
+# p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
+# p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
+# p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
+
+# Data:
+# strings
+
+# Algorithm:
+# define `decipher_this` method with 1 parameter `string`
+#   split string into words
+#   iterate over words
+#     convert character code back to a character
+#       # to do...
+#     swap 2nd and last letter
+#   join words back together with space
+# end
+
+# Code:
+
+def decipher_this(string)
+  words = string.split
+  words.map! do |word|
+    find = word.split(/[a-zA-Z]/)[0].to_s
+    word.gsub!(find, find.to_i.chr)
+    if word.size > 1
+      word[1], word[-1] = word[-1], word[1]
+    end
+    word
+  end
+  words.join(' ')
+end
+
+p decipher_this("78FCFLsQJUEJa")
+# p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
+# p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
+# p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
+# p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
+
+# Testing f or "85gwKp 82ugK 110jHHGJjEIxFz 78FCFLsQJUEJa 74Da 85qiDks 65Ovkduf 120mAKVoCFIjEmn 105Xhl 87DTqGztZpXDrg 115z"
+#    Expected: "UpwKg RKgu nzHHGJjEIxFj      NaCFLsQJUEJF JaD UsiDkq AfvkduO xnAKVoCFIjEmm ilhX WgTqGztZpXDrD sz", 
+# instead got: "UpwKg RKgu nzHHGJjEIxFj      NaQJUEJs Ja UsiDkq Afkduv xnAKVoCFIjEmm ilh WgGztZpXDrq sz"
