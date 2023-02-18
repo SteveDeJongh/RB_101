@@ -145,15 +145,15 @@ x 47. Array.diff
 x 48. Where is my parent!?(cry)
 49. Playing with digits
 x 50. Equal Sides Of An Array
-51. Reverse or rotate?
-51. Decipher this!
-52. Bouncing Balls
+x 51. Reverse or rotate?
+x 51. Decipher this!
+x 52. Bouncing Balls
 x 53. WeIrD StRiNg CaSe
 x 54. Are they the "same"?
 x 55. Grouping and Counting
-56. Find the Nexus of the Codewars Universe
+x 56. Find the Nexus of the Codewars Universe
 x 57. Count letters in string
-58. Triple trouble
+x 58. Triple trouble
 59. Which are in?
 60. Format a string of names like 'Bart, Lisa & Maggie'.
 61. Find the missing letter
@@ -4139,25 +4139,234 @@ p longest('zyba') == 'z'
 
 # Code:
 
-def decipher_this(string)
-  words = string.split
-  words.map! do |word|
-    find = word.split(/[a-zA-Z]/)[0].to_s
-    word.gsub!(find, find.to_i.chr)
-    if word.size > 1
-      word[1], word[-1] = word[-1], word[1]
-    end
-    word
-  end
-  words.join(' ')
-end
+# def decipher_this(string)
+#   words = string.split
+#   words.map! do |word|
+#     find = word.split(/[a-zA-Z]/)[0].to_s
+#     word.gsub!(find, find.to_i.chr)
+#     if word.size > 1
+#       word[1], word[-1] = word[-1], word[1]
+#     end
+#     word
+#   end
+#   words.join(' ')
+# end
 
-p decipher_this("78FCFLsQJUEJa")
 # p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
 # p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
 # p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
 # p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
 
-# Testing f or "85gwKp 82ugK 110jHHGJjEIxFz 78FCFLsQJUEJa 74Da 85qiDks 65Ovkduf 120mAKVoCFIjEmn 105Xhl 87DTqGztZpXDrg 115z"
-#    Expected: "UpwKg RKgu nzHHGJjEIxFj      NaCFLsQJUEJF JaD UsiDkq AfvkduO xnAKVoCFIjEmm ilhX WgTqGztZpXDrD sz", 
-# instead got: "UpwKg RKgu nzHHGJjEIxFj      NaQJUEJs Ja UsiDkq Afkduv xnAKVoCFIjEmm ilh WgGztZpXDrq sz"
+# 52) Bouncing Balls (https://www.codewars.com/kata/5544c7a5cb454edb3c000047) (18 minutes)
+
+# Problem:
+# Input: heigh, bounce, window as integers
+# Output: integer
+# Rules:
+  # the ball bounces `bounce` of its height
+  # return count of times `window` see bounce both up and down
+  # height must be greather than 0, 
+  # bounce must be greater than 0 but less than 1
+  # window must be less than height
+
+# Examples:
+# p bouncingBall(3, 0.66, 1.5) == 3
+# p bouncingBall(30, 0.66, 1.5) == 15
+# p bouncingBall(30, 0.75, 1.5) == 21
+# p bouncingBall(30, 0.4, 10) == 3
+# p bouncingBall(40, 1, 10) == -1
+# p bouncingBall(-5, 0.66, 1.5) == -1
+
+# Data:
+# integers
+
+# Algorithm:
+# define `bouncingBall` with 3 parameters `h`, `b`, and `w`
+#   return -1 if any of the conditions are not fulfilled
+#   initialize alt to starting `h`
+#   initialize count to `1`
+#   loop while `alt` is greater than `w`
+#     add 2 times to `w`
+#     times alt by `b`
+#   return count
+# end
+
+# Code:
+
+# def bouncingBall(h,b,w)
+#   return -1 if h < 0 || b <= 0 || b >= 1 || w >= h
+#   alt = h
+#   count = 1
+#   loop do
+#     alt = alt * b
+#     break if alt <= w
+#     count += 2
+#   end
+#   count
+# end
+
+# p bouncingBall(3, 0.66, 1.5) == 3
+# p bouncingBall(30, 0.66, 1.5) == 15
+# p bouncingBall(30, 0.75, 1.5) == 21
+# p bouncingBall(30, 0.4, 10) == 3
+# p bouncingBall(40, 1, 10) == -1
+# p bouncingBall(-5, 0.66, 1.5) == -1
+
+# 53) repeat
+
+# 54) repeat
+
+# 55) repeat
+
+# 56) Find the nexuis of the Codewars Universe (https://www.codewars.com/kata/5453dce502949307cf000bff) (8 minutes)
+
+# Problem:
+# Input: hash
+# Output: integer representing the users rank
+# Rules:
+  # return the lowest rank number if mutliple users are "closest"
+  # if not users are exactly matched rank and honor, return closest
+  # 
+
+# Examples:
+# users = {1 => 3, 3 => 3, 5 => 1}
+# p nexus(users) == 3
+# users = {1 => 10, 2 => 6, 3 => 4, 5 => 1}
+# p nexus(users) == 3
+
+# Data:
+# Hashes, integers
+
+# Algorithm:
+# define `nexus` method with paramter `users`
+#   sort users by rank value
+#   sort users by rank value less honor (ignoring negative numbers)
+#   return the first users rank
+# end
+
+# Code:
+
+# def nexus(users)
+#   users.sort_by{|k,v| k}.to_h.sort_by{|k,v| (k - v).abs}.to_h.keys.first
+# end
+
+# users = {1 => 3, 3 => 3, 5 => 1}
+# p nexus(users) == 3
+# users = {1 => 10, 2 => 6, 3 => 4, 5 => 1}
+# p nexus(users) == 3
+
+# 57) Count Letters in string (https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d) 
+
+# Repeated
+
+# 58) Triple trouble (https://www.codewars.com/kata/55d5434f269c0c3f1b000058) (28 minutes)
+
+# Problem:
+# Input: two integers
+# Output: 1 or 0
+# Rules:
+  # return 1 if num1 has a 3 numbers consecutively and num2 has 2 numbers consecutively
+  # otherwise return 0
+
+# Examples:
+# p triple_double(451999277, 41177722899) == 1
+# p triple_double(1222345, 12345) == 0
+# p triple_double(12345, 12345) == 0
+# p triple_double(666789, 12345667) == 1
+# p triple_double(10560002, 100) == 1
+# p triple_double(1112, 122) == 0
+
+# Data:
+# integers
+
+# Algorithm:
+# define `triple_double` method with two parameters `num1` and `num2`
+#   if any of 3 consecutive digits of num1 are equal to themselves reversed and any 2 consecutive digits of num2 are equal to themselves reversed
+#     return 1
+#   otherwise
+#   return 0
+#   end
+
+# Code:
+
+# def triple_double(num1, num2)
+#   dig1 = num1.digits
+#   dig2 = num2.digits
+#   if dig1.each_cons(3).any? {|nums| nums.all?{|x| x == nums[1]}}
+#     valid_digs = dig1.each_cons(3).select {|nums| nums == nums.reverse}
+#     valid_digs = valid_digs.map{|x| x[0]}
+#     if dig2.each_cons(2).any? do |num|
+#       num == num.reverse && valid_digs.include?(num[0])
+#       end
+#       return 1
+#     else
+#       return 0
+#     end
+#   else
+#     return 0
+#   end
+# end
+
+# Or checking for series of digits from 0 to 9
+
+# def triple_double(num1, num2)
+#   num1 = num1.to_s
+#   num2 = num2.to_s
+
+#   10.times do |dig|
+#     if num1.include?(dig.to_s * 3) && num2.include?(dig.to_s * 2)
+#       return 1
+#     end
+#   end
+#   return 0
+# end
+
+# p triple_double(451999277, 41177722899) == 1
+# p triple_double(1222345, 12345) == 0
+# p triple_double(12345, 12345) == 0
+# p triple_double(666789, 12345667) == 1
+# p triple_double(10560002, 100) == 1
+# p triple_double(1112, 122) == 0
+
+# 59) Which are in? (https://www.codewars.com/kata/550554fd08b86f84fe000a58) (12 minutes)
+
+# Problem:
+# Input: 2 array of strings
+# Output: array of strings
+# rules:
+  # in order for string from ar1 to appear in result it must be include in any of of the string in `ar2`
+
+# Examples:
+# a1 = ["arp", "live", "strong"]
+# a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+# p in_array(a1, a2) == ["arp", "live", "strong"]
+# a1 = ["tarp", "mice", "bull"]
+# p in_array(a1, a2) == []
+
+# Data:
+# Strings, arrays
+
+# Alogrithm:
+# define `in_array` method with 2 parameter `ar1` and `ar2`
+#   initialize `results` to empty array
+#   iterate over each string in `ar1`
+#     check if current string from ar1 appears in any of the string in ar2
+#     if it does, add to results
+#     end
+#   end
+
+# Code:
+
+# def in_array(ar1, ar2)
+#   ar1.select do |s1|
+#     ar2.any? {|comp| comp.include?(s1)}
+#   end.sort
+# end
+
+# a1 = ["arp", "live", "strong"]
+# a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+# p in_array(a1, a2) == ["arp", "live", "strong"]
+# a1 = ["tarp", "mice", "bull"]
+# p in_array(a1, a2) == []
+
+# 60) 
