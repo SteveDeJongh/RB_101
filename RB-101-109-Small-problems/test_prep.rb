@@ -4369,4 +4369,53 @@ p longest('zyba') == 'z'
 # a1 = ["tarp", "mice", "bull"]
 # p in_array(a1, a2) == []
 
-# 60) 
+# 60) Format a string of anems like "Bart, Lisa, & Maggie". (https://www.codewars.com/kata/53368a47e38700bd8300030d) (15 miuntes)
+
+# Problem:
+# Input: array of hash names
+# Output: string of naes with names seperated by comas except for the last pair &
+# Rules:
+  # if single name, return name
+  # if two names, join with &
+  # if more than two names, seperate with comma, except last pair &
+
+# Examples:
+# p list([{name: 'Bart'},{name: 'Lisa'},{name: 'Maggie'},{name: 'Homer'},{name: 'Marge'}]) == 'Bart, Lisa, Maggie, Homer & Marge'
+# p list([{name: 'Bart'},{name: 'Lisa'}]) == 'Bart & Lisa'
+# p list([{name: 'Bart'}]) == 'Bart'
+
+# Data:
+# arrays, hashes, strings
+
+# Algorithm:
+# define `list` method with parameter `input`
+#   initialize names to values of hashes in input
+#   if names.size == 1
+#     return names[0]
+#   elsif names.sie == 2
+#     return "#{names[0]} & #{names[1]}"
+#   else
+#     result = ""
+#     names.each_with_index do |name|
+#       result << "#{name} ,"
+
+# Code:
+
+# reassingin the last elements to be joined by delimiter.
+
+def list(input)
+  names = input.map {|hsh| hsh.values}.flatten
+  result = ""
+  case names.size
+  when 0 then ""
+  when 1 then names.first.to_s
+  when 2 then names.join(" & ")
+  else
+    names[-2..-1] = "#{names[-2]} & #{names.last}"
+    names.join(', ')
+  end
+end
+
+p list([{name: 'Bart'},{name: 'Lisa'},{name: 'Maggie'},{name: 'Homer'},{name: 'Marge'}]) == 'Bart, Lisa, Maggie, Homer & Marge'
+p list([{name: 'Bart'},{name: 'Lisa'}]) == 'Bart & Lisa'
+p list([{name: 'Bart'}]) == 'Bart'
