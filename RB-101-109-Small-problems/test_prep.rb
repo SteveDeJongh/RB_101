@@ -154,12 +154,12 @@ x 55. Grouping and Counting
 x 56. Find the Nexus of the Codewars Universe
 x 57. Count letters in string
 x 58. Triple trouble
-59. Which are in?
-60. Format a string of names like 'Bart, Lisa & Maggie'.
-61. Find the missing letter
-62. Who likes it?
-63. Find The Parity Outlier
-64. Is Integer Array?
+x 59. Which are in?
+x 60. Format a string of names like 'Bart, Lisa & Maggie'.
+x 61. Find the missing letter
+x 62. Who likes it?
+x 63. Find The Parity Outlier
+x 64. Is Integer Array?
 65. Reversing and Combining Text
 66. Integer reduction
 
@@ -4585,7 +4585,7 @@ p longest('zyba') == 'z'
 # p find_outlier([0, 1, 2]) == 1
 # p find_outlier([1, 2, 3]) == 2
 
-# 64) Is Integer Array? (https://www.codewars.com/kata/52a112d9488f506ae7000b95) (1:16)
+# 64) Is Integer Array? (https://www.codewars.com/kata/52a112d9488f506ae7000b95) ( 15 minutes )
 
 # Problem:
 # Input: array
@@ -4638,3 +4638,100 @@ p longest('zyba') == 'z'
 # p is_int_array([nil]) == false, "Input: [nil]"
 # p is_int_array([1.0, 2.0, 3.0001]) == false, "Input: [1.0, 2.0, 3.0001]"
 # p is_int_array(["-1"]) == false, "Input: ['-1']"
+
+# 65) Basics 06: Reversing and Combining Text (https://www.codewars.com/kata/56b861671d36bb0aa8000819/train/ruby) Revisit
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # if only 1 word return word
+  # reverse each word and combine in pairs
+
+# Examples:
+# Input:  "abc def"
+# Output: "cbafed"
+
+# Input:  "abc def ghi 123"
+# Output: "defabc123ghi"
+
+# Input:  "abc def gh34 434ff 55_eri 123 343"
+# Output: "43hgff434cbafed343ire_55321"
+
+# Data:
+# Strings
+
+# Algorithm:
+# define `reverse_and_combine_text` with 1 parameter `input`
+#   initialize `s` to cloned input
+#   loop while the number of words in `s` is greater than 1
+#     initialize words to words in `s` reversed
+#     initialize `s2` to an empty string
+#     iterates overs words in `words` with index
+#       if index is even and index + 1 is not nil
+#         append `s2` with << words[index+1] and word[index]
+#       else
+#         append `s2` with a space and words[index]
+#       end
+#     end
+#   end
+# end
+
+# Code:
+# def reverse_and_combine_text(input)
+
+# end
+
+# p reverse_and_combine_text("abc def") #== "cbafed"
+# p reverse_and_combine_text("abc def ghi jkl") == "defabcjklghi"
+# p reverse_and_combine_text("dfghrtcbafed") == "dfghrtcbafed"
+# p reverse_and_combine_text("234hh54 53455 sdfqwzrt rtteetrt hjhjh lllll12  44") == "trzwqfdstrteettr45hh4325543544hjhjh21lllll"
+# p reverse_and_combine_text("sdfsdf wee sdffg 342234 ftt") == "gffds432243fdsfdseewttf"
+
+# 66) Integer reduction (https://www.codewars.com/kata/59fd6d2332b8b9955200005f/ruby) (25 minutes)
+
+# Problem:
+# Input: 2 integers
+# Output: integer
+# Rules:
+  # return in the lowest possible number while removing `x` number of digits, without changing digit order
+  # digits must remain in order
+
+# Examples:
+# p solve(123056,1) =='12056'
+# p solve(123056,2) =='1056'
+# p solve(123056,3) =='056'
+# p solve(123056,4) =='05'
+# p solve(1284569,1) =='124569'
+# p solve(1284569,2) =='12456'
+# p solve(1284569,3) =='1245'
+# p solve(1284569,4) =='124'
+
+# Data:
+# Integers
+
+# Algorithm:
+# define `solve` with two parameters `num` and `digs`
+#   initialize `digits` to an array of digits in `num` ( be sure to call reverse to maintain order)
+#   initialize `possibilities` to an empty array
+#   create all possible numbers of `num` with `digs` times digits removed.
+#     # to do..
+#   return lowest number in possibilities
+# end
+
+# Code:
+
+# def solve(num, digs)
+#   digits = num.digits.reverse
+#   possibilities = digits.combination(num.to_s.length - digs).map(&:join)
+#   possibilities.min_by {|x| x.to_i}
+# end
+
+# p solve(123056,1) =='12056'
+# p solve(123056,2) =='1056'
+# p solve(123056,3) =='056'
+# p solve(123056,4) =='05'
+# p solve(1284569,1) =='124569'
+# p solve(1284569,2) =='12456'
+# p solve(1284569,3) =='1245'
+# p solve(1284569,4) =='124'
