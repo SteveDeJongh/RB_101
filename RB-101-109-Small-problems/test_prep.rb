@@ -4390,32 +4390,133 @@ p longest('zyba') == 'z'
 # Algorithm:
 # define `list` method with parameter `input`
 #   initialize names to values of hashes in input
-#   if names.size == 1
-#     return names[0]
-#   elsif names.sie == 2
-#     return "#{names[0]} & #{names[1]}"
-#   else
-#     result = ""
-#     names.each_with_index do |name|
-#       result << "#{name} ,"
+#   check if names array is only 1 name
+#   if it is return the name
+#   check if names array is only 2 names
+#   if it is join 2 name by &
+#   if names array is more than 2 names
+#     reassign last two elements of the array to 1 element joined by &
+#     join rest of element with comma
+#   end
+# end
 
 # Code:
 
-# reassingin the last elements to be joined by delimiter.
+# Reassigning the last elements to be joined by delimiter.
 
-def list(input)
-  names = input.map {|hsh| hsh.values}.flatten
-  result = ""
-  case names.size
-  when 0 then ""
-  when 1 then names.first.to_s
-  when 2 then names.join(" & ")
-  else
-    names[-2..-1] = "#{names[-2]} & #{names.last}"
-    names.join(', ')
-  end
-end
+# def list(input)
+#   names = input.map {|hsh| hsh.values}.flatten
+#   result = ""
+#   case names.size
+#   when 0 then ""
+#   when 1 then names.first.to_s
+#   when 2 then names.join(" & ")
+#   else
+#     names[-2..-1] = "#{names[-2]} & #{names.last}"
+#     names.join(', ')
+#   end
+# end
 
-p list([{name: 'Bart'},{name: 'Lisa'},{name: 'Maggie'},{name: 'Homer'},{name: 'Marge'}]) == 'Bart, Lisa, Maggie, Homer & Marge'
-p list([{name: 'Bart'},{name: 'Lisa'}]) == 'Bart & Lisa'
-p list([{name: 'Bart'}]) == 'Bart'
+# p list([{name: 'Bart'},{name: 'Lisa'},{name: 'Maggie'},{name: 'Homer'},{name: 'Marge'}]) == 'Bart, Lisa, Maggie, Homer & Marge'
+# p list([{name: 'Bart'},{name: 'Lisa'}]) == 'Bart & Lisa'
+# p list([{name: 'Bart'}]) == 'Bart'
+
+# 61) Find the missing letter (https://www.codewars.com/kata/5839edaa6754d6fec10000a2) ( 10 minutes )
+
+# Problem:
+# Input: array of letters
+# Output: string
+# Rules:
+  # Find the missing letter in sequence of letters
+  # uppercase and lowercase letters, but only one case in each input
+
+# examples:
+# ['a','b','c','d','f'] -> 'e'
+# ['O','Q','R','S'] -> 'P'
+
+# Data:
+# arrays, strings
+
+# Algorithm:
+# define `find_missing_letter` with 1 parameter `arr`
+#   assign the `curr` to the first element in `arr` ascii number
+#   loop over character in `arr`
+#     check if char.ord == curr
+#       if it does, increase curr by 1 and move on to the next element
+#       if it doesn't, return the ascii character for `curr`
+#       end
+#     end
+#   end
+# end
+
+# Code:
+# def find_missing_letter(arr)
+#   curr = arr[0].ord
+#   arr.each do |char|
+#     if char.ord == curr
+#       curr += 1
+#     else
+#       return curr.chr
+#     end
+#   end
+# end
+
+# p find_missing_letter(["a","b","c","d","f"]) == "e"
+# p find_missing_letter(["O","Q","R","S"]) == "P"
+# p find_missing_letter(["b","d"]) == "c"
+# p find_missing_letter(["a","b","d"]) == "c"
+# p find_missing_letter(["b","d","e"]) == "c"
+
+# 62) Who likes it? (https://www.codewars.com/kata/5266876b8f4bf2da9b000362) ( 10 minutes )
+
+# Problem:
+# Input: array
+# Output: string
+# Rules:
+  # if array is empty, return `no one likes this`
+  # if 4 or more people like a post, return first two names and count of others
+
+# Examples:
+# []                                -->  "no one likes this"
+# ["Peter"]                         -->  "Peter likes this"
+# ["Jacob", "Alex"]                 -->  "Jacob and Alex like this"
+# ["Max", "John", "Mark"]           -->  "Max, John and Mark like this"
+# ["Alex", "Jacob", "Mark", "Max"]  -->  "Alex, Jacob and 2 others like this"
+
+# Data:
+# arrays, strings
+
+# Alogrithm:
+# define `likes` method with 1 parameter `names`
+#   return "No one likes this" if array is empty
+#   case statement based on array size
+#   when 1 then "array names one likes this"
+#   when 2 then "array name 1 and 2 like this"
+#   when 3 then "array name 1, name 2 and name 3 like this"
+#   else
+#     num = arr.size - 2
+#     return "array name 1, arr name 2 and num others like this"
+#   end
+# end
+
+# Code:
+
+# def likes(names)
+#   return "no one likes this" if names.empty?
+#   case names.size
+#   when 1 then "#{names[0]} likes this"
+#   when 2 then "#{names[0]} and #{names[1]} like this"
+#   when 3 then "#{names[0]}, #{names[1]} and #{names[2]} like this"
+#   else
+#     num = names.size - 2
+#     "#{names[0]}, #{names[1]} and #{num} others like this"
+#   end
+# end
+
+# p likes([]) == 'no one likes this'
+# p likes(['Peter']) == 'Peter likes this'
+# p likes(['Jacob', 'Alex']) == 'Jacob and Alex like this'
+# p likes(['Max', 'John', 'Mark']) == 'Max, John and Mark like this'
+# p likes(['Alex', 'Jacob', 'Mark', 'Max']) == 'Alex, Jacob and 2 others like this'
+
+# 63) 
