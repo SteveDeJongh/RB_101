@@ -3208,7 +3208,7 @@ p longest('zyba') == 'z'
 # p anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']) == ['carer', 'racer']
 # p anagrams('laser', ['lazing', 'lazy',  'lacer']) == []
 
-# 28) Split Strings (https://www.codewars.com/kata/515de9ae9dcfc28eb6000001) ( 10 minutes ) Problems with Codewards tests?
+# 28) Split Strings (https://www.codewars.com/kata/515de9ae9dcfc28eb6000001) ( 10 minutes )
 
 # Complete the solution so that it splits the string into pairs of two characters. If the string 
 # contains an odd number of characters then it should replace the missing second character of the 
@@ -3241,7 +3241,8 @@ p longest('zyba') == 'z'
 
 # Code:
 
-# def solution(input)
+# def solution(str)
+#   input = str.dup # needed to not mutate the input string
 #   input << "_" if input.size.odd?
 #   results = []
 #   until input.empty?
@@ -4519,4 +4520,121 @@ p longest('zyba') == 'z'
 # p likes(['Max', 'John', 'Mark']) == 'Max, John and Mark like this'
 # p likes(['Alex', 'Jacob', 'Mark', 'Max']) == 'Alex, Jacob and 2 others like this'
 
-# 63) 
+# 63) Find The Parity Outlier (https://www.codewars.com/kata/5526fc09a1bbd946250002dc) (7 minutes)
+
+# Problem:
+# Input: array of numbers
+# Output: an integer
+# Rules:
+  # array will consist of at least 3 nubmers
+  # array will have an outlier, either a single odd or even number
+  # 
+
+# Examples:
+# [2, 4, 0, 100, 4, 11, 2602, 36]
+# Should return: 11 (the only odd number)
+
+# [160, 3, 1719, 19, 11, 13, -21]
+# Should return: 160 (the only even number)
+
+# Data:
+# Integers, arrays
+
+# Algorithm:
+
+# Option 1)
+
+# define `find_outlier` method with parameter `integers`
+#   initialize odd
+#   initialize even
+#   iterate over numbers in `integers`
+#     if odd, at to odd, if even add to even
+#   return odd or even, whichever is size is equal to 1
+# End
+
+# Option 2)
+# check first 3 numbers to see if looking for an odd number or even number
+# find the only outliter in integers
+
+# Code:
+
+# Option 1)
+# def find_outlier(integers)
+#   odd = []
+#   even = []
+#   integers.each do |num|
+#     num.odd? ? odd << num : even << num
+#   end
+#   odd.size == 1 ? odd[0] : even[0]
+# end
+
+# Or:
+# def find_outlier(integers)
+#   odd = integers.select {|x| x.odd?}
+#   even = integers.select { |x| x.even?}
+#   odd.size > even.size ? even.first : odd.first
+# end
+
+# Option 2)
+
+# def find_outlier(integers)
+#   outlier = integers.first(3).count(&:even?) < 2 ? :even? : :odd?
+#   integers.find(&outlier)
+# end
+
+# p find_outlier([0, 1, 2]) == 1
+# p find_outlier([1, 2, 3]) == 2
+
+# 64) Is Integer Array? (https://www.codewars.com/kata/52a112d9488f506ae7000b95) (1:16)
+
+# Problem:
+# Input: array
+# Output: true or false
+# Rules:
+  # return true if every element in `arr` is an integer
+  # return true if `arr` is empty
+  # return flase for anything else, including a non-array input or a string input
+
+# Examples:
+
+# p is_int_array([]) == true, "Input: []"
+# p is_int_array([1, 2, 3, 4]) == true, "Input: [1, 2, 3, 4]"
+# p is_int_array([-11, -12, -13, -14]) == true, "Input: [-11, -12, -13, -14]"
+# p is_int_array([1.0, 2.0, 3.0]) == true, "Input: [1.0, 2.0, 3.0]"
+# p is_int_array([1, 2, nil]) == false, "Input: [1,2, nil]"
+# p is_int_array(nil) == false, "Input: nil"
+# p is_int_array("") == false, "Input: ''"
+# p is_int_array([nil]) == false, "Input: [nil]"
+# p is_int_array([1.0, 2.0, 3.0001]) == false, "Input: [1.0, 2.0, 3.0001]"
+# p is_int_array(["-1"]) == false, "Input: ['-1']"
+
+# Data:
+# Arrays
+
+# Algorithm:
+# define `is_int_array` with 1 parameter `arr`
+#   return true if `arr` is empty
+#   check if all element of arr are integers
+#   if they are return true
+#   otherwise return false
+#   end
+
+# Code:
+
+# def is_int_array(arr)
+#   return false if !arr.is_a?(Array)
+#   return true if arr.empty?
+#   return true if arr.all? {|x| x.to_i.to_s.to_i == x}
+#   false
+# end
+
+# p is_int_array([]) == true, "Input: []"
+# p is_int_array([1, 2, 3, 4]) == true, "Input: [1, 2, 3, 4]"
+# p is_int_array([-11, -12, -13, -14]) == true, "Input: [-11, -12, -13, -14]"
+# p is_int_array([1.0, 2.0, 3.0]) == true, "Input: [1.0, 2.0, 3.0]"
+# p is_int_array([1, 2, nil]) == false, "Input: [1,2, nil]"
+# p is_int_array(nil) == false, "Input: nil"
+# p is_int_array("") == false, "Input: ''"
+# p is_int_array([nil]) == false, "Input: [nil]"
+# p is_int_array([1.0, 2.0, 3.0001]) == false, "Input: [1.0, 2.0, 3.0001]"
+# p is_int_array(["-1"]) == false, "Input: ['-1']"
