@@ -962,9 +962,83 @@ p longest('zyba') == 'z'
 
 # Video 2)
 
+# Problem 1) ( 10 minutes )
+# You have to create a method that takes a positive integer number and returns the next bigger number formed by the same digits.
 
+# 12 -> 21
+# 513 -> 531
+# 2017 -> 2071
+# If no bigger number can be composed using those digits, return -1
 
+# Problem:
+# Input: integer
+# Output: intger
+# Rules:
+  # output integer must be next largest number possible with same digits
+  # if no larger number is possible return -1
+  # 
 
+# Examples:
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(513) == 531
+# p next_bigger_num(2017) == 2071
+# p next_bigger_num(111) == -1
+# p next_bigger_num(531) == -1
+# p next_bigger_num(123456789) == 123456798
+
+# Data:
+# integers
+
+# Algorithm:
+# define `next_bigger_num` with 1 parameter `num`
+#   initialize `digits` to num.digits
+#   initialize `possibilies` to contain all possibile permutations of digits
+#   iterates over possibilities to the joined version of the array
+#   select all possibilties that are larger than `num`
+#   return the mininum in `possibilties`
+# end
+
+# Code:
+
+# def next_bigger_num(num)
+#   digits = num.digits
+#   possibilities = digits.permutation.to_a
+#   possibilities.map! { |x| x.join.to_i }
+#   possibilities.select! { |x| x > num }
+#   return -1 if possibilities.empty?
+#   possibilities.min
+# end
+
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(513) == 531
+# p next_bigger_num(2017) == 2071
+# p next_bigger_num(111) == -1
+# p next_bigger_num(531) == -1
+# p next_bigger_num(123456789) == 123456798
+
+# Alternate solution, loop from input num to max number
+
+# def next_bigger_num(num)
+#   max = max_number(num)
+#   (num+1..max).each do |x|
+#     return x if x.digits.sort == num.digits.sort
+#   end
+#   return -1
+# end
+
+# def max_number(num)
+#   num.digits.sort.reverse.join.to_i
+# end
+
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(513) == 531
+# p next_bigger_num(2017) == 2071
+# p next_bigger_num(111) == -1
+# p next_bigger_num(531) == -1
+# p next_bigger_num(123456789) == 123456798
 
 # Video 3)
 # Problem 1)
