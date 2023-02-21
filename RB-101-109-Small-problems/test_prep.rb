@@ -4809,3 +4809,41 @@ p longest('zyba') == 'z'
 # p solve(1284569,2) =='12456'
 # p solve(1284569,3) =='1245'
 # p solve(1284569,4) =='124'
+
+# 14) Dubstep (https://www.codewars.com/kata/551dc350bf4e526099000ae5/train/ruby) (2:55)
+
+# Problem:
+# Input: string
+# output: string
+# Rules:
+  # Words at serpated by `WUB`
+  # `WUB` can appear before the first word multiple times or zero times and after the last word multiple or zero times.
+  # only uppercase letters
+
+# Examples:
+# p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB")  =>  WE ARE THE CHAMPIONS MY FRIEND
+# p song_decoder("AWUBBWUBC") == "A B C"
+# p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+# p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+
+# Data:
+# strings
+
+# Algorithm:
+
+# define `song_decoder` method with 1 parameter `input`
+#   split `input` on `WUB`
+#   check if strngs in array are not blank
+#   join with spaces
+# end
+
+# Code:
+
+# def song_decoder(input)
+#   input.split('WUB').select {|x| x.size > 0 }.join(' ')
+# end
+
+# p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
+# p song_decoder("AWUBBWUBC") == "A B C"
+# p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+# p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
