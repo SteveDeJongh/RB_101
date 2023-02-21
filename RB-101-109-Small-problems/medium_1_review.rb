@@ -382,7 +382,7 @@ end
 # p word_to_digit('Please call me at FIVE five five one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 
-# 8) Fibonacci Numbers (3:24)
+# 8) Fibonacci Numbers
 
 # Problem:
 # Input: integer
@@ -412,3 +412,57 @@ end
 # p fibonacci(5) == 5
 # p fibonacci(12) == 144
 # p fibonacci(20) == 6765
+
+# 9) Fibonacci Numbers (Proceduaral) ( ~8 minutes)
+
+# Problem:
+# Input: integer
+# Output: Intger
+# Rules:
+  # Fibonacci number is created by added the sum of the last two numbers
+  # Starts at 1
+
+# Examples:
+
+# Data:
+# integers, arrays
+
+# Algorithm:
+# define `fibonacci` with 1 parameter `nth`
+#   initialize `numbers` to array [1]
+#   loop nth times
+#     reassign `numbers` to array.last and array.sum
+#   end
+#   return last digit in numbers
+# end
+
+# Code:
+
+# def fibonacci(nth)
+#   numbers = [1]
+#   (1...nth).each do |_|
+#     numbers = [numbers.last, numbers.sum]
+#   end
+#   numbers.last
+# end
+
+# p fibonacci(20) == 6765
+# p fibonacci(100) == 354224848179261915075
+# p fibonacci(100_001) # => 4202692702.....8285979669707537501
+
+# 10) Fibonacci Numbers (Last Digit) (:10)
+
+# def fibonacci_last(nth)
+#   numbers = [1]
+#   (1...nth).each do |_|
+#     numbers = [numbers.last, (numbers.sum) % 10]
+#   end
+#   numbers.last.to_s[-1].to_i
+# end
+
+# p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
+# p fibonacci_last(20)        # -> 5 (the 20th Fibonacci number is 6765)
+# p fibonacci_last(100)       # -> 5 (the 100th Fibonacci number is 354224848179261915075)
+# p fibonacci_last(100_001)   # -> 1 (this is a 20899 digit number)
+# p fibonacci_last(1_000_007) # -> 3 (this is a 208989 digit number)
+# p fibonacci_last(123456789) # -> 4
