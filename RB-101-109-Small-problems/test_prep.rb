@@ -823,7 +823,9 @@ p longest('zyba') == 'z'
 
 # The tests above should print "true".
 
-########################### Review #################################
+############################################################################################################
+###################################################### Review ############################################################
+############################################################################################################
 
 # 1) (7 minutes)
 # Given an array of numbers, for each number find out how many numbers
@@ -1027,24 +1029,94 @@ p longest('zyba') == 'z'
 # p dasherizer(123456789) == '123456789'
 # p dasherizer(21121) == '21-121'
 
-# 5)
+# 5) ( 5 minutes )
 
 # Write a method that takes one argument: an array of integers.
 # The method should return the minimum sum of 5 consecutive
 # numbers in the array. If the array contains fewer than 5
 # elements, the method should return nil.
 
+# Problem:
+# Input: array of integers
+# Output: integer or NilClass
+# Rules:
+  # sum must be made up of 5 consecutive inteegers
+  # if array is less than 5 numbers, return nil
+
+# Example:
+
 # p minimum_sum([1, 2, 3, 4]) == nil
 # p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
 # p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
 # p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
 
-# 6)
+# Data:
+# Arrays, integers
+
+# Algorithm:
+
+# Option 1)
+
+# define `minimum_sum` method with 1 parameter `input`
+# initialize `sums` to an empty array
+# create array of 5 consecutive numbers and return its sum to `sums`
+# return the minimum value in `sum`
+
+# Option 2)
+
+# define `minimum_sum` method with 1 parameter `input`
+#   return nil if input.size < 5
+# initialize `sums` to an empty array
+#   loop from 0 to size of input less 5, track this as index
+#     create sum of sub arrays of `input` 5 elements long starting from index
+#     add this to `sums`
+#   return the lowest number in `sums`
+# end
+
+# Code:
+# Option 1)
+# def minimum_sum(input)
+#   sums = []
+#   input.each_cons(5) do |x|
+#     sums << x.sum
+#   end
+#   return nil if sums.empty?
+#   sums.min
+# end
+
+# Option 2)
+# def minimum_sum(input)
+#   return nil if input.size < 5
+#   sums = []
+#   0.upto(input.size - 5) do |start|
+#    sums << input[start,5].sum
+#   end
+#   sums.min
+# end
+
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+# 6) (15 minutes)
 
 # Write a method named to_weird_case that accepts a string, and
 # returns the same sequence of characters with every 2nd character
 # in every third word converted to uppercase. Other characters
 # should remain the same.
+
+# Problem:
+
+# Problem:
+# Input: String
+# Output: String
+# Rules:
+  # For every 3rd word in String
+    # convert every 2nd character to uppercase
+  # all other characters to be left alone.
+
+# Examples:
 
 # p to_weird_case('Lorem Ipsum is simply dummy text of the printing') ==
 #                 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
@@ -1055,6 +1127,47 @@ p longest('zyba') == 'z'
 # p to_weird_case(
 #   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
 #   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS’
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+
+# define `to_weird_case` with 1 parameter `input`
+# initialize `words` to the words of input
+# iterate over the `words` array tracking index
+#   if the index + 1 is divisble by 3
+#     if the words length is greater than 1
+#       change every 2nd character to uppercase
+#   return that word to the `words` array
+#   join the `words` array with spaces
+#     end
+
+# Code:
+
+# def to_weird_case(input)
+#   words = input.split
+#   words.map!.with_index do |word, idx|
+#     if (idx + 1) % 3 == 0 && word.size > 1
+#       chars = word.chars
+#       chars.map.with_index do |char, idx|
+#         idx.odd? ? char.upcase : char
+#       end.join('')
+#     else
+#       word
+#     end
+#   end
+#   words.join(' ')
+# end
+
+# p to_weird_case('Lorem Ipsum is simply dummy text of the printing') == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+# p to_weird_case(
+#   'It is a long established fact that a reader will be distracted') ==
+#   'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+# p to_weird_case(
+#   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
+#   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
 
 # 7)
 
