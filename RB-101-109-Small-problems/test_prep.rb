@@ -923,12 +923,52 @@ p longest('zyba') == 'z'
 # p reverse_only_letters("--__123") == "--__123"
 # p reverse_only_letters('hellO') == 'Olleh'
 
-# 3)
+# 3) ( 9 minutes )
 
-# # Find the longest substring in alphabetical order.
-# # Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
-# # The input will only consist of lowercase characters and will be at least one letter long.
-# # If there are multiple solutions, return the one that appears first.
+# Find the longest substring in alphabetical order.
+# Example: the longest alphabetical substring in "asdfaaaabbbbcttavvfffffdf" is "aaaabbbbctt".
+# The input will only consist of lowercase characters and will be at least one letter long.
+# If there are multiple solutions, return the one that appears first.
+
+# Problem:
+# Input: a string
+# Output: a string
+# Rules:
+  # substring must be in alphabetical order
+  # if there are mutliple results, return the one that appears first
+
+# Examples:
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `longest` method with 1 parameter `input`
+#   intialize `longest` to an empty string
+#   create all substrings
+#     check if characters in substring are equal to characters in substring sorted
+#     if they are, check if the current substring is longer than the current `longest` string
+#       if it is, assign current substring to `longest`
+#   return `substring`
+#       End
+
+# Code:
+
+# def longest(input)
+#   longest = ""
+#   size = input.size
+#   0.upto(size - 1) do |idx|
+#     1.upto((size) - idx) do |length|
+#       substring = input[idx, length]
+#       if substring.chars == substring.chars.sort
+#         longest = substring if substring.size > longest.size
+#       else
+#         break
+#       end
+#     end
+#   end
+#   longest
+# end
 
 # p longest('asd') == 'as'
 # p longest('nab') == 'ab'
@@ -936,16 +976,56 @@ p longest('zyba') == 'z'
 # p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
 # p longest('asdfbyfgiklag') == 'fgikl'
 # p longest('z') == 'z'
-# p longest('zyba') == ‘z'
+# p longest('zyba') == 'z'
 
-# 4)
+# 4) ( 7 minutes )
 
 # Write a method that takes in a number and returns a string, placing a dash in between odd digits.
+
+# Problem:
+# Input: integer
+# Output: string
+# Rules:
+  # output should return a string
+  # output should include a "-" when numbers on either side are odd
+
+# Examples:
+
+# Data:
+# integers, strings
+
+# Algorithm:
+# define `dasherizer` method with 1 parameter `input`
+#   convert `input` to a string
+#   initialize "result" to empty string
+#   iterate string size times, tracking the `times` as `idx`
+#     if number at current idx and index + 1 are both odd
+#       append `result` with number at index and "-"
+#     else
+#       append result with number at index
+#     End
+#     return result
+# end
+
+# Code:
+
+# def dasherizer(input)
+#   nums = input.to_s
+#   result = ""
+#   (nums.size).times do |idx|
+#     if nums[idx].to_i.odd? && nums[idx+1].to_i.odd?
+#       result << nums[idx] << "-"
+#     else
+#       result << nums[idx]
+#     end
+#   end
+#   result
+# end
 
 # p dasherizer(2112) == '21-12'
 # p dasherizer(201105742) == '201-105-742'
 # p dasherizer(123456789) == '123456789'
-# p dasherizer(21121) == '21-121’
+# p dasherizer(21121) == '21-121'
 
 # 5)
 
@@ -5024,3 +5104,168 @@ p longest('zyba') == 'z'
 # p song_decoder("AWUBBWUBC") == "A B C"
 # p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
 # p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+
+########### Practice example exercises #######
+
+# 1) "reverse an array without using the built-in Array#reverse method". ( 12 minutes )
+
+# Problem: 
+# Input: array
+# Output: array
+# Rules:
+  # Return a new(?) array with all elements of input array in reverse order
+
+# Examples:
+# [1,2,3] == [3,2,1]
+# ['a', 'b', 'c'] == ['c','b','a']
+
+# Data:
+# Arrays
+
+# Algorithm:
+
+# define `reverse_it` with 1 parameter `input`
+#   initialize `result` to an empty array
+#   iterate over each element of `input` placing each element at the start of the `result` array
+#   return result
+# end
+
+# Code:
+
+# def reverse_it(input)
+#   result = []
+#   input.each do |x|
+#     result.unshift(x)
+#   end
+#   result
+# end
+
+# p reverse_it([1,2,3]) == [3,2,1]
+# p reverse_it(['a', 'b', 'c']) == ['c','b','a']
+
+# To modify arr in place, swap elements at the indexes.
+
+# def reverse_it!(input)
+#   swaps = input.size / 2
+#   swaps.times do |x|
+#     input[x], input[-(x+1)] = input[-(x+1)], input[x]
+#   end
+#   input
+# end
+
+# arr = [1,2,3,4,5]
+# p arr == [1,2,3,4,5]
+# p reverse_it!(arr) == [5,4,3,2,1]
+# p arr == [5,4,3,2,1]
+# p reverse_it!([1,2,3,4,5]) == [5,4,3,2,1]
+# p reverse_it!(['a', 'b', 'c']) == ['c','b','a']
+
+
+# 2) "select the element out of the array if its index is a Fibonacci number," (8 minutes)
+
+# Problem:
+# Input: array
+# Output: integer
+# Rules:
+  # Selected element must be a fibonacci number
+
+# Examples:
+# [7,9,13,16,20] == 13
+# [7,9,14,20,80,89,90] == 89
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+
+# define `find_fib` method with 1 parameter `input`
+#   initialize max to the hihgest number in input
+#   intialize `fibs` to an empty array
+#   create the fibonnaci seqeuence up to a number 1 higher than `max`
+#     # to do
+#   select the element from `input` that is also in `fibs`
+# end
+
+# Code:
+
+# def find_fib(input)
+#   max = input.max
+#   fibs = [1]
+#   until fibs.max > max
+#     num = fibs.last(2).sum
+#     fibs << num
+#   end
+#   input.select { |x| fibs.include?(x)}.first
+# end
+
+# p find_fib([7,9,13,16,20]) == 13
+# p find_fib([7,9,14,20,80,89,90]) == 89
+
+# 3) "write a function that removes every other element from an array." (12 minutes)
+
+# Problem:
+# Input: array
+# Output: array
+# Rules:
+  # remove every 2nd element from input array
+  # create two methods, one that modifies input array, and one that returns a new array
+
+# Examples:
+# [1,2,3,4] == [1,3]
+# [1,2,3,4,5] == [1,3,5]
+# ['a','b','c','d','e','f'] == ['a','c','e']
+
+# Data:
+# Arrays
+
+# Algorithm:
+
+# Option 1) return new array
+# define `every_2nd` with 1 parameter `input`
+#   initialize `result` to empty array
+#   iterate over each element in `input` with index
+#     if index is even, add element to `result`
+#   return `result`
+
+# Option 2) Mutate input array
+# define `every_2nd!` with 1 paremter `input`
+#   iterate over element in `input` with index
+#     if index is odd, replace element with `DL`
+#     end
+#   iterate over each element in `input` and delete all elements of `DL`
+#   end
+
+# Code:
+
+# def every_2nd(input)
+#   result = []
+#   input.each_with_index do |x, idx|
+#     if idx.even?
+#       result << x
+#     end
+#   end
+#   result
+# end
+
+# p every_2nd([1,2,3,4]) == [1,3]
+# p every_2nd([1,2,3,4,5]) == [1,3,5]
+# p every_2nd(['a','b','c','d','e','f']) == ['a','c','e']
+
+# Mutating method:
+
+# def every_2nd!(input)
+#   input.map!.with_index do |x, idx|
+#     idx.odd? ? "DL" : x
+#   end
+#   input.delete("DL")
+#   input
+# end
+
+# p every_2nd!([1,2,3,4]) == [1,3]
+# p every_2nd!([1,2,3,4,5]) == [1,3,5]
+# p every_2nd!(['a','b','c','d','e','f']) == ['a','c','e']
+
+# arr = [1,2,3,4,5,6]
+# p arr == [1,2,3,4,5,6]
+# p every_2nd!(arr) == [1,3,5]
+# p arr == [1,3,5]
