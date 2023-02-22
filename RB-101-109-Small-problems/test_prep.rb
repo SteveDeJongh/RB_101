@@ -1169,14 +1169,48 @@ p longest('zyba') == 'z'
 #   'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
 #   'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
 
-# 7)
+# 7) (20 minutes)
 
 # Write a method that takes an array of integers and returns the
 # two numbers that are closest together in value.
 
+# Problem:
+# Input: array of integers
+# Output: array of integers closest in together in value
+# Rules:
+  # input array is made up of integers only
+
+# Examples:
+
 # p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
 # p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
 # p closest_numbers([12, 7, 17]) == [12, 7]
+
+# Data:
+# arrays, integers
+
+# Algorithm:
+
+# define `closest_numbers` with 1 parameter `array`
+# initialize `pairs` to empty array
+# create all pairs of numbers in `array` and place in `pairs`
+# return the minimum pair in pars by sorting hem by their difference
+# end
+
+# Code:
+# def closest_numbers(array)
+#   pairs = array.permutation(2).to_a
+#   pairs.min_by do |pair| 
+#     diff = (pair[1] - pair[0])
+#     diff.abs
+#   end
+# end
+
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 7, 17]) == [12, 7]
+
+# Important to keep note of negative values affecting the result of sorting methods like sort, min, max etc...
 
 # 8)
 
