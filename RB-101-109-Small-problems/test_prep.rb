@@ -2031,6 +2031,126 @@ p longest('zyba') == 'z'
 
 # <<<<<<<<<<<<<< Try solving with map? !!!!!!!!!!!!!!!!!!!!!!!
 
+#### Review #####
+
+# Question 1) (12 minutes)
+
+# You will be given a number and you will need to return it as a string in expanded form. For example:
+#
+# expanded_form(12); # Should return '10 + 2'
+# expanded_form(42); # Should return '40 + 2'
+# expanded_form(70304); # Should return '70000 + 300 + 4'
+#
+# Note: All numbers will be whole numbers greater than 0.
+
+# Problem:
+# Input: integer
+# Output: string
+# Rules:
+  # number to be split on each digit
+  # if leading digit is 0, it can be dropped
+  # expanded digits to be joined together in returned string by " + "
+
+# Examples:
+
+# p expanded_form(12) == '10 + 2'
+# p expanded_form(42) == '40 + 2'
+# p expanded_form(70304) == '70000 + 300 + 4'
+
+# Data:
+# Integers, strings
+
+# Algorithm:
+
+# define `expanded_form` with 1 parameter `num`
+#   intialize `digits` to `num`s digits
+#   iterate over each element in `digits` with index
+#     if digit is 0
+#       return ""
+#     otherwise
+#      return digit as a string, + "0" index times
+#     end
+#   return the string "(digits joined by " + ")"
+# end
+
+# Code:
+
+# def expanded_form(num)
+#   digits = num.digits
+#   result = []
+#   digits.map!.with_index do |dig, index|
+#     if dig == 0
+#       next
+#     else
+#       result.unshift(dig.to_s + "0" * index)
+#     end
+#   end
+#   result.join(' + ')
+# end
+
+# p expanded_form(12) == '10 + 2'
+# p expanded_form(42) == '40 + 2'
+# p expanded_form(70304) == '70000 + 300 + 4'
+
+# Questions 2) ( 12 minutes )
+
+# Have the method letter_changes(str) take the str parameter being passed and
+# modify it using the following algorithm. Replace every letter in the string
+# with the 3rd letter following it in the alphabet (ie. c becomes f, Z becomes C).
+# Then return this modified string.
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # if letter is alphabetical, replace it with the character 3 places later in the alphabet
+  # leave spaces and punctuation in place
+  # modify the string passed in
+
+# Examples:
+
+# letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+# letter_changes("Road trip9") == "Urdg wuls9"
+# letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+# letter_changes('xyz') == ('abc')
+
+# Data:
+# Strings, arrays
+
+# Algorithm:
+# define `letter_changes` method with parameter `str`
+#   iterate over the characters in `str`
+#     initialize `num` for the characters `ord` number
+#     if the char is not alphabetical
+#       return char
+#     if the ASCII number of char is either 120, 121, 122, 88, 89, 90
+#       replace the character with the characters at num less 23
+#     else
+#       return the character at num + 3
+#     end
+#   join characters back together and return
+# end
+
+# Code:
+# def letter_changes(str)
+#   specials = [120, 121, 122, 88, 89, 90]
+#   str.chars.map do |char|
+#     num = char.ord
+#     if char =~ /[^a-zA-Z]/
+#       char
+#     elsif specials.include?(num)
+#       (num - 23).chr
+#     else
+#       (num + 3).chr
+#     end
+#   end.join('')
+# end
+
+# p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+# p letter_changes("Road trip9") == "Urdg wuls9"
+# p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+# p letter_changes('xyz') == ('abc')
+
 ############################################ PEDAC Study Session ############################################
 
 # Focus on P, A, and C at this stage in the curriculum.
