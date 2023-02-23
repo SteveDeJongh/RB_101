@@ -2270,6 +2270,125 @@ p longest('zyba') == 'z'
 # p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
 # p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
+################## Review #################
+
+# Question 1) ( 7 minutes )
+
+# Given an array of n positive integers and a positive integer, find the minimal length of a contiguous
+# subarray for which the sum >= integer.
+
+# Problem:
+# Input: array, integer
+# Output: Integer
+# Rules:
+  # sum must be made up of continous numers in input array
+  # sum mut be equal to or greater than int
+  # if none, return 0
+
+# Examples:
+
+# p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+# p minSubLength([1, 10, 5, 2, 7], 9) == 1
+# p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+# p minSubLength([1, 2, 4], 8) == 0
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+# define `minSubLength` method with two parameter `arr` and `num`
+#   initialize lengths to an empty array
+#   create all subarrays of `arr`
+#     if the sum of subarray is equal to or greater than `num`
+#       return the size to `result`
+#     end
+#   end
+#   return 0 if lengths is empty
+#   otherwise return the min in lengths
+# end
+
+# Code:
+# def minSubLength(arr, num)
+#   lengths = []
+#   0.upto(arr.length - 1) do |idx|
+#     1.upto(arr.length - idx) do |len|
+#       if arr[idx,len].sum >= num
+#         lengths << len
+#       end
+#     end
+#   end
+#   return 0 if lengths.empty?
+#   lengths.min
+# end
+
+# p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+# p minSubLength([1, 10, 5, 2, 7], 9) == 1
+# p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+# p minSubLength([1, 2, 4], 8) == 0
+
+# Question 2) (9 minutes)
+
+# Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, 
+# a and b are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the
+# alphabet, which are positions 4 and 5.
+
+# Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for
+# each word. For example,
+
+# p symm(["abode","ABc","xyzD"]) == [4, 3, 1]
+# p symm(["abide","ABc","xyz"]) == [4, 3, 0]
+# p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+# Problem:
+# Input: array of strings
+# Output: array of integers
+# Rules:
+  # letter must be at the same position in string as place in alphabet to count
+  # matches are case inseneitive
+
+# Examples:
+# p symm(["abode","ABc","xyzD"]) == [4, 3, 1]
+# p symm(["abide","ABc","xyz"]) == [4, 3, 0]
+# p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+# Data:
+# Strings, arrays, integers
+
+# Algorithm:
+
+# define `symm` method with 1 paramter `arr`
+#   initialize alphabet to a-z
+#   iterate over the words in `arr`
+#     initialize count to 0
+#     iterate over the downcased characters in `word` with index
+#       if the index matches the characters index in `alphabet`
+#         add 1 to count
+#       end
+#     end
+#     return count
+#   end
+# end
+
+# Code:
+
+# def symm(arr)
+#   alphabet = ("a".."z").to_a
+#   arr.map do |word|
+#     count = 0
+#     word.downcase.chars.each_with_index do |char, idx|
+#       count+=1 if idx == alphabet.index(char)
+#     end
+#     count
+#   end
+# end
+
+# p symm(["abode","ABc","xyzD"]) == [4, 3, 1]
+# p symm(["abide","ABc","xyz"]) == [4, 3, 0]
+# p symm(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+# p symm(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
 ################################### Code Wars questions #################################################
 
 # 1) Count Letters in String (https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/train/ruby)
