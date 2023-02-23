@@ -911,10 +911,10 @@ p longest('zyba') == 'z'
 # Code:
 
 # def reverse_only_letters(s)
-#   chars = s.chars.select {|x| x =~ /[a-zA-Z]/}.reverse
+#   chars = s.chars.select {|x| x =~ /[a-zA-Z]/}
 #   0.upto(s.length-1) do |idx|
 #     if s[idx] =~ /[a-zA-Z]/
-#       s[idx] = chars.shift
+#       s[idx] = chars.pop
 #     end
 #   end
 #   s
@@ -1212,7 +1212,7 @@ p longest('zyba') == 'z'
 
 # Important to keep note of negative values affecting the result of sorting methods like sort, min, max etc...
 
-# 8)
+# 8) (12 minutes)
 
 # Write a method that takes a string as an argument and returns
 # the character that occurs least often in the given string.
@@ -1220,6 +1220,58 @@ p longest('zyba') == 'z'
 # of occurrences, then return the one that appears first in the
 # string. When counting characters, consider the uppercase and
 # lowercase version to be the same.
+
+# Problem:
+# Input: string
+# Output: string of 1 character
+# Rules:
+  # uppercase and lowercase characters count as the same character
+  # if tie for least number, return the first character for thar number of instances.
+  # returned character should be lowercase
+
+# Examples:
+
+# p least_common_char("Hello World") == "h"
+# p least_common_char("Peter Piper picked a peck of pickled peppers") == "t"
+# p least_common_char("Mississippi") == "m"
+# p least_common_char("Happy birthday!") == ' '
+# p least_common_char("aaaaaAAAA") == 'a'
+
+# Data:
+# Strings, hashes
+
+# Algorithm:
+# define `least_common_char` with 1 parameter `input`
+# initialize `counts` to an empty hash
+# iterate over the characters in `input`
+#   make sure the character is lowercase
+#   if the current character is a key in `counts`
+#     add 1 to the value
+#   otherwise
+#     create a new key for the `counts` hash and set the value to 1
+# return the key of the lowest value of `counts`
+#   end
+# Code:
+
+# def least_common_char(input)
+#   counts = {}
+#   input.chars.each do |x|
+#     char = x.downcase
+#     if counts.key?(char)
+#       counts[char] += 1
+#     else
+#       counts[char] = 1
+#     end
+#   end
+#   counts.min_by {|k,v| v}.first
+# end
+
+# OR:
+
+# def least_common_char(input)
+#   text = input.downcase
+#   text.chars.min_by {|x| text.count(x)}
+# end
 
 # p least_common_char("Hello World") == "h"
 # p least_common_char("Peter Piper picked a peck of pickled peppers") == "t"
