@@ -5707,3 +5707,46 @@ p longest('zyba') == 'z'
 # p arr == [1,2,3,4,5,6]
 # p every_2nd!(arr) == [1,3,5]
 # p arr == [1,3,5]
+
+############################################ More Codewards practice ############################################
+
+# 1) Your order, please (https://www.codewars.com/kata/55c45be3b2079eccff00010f/ruby) ( 8 minutes )
+
+# Problem:
+# Input: string
+# Output: string
+# Rules:
+  # input string will have an integer somewhere in each word
+  # Sort words in string by the number hidden within
+
+# Examples:
+# "is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+# "4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+
+# Data:
+# Strings, Arrays
+
+# Algorithm:
+
+# define `order` with 1 parameter `words`
+#   initalize `wrd` to words in `words`
+#   iterate and sort the `wrd` array by the number hidden in the word
+#     scan characters in `wrd` for a number 1-9
+#     return that number to sort by
+# end.join with spaces
+# end
+
+# Code:
+
+# def order(words)
+#   wrd = words.split
+#   wrd.sort_by do |w|
+#     w.chars.sort[0]
+#   end.join(' ')
+# end
+
+# p order("is2 Thi1s T4est 3a") == "Thi1s is2 3a T4est"
+# p order("4of Fo1r pe6ople g3ood th5e the2") == "Fo1r the2 g3ood 4of th5e pe6ople"
+# p order("") == ""
+
+# 2) 
