@@ -5749,4 +5749,75 @@ p longest('zyba') == 'z'
 # p order("4of Fo1r pe6ople g3ood th5e the2") == "Fo1r the2 g3ood 4of th5e pe6ople"
 # p order("") == ""
 
-# 2) 
+# 2) Checkered board (https://www.codewars.com/kata/5650f1a6075b3284120000c0/train/ruby) ( 20 minutes)
+
+# Write a function which takes one parameter representing the dimensions of a checkered board. The board will always be square, so 5 means you will need a 5x5 board.
+
+# The dark squares will be represented by a unicode white square, while the light squares will be represented by a unicode black square (the opposite colours ensure the board doesn't look reversed on code wars' dark background). It should return a string of the board with a space in between each square and taking into account new lines.
+
+# An even number should return a board that begins with a dark square. An odd number should return a board that begins with a light square.
+
+# There should be no trailing white space at the end of each line, or new line characters at the end of the string.
+
+# Note
+# The squares are characters ■ and □ with codes \u25A0 and \u25A1.
+# Do not use HTML entities for the squares (e.g. □ for white square) as the code doesn't consider it a valid square. A good way to check is if your solution prints a correct checker board on your local terminal.
+
+# Ruby note: CodeWars has encoding issues with rendered unicode in Ruby. You'll need to use unicode source code (e.g. "\u25A0") instead of rendered unicode (e.g "■").
+
+# Problem:
+# Input: Integer
+# Output: Series of strings
+# Rules:
+  # board will always be square, ie: 2x2, 5x5, 7x7 etc.
+  # Squares will alternate colours
+  # following row starts with opposite colour square
+  # Even number boards start with a dark square, odd starts with light square.
+
+# Examples:
+# Input: 5
+
+# Output:
+# ■ □ ■ □ ■
+# □ ■ □ ■ □
+# ■ □ ■ □ ■
+# □ ■ □ ■ □
+# ■ □ ■ □ ■
+
+# Data:
+# Integers, strings arrays?
+
+# Algorithm:
+# define `checkered_board` with 1 parameter `rows`
+# initialize `char` to "\u25A0"
+#   iterate `rows` times
+# initialize `row` to empty Array
+# iterate `rows` times
+#   add `char` to `row`
+#   change `char` to opposite code
+# end
+# join `row` with spaces and print
+# end
+# end
+
+# Code:
+
+# def checkered_board(rows)
+#   rows.even? ? char = "\u25A1" : char = "\u25A0"
+#   rows.times do |_|
+#     row = []
+#     rows.times do |_|
+#       row << char
+#       char == "\u25A0" ? char = "\u25A1" : char = "\u25A0"
+#     end
+#     row[0] == "\u25A0" ? char = "\u25A1" : char = "\u25A0"
+#     p row.join(' ')
+#   end
+# end
+
+# checkered_board(5)
+# checkered_board(4)
+
+# Output matches example outputs but doesn't pass on Codewars.
+
+# 3)
