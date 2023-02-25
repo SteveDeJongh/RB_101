@@ -6088,6 +6088,141 @@ p longest('zyba') == 'z'
 # p validate_pin("1234567890") == false
 # p validate_pin("12") == false
 
+# 8) Playing with digits (https://www.codewars.com/kata/5552101f47fc5178b1000050/train/ruby) (15 minutes)
+
+# Problem:
+# Input:
+# Output:
+# Rules:
+  # 
+
+# def dig_pow(n, p)
+#   digs = n.digits.reverse
+#   power = p
+#   sum = 0
+#   digs.map do |x|
+#     sum += x**power
+#     power += 1
+#   end
+#   times = -1
+#   0.upto(sum) do |multi|
+#     track = (n*multi)
+#     times = multi if track == sum
+#     break if track > sum
+#   end
+#   times
+# end
+
+# p dig_pow(89, 1) == 1
+# p dig_pow(92, 1) == -1
+# p dig_pow(46288, 3) == 51
+
+# 9) The Supermarket Queue (https://www.codewars.com/kata/57b06f90e298a7b53d000a86/ruby) (13 minutes)
+
+# Problem:
+# Input: array of integers representing customers and their time at the till, and integer representing number of tills
+# Output: integer
+# Rules:
+  # there is only 1 line serving multiple tills
+  # Time returned is total time to process all customers at till
+
+#Examples:
+
+# queue_time([5,3,4], 1)
+# should return 12
+# because when n=1, the total time is just the sum of the times
+
+# queue_time([10,2,3,3], 2)
+# should return 10
+# because here n=2 and the 2nd, 3rd, and 4th people in the 
+# queue finish before the 1st person has finished.
+
+# queue_time([2,3,10], 2)
+# should return 12
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+# define `queue_time` with 2 paramters, `customers` and `tills`
+#   intiailize `times` to an empty array
+#   add `0` to `times` `tills` `times`
+#   iterate over customers
+#     add `customers time` to the min value in `times`
+#   return the max value in `times`
+# end
+
+# Code:
+# def queue_time(customers, tills)
+#   times = Array.new(tills, 0)
+#   customers.each do |time|
+#     idx = times.index(times.min)
+#     times[idx] += time
+#   end
+#   times.max
+# end
+
+# p queue_time([], 1) == 0
+# p queue_time([5], 1) == 5
+# p queue_time([2], 5) == 2
+# p queue_time([1,2,3,4,5], 1) == 15
+# p queue_time([1,2,3,4,5], 100) == 5
+# p queue_time([2,2,3,3,4,4], 2) == 9
+
+# 10) Maximum subarray sum (https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c/ruby) (13 minutes)
+
+# Problem:
+# Input: array of intgers
+# Output: integer
+# Rules:
+  # If all integers are positive, return sum of total array
+  # If all integers are negative, return 0
+  # sum must be made up of continuous numbers in input array
+  # empty arrays return 0
+
+# Examples:
+# p max_sequence([]) == 0
+# p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
+# p max_sequence([11]) == 11
+# p max_sequence([-32]) == 0
+# p max_sequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) == 12
+
+# Data:
+# arrays, integers
+
+# Algorithm:
+# define `max_sequence` with 1 parameter `input`
+#   check if all numbers in input are greater than or equal to 0, if they are, return sum
+#   check if all numbers are less than 0, if they are return 0
+#   intialize `sum` to 0
+#   create all subarray of `input`
+#     if the sum of the subarray is greater than the `sum`
+#       reassign sum to the current sum
+#   return `sum`
+
+# Code:
+
+# def max_sequence(input)
+#   return input.sum if input.all? {|x| x>= 0}
+#   return 0 if input.all? {|x| x < 0}
+#   sum = 0
+#   (0...(input.size)).each do |idx|
+#     (1..(input.size - idx)).each do |len|
+#       curr = input[idx, len].sum 
+#       sum = curr if curr > sum 
+#     end
+#   end
+#   sum
+# end
+
+# p max_sequence([]) == 0
+# p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
+# p max_sequence([11]) == 11
+# p max_sequence([-32]) == 0
+# p max_sequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) == 12
+
+# 11) 
+
 # Test with Cruz ( 21 miuntes) (https://edabit.com/challenge/YRc8FrKtbHK4MCR7m)
 
 =begin 
