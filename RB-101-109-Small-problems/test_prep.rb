@@ -5906,32 +5906,187 @@ p longest('zyba') == 'z'
 
 # Option 2, doesn't pass codewars time
 
-def replace_zero(arr)
-  result = 0
-  length = 0
-  arr.each_with_index do |num, idx|
-    if num == 0
-      curr = arr.dup
-      curr[idx] = 1
-      substrings = []
-      longest = curr.join.to_s.split('0').max_by{|x|x.size}.size
-      p longest
-      if longest >= length
-        result = idx
-        length = longest
-      end
-    end
-  end
-  result
-end
+# def replace_zero(arr)
+#   result = 0
+#   length = 0
+#   arr.each_with_index do |num, idx|
+#     if num == 0
+#       curr = arr.dup
+#       curr[idx] = 1
+#       substrings = []
+#       longest = curr.join.to_s.split('0').max_by{|x|x.size}.size
+#       p longest
+#       if longest >= length
+#         result = idx
+#         length = longest
+#       end
+#     end
+#   end
+#   result
+# end
 
-p replace_zero([1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1]) == 10
-p replace_zero([1,1,0,1,1,0,1,1]) == 5
-p replace_zero([0,0,0,0,1,0]) == 5
-p replace_zero([1,0,0,0,0,0]) == 1
-p replace_zero([0,1,0,0,0,0]) == 2
+# p replace_zero([1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1]) == 10
+# p replace_zero([1,1,0,1,1,0,1,1]) == 5
+# p replace_zero([0,0,0,0,1,0]) == 5
+# p replace_zero([1,0,0,0,0,0]) == 1
+# p replace_zero([0,1,0,0,0,0]) == 2
 
-# 
+# 4) Printer Errors (https://www.codewars.com/kata/56541980fa08ab47a0000040/ruby) ( 7 minutes)
+
+# Problem:
+# Input: string
+# Output: fraction represented as a string
+# Rules:
+  # letters in input strign must be from `a`-`m`
+  # return value must be a string
+
+# Examples:
+# s="aaabbbbhaijjjm"
+# printer_error(s) => "0/14"
+
+# s="aaaxbbbbyyhwawiwjjjwwm"
+# printer_error(s) => "8/22"
+
+# Data:
+# arrays, strings, and integers
+
+# Algrithm:
+# define `printer_error` with parameter `s`
+#   initialize `errors` to teh selects characters from `s` that are not `a`-`m`
+#   output a string with size of errors array / size of `s`
+# end
+
+# Code:
+
+# def printer_error(s)
+#   errors = s.chars.select {|x| x =~ /[^a-m]/}
+#   "#{errors.size}/#{s.size}"
+# end
+
+# s="aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"
+# p printer_error(s) #== "3/56"
+
+# 5) Sort The Odd (https://www.codewars.com/kata/578aa45ee9fd15ff4600090d/ruby) (6 minutes)
+
+# Problem:
+# Input: array of integers
+# Output: array of integers
+# Rules:
+  # leave even number in place
+  # sort odd numbers in places of existing odd numbers
+
+# Examples:
+# [7, 1]  =>  [1, 7]
+# [5, 8, 6, 3, 4]  =>  [3, 8, 6, 5, 4]
+# [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]  =>  [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+# Data:
+# Arrays, integers
+
+# Alogrithm:
+# define `sort_array` with 1 parameter `src`
+#   initialize `odds` to the odd numbers in `src`
+#   sort the `odds` array
+#   iterate over the `src` array
+#     if the number is odd, change that number to the first number in teh `odds` array
+#     end
+
+# Code:
+# def sort_array(src)
+#   odds = src.select{|x| x.odd?}.sort
+#   src.map do |x|
+#     x.odd? ? odds.shift : x
+#   end
+# end
+
+# p sort_array([5, 3, 2, 8, 1, 4, 11]) ==  [1, 3, 2, 8, 5, 4, 11]
+# p sort_array([2, 22, 37, 11, 4, 1, 5, 0]) ==  [2, 22, 1, 5, 4, 11, 37, 0]
+# p sort_array([1, 111, 11, 11, 2, 1, 5, 0]) == [1, 1, 5, 11, 2, 11, 111, 0]
+# p sort_array([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+# p sort_array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# p sort_array([0, 1, 2, 3, 4, 9, 8, 7, 6, 5]) == [0, 1, 2, 3, 4, 5, 8, 7, 6, 9]
+# p sort_array([]) ==  []
+# p sort_array([19]) ==  [19]
+# p sort_array([2]) ==  [2]
+# p sort_array([7,5]) ==  [5,7]
+
+# 6) Build a pile of Cubes (https://www.codewars.com/kata/5592e3bd57b64d00f3000047/ruby) (13 minutes)
+
+# Problem:
+# Input: integer
+# Output: integer
+# Rules:
+  # input is total volume of all cubes
+  # output in number of cubed cubes needed to reach total volume
+  # if none exists, return -1
+
+# Examples:
+# findNb(1071225) --> 45
+# findNb(91716553919377) --> -1
+
+# Data:
+# Arrays and integers
+
+# Algorithm:
+# define `find_nb` with 1 parameter `m`
+#   # initialize `count` to 0
+#   intiailize `cubes` to 0
+#   iterate from 1 to `m` , tracking as `x`
+#     return -1 if sum of `cubes` is greater than `m`
+#     return `count` if sum of `cubes` is equal to `m`
+#     add `x` **3 to `cubes`
+# end
+
+# Code:
+
+# def find_nb(m)
+#   cubes = 0
+#   (1..m).each do |x|
+#     return -1 if cubes > m
+#     return x-1 if cubes == m
+#     cubes += x**3
+#   end
+# end
+
+# p find_nb(4183059834009) == 2022
+# p find_nb(24723578342962) == -1
+# p find_nb(135440716410000) == 4824
+# p find_nb(40539911473216) == 3568
+# p find_nb(10252519345963644753025)
+
+# 7) Regex Validate PIN Code (https://www.codewars.com/kata/55f8a9c06c018a0d6e000132/train/ruby) (25 minutes)
+
+# Problem:
+# Input: string
+# Output: boolean
+# Rules:
+  # PIN code must be made up of exactly 4 or 6 digits
+
+# Examples:
+# "1234"   -->  true
+# "12345"  -->  false
+# "a234"   -->  false
+
+# Data:
+# Strings, booleans
+
+# Algorithm:
+# define `validate_pin` with parameter `pin`
+#   check if `pin` is made up of 4 or 6 digits
+# end
+
+# Code:
+
+# def validate_pin(pin)
+#   pin.match? /\A\d{4}(\d{2})?\z/
+# end
+
+# p validate_pin("") == false
+# p validate_pin("1") == false
+# p validate_pin("1111") == true
+# p validate_pin("123456") == true
+# p validate_pin("1234567890") == false
+# p validate_pin("12") == false
 
 # Test with Cruz ( 21 miuntes) (https://edabit.com/challenge/YRc8FrKtbHK4MCR7m)
 
@@ -6003,3 +6158,4 @@ Create a function that takes a string and returns the reversed string. However t
 # p special_reverse_string("Where's your dog Daisy?") == "?ysiadg odru oys 'erehw"
 # p special_reverse_string('addition(3, 2) = 5') == '5=)2,3(noit id d a'
 # p special_reverse_string("It's known that CSS means Cascading Style Sheets") == "Stee hsely tsgn IDA csacs Naemsscta Htnwo Nks'ti"
+
