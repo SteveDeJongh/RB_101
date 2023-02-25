@@ -5820,4 +5820,186 @@ p longest('zyba') == 'z'
 
 # Output matches example outputs but doesn't pass on Codewars.
 
-# 3)
+# 3) Zeros and Ones (https://www.codewars.com/kata/5a00a8b5ffe75f8888000080/train/ruby) 
+
+# Given an array containing only zeros and ones, find the index of the zero that, if converted to one, will make the longest sequence of ones.
+
+# For instance, given the array:
+
+# [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1]
+# replacing the zero at index 10 (counting from 0) forms a sequence of 9 ones:
+
+# [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1]
+#                   '------------^------------'
+# Your task is to complete the function that determines where to replace a zero with a one to make the maximum length subsequence.
+
+# Notes:
+
+# If there are multiple results, return the last one:
+# [1, 1, 0, 1, 1, 0, 1, 1] ==> 5
+
+# The array will always contain only zeros and ones.
+# Can you do this in one pass?
+
+# Problem:
+# Input: array of 0s and 1s
+# Output: integer, index of the 0 replaced with 1 to make longest sequence of 1
+# Rules:
+  # can only replace one 0 to make the longest sequence
+  # if the longest sequence length occurs more than once, return the last 0s index
+  # 
+
+# Examples:
+# [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1]
+# replacing the zero at index 10 (counting from 0) forms a sequence of 9 ones:
+
+# [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1]
+#                   '------------^------------'
+
+# Data:
+# Arrays, integers
+
+# Algorithm:
+
+# define `replace_zero` with 1 parameter `arr`
+# initialize `result` to 0
+# intiialize `length` to 0
+#   iterate over each element in `arr` with index
+#     if element is 0
+#     intialize `curr` to arr
+#       replace that element with 1 in `curr`
+#     initialize substrings
+#       create all substrings
+#         add substring to substrings if all characters are zero
+#     return index to `result` if:
+#       longest substring in `substrings` is longer than `length`
+#  return `result`
+# end
+
+# Code:
+
+# def replace_zero(arr)
+#   result = 0
+#   length = 0
+#   arr.each_with_index do |num, idx|
+#     if num == 0
+#       curr = arr.dup
+#       curr[idx] = 1
+#       substrings = []
+#       0.upto(curr.length - 1) do |str|
+#         1.upto(curr.length - str) do |len|
+#           substring = curr[str, len]
+#           substrings << curr if substring.all? {|x| x == 1}
+#         end
+#       end
+#       curr[idx] = 0
+#       next if substrings.empty?
+#       longest = substrings.max.size
+#       if longest >= length
+#         result = idx
+#         length = longest
+#       end
+#     end
+#   end
+#   result
+# end
+
+# Option 2, doesn't pass codewars time
+
+def replace_zero(arr)
+  result = 0
+  length = 0
+  arr.each_with_index do |num, idx|
+    if num == 0
+      curr = arr.dup
+      curr[idx] = 1
+      substrings = []
+      longest = curr.join.to_s.split('0').max_by{|x|x.size}.size
+      p longest
+      if longest >= length
+        result = idx
+        length = longest
+      end
+    end
+  end
+  result
+end
+
+p replace_zero([1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1]) == 10
+p replace_zero([1,1,0,1,1,0,1,1]) == 5
+p replace_zero([0,0,0,0,1,0]) == 5
+p replace_zero([1,0,0,0,0,0]) == 1
+p replace_zero([0,1,0,0,0,0]) == 2
+
+# 
+
+# Test with Cruz ( 21 miuntes) (https://edabit.com/challenge/YRc8FrKtbHK4MCR7m)
+
+=begin 
+Create a function that takes a string and returns the reversed string. However there's a few rules to follow in order to make the challenge interesting:
+
+    The UPPERCASE/lowercase positions must be kept in the same order as the original string (see example #1 and #2).
+    Spaces must be kept in the same order as the original string (see example #3).
+=end 
+
+# Problem:
+# Input: String
+# Output: String
+# Rules: 
+  # reverse the string
+  # if the character at that positon was prevously uppercase or lower case the returned character must the same case
+  # maintain position of Spaces
+
+#Examples:
+
+# p special_reverse_string('Edabit') == 'Tibade'
+# p special_reverse_string('UPPER lower') == 'REWOL reppu' # Case remains the same for the position
+# p special_reverse_string('1 23 456') == '6 54 321' ### Spaces remain in place
+
+# # Data:
+# Strings, arrays
+
+# Algorithm:
+
+# define `special_reverse_string` with 1 parameter `input`
+# initalize an `characters` to the characters in `input` that are not " "
+# intialize `result` to an empty String
+# iterate over every character in `input`
+#   if character is a " "
+#     return a space
+#   else
+#     check if last character ins `characters` is punction
+#       if it is return character to `result`
+#       determine if the current character is uppercase or lowercase
+#         return the last characters from `characters` to the result string in the appropriate case
+#       end
+#     end
+
+# Code:
+
+# def special_reverse_string(input)
+#   characters = input.chars.select {|x| x != " "}
+#   result = ""
+#   upcase_chars = ('A'..'Z').to_a
+#   input.chars.each do |char|
+#     if char == " "
+#       result << " "
+#     else
+#       if ["!", ",", ".", "?"].include?(characters.last)
+#         result << characters.pop
+#       else
+#         upcase_chars.include?(char) ? result << characters.pop.upcase : result << characters.pop.downcase
+#       end
+#     end
+#   end
+#   result
+# end
+
+
+# p special_reverse_string('Edabit') == 'Tibade'
+# p special_reverse_string('UPPER lower') == 'REWOL reppu'
+# p special_reverse_string('1 23 456') == '6 54 321'
+# p special_reverse_string('Hello World!') == '!dlro Wolleh'
+# p special_reverse_string("Where's your dog Daisy?") == "?ysiadg odru oys 'erehw"
+# p special_reverse_string('addition(3, 2) = 5') == '5=)2,3(noit id d a'
+# p special_reverse_string("It's known that CSS means Cascading Style Sheets") == "Stee hsely tsgn IDA csacs Naemsscta Htnwo Nks'ti"
