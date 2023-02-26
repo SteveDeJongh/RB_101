@@ -2495,6 +2495,23 @@ p longest('zyba') == 'z'
 #   result
 # end
 
+# Or:
+
+# def pairs(arr)
+#   uniques = arr.uniq
+#   pairs = 0
+#   uniques.each do |x|
+#     pairs += arr.count(x)/2
+#   end
+#   pairs
+# end
+
+# p pairs([1, 2, 5, 6, 5, 2]) == 2
+# p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4
+# p pairs([0, 0, 0, 0, 0, 0, 0]) == 3 
+# p pairs([1000, 1000]) == 1
+# p pairs([]) == 0
+# p pairs([54]) == 0
 
 # p pairs([1, 2, 5, 6, 5, 2])  ==  2
 # # ...because there are 2 pairs: 2 and 5
